@@ -1,0 +1,58 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "Eventi",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "verificato",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "Data",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "Serate",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "verificato",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "Data",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "Mostre",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "verificato",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "dataFine",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": [
+    {
+      "collectionGroup": "fcm_tokens",
+      "fieldPath": "fcm_token",
+      "indexes": [
+        {
+          "order": "ASCENDING",
+          "queryScope": "COLLECTION_GROUP"
+        }
+      ]
+    }
+  ]
+}

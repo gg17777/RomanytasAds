@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "288434930634",
+    "project_id": "romanita-5nlemi",
+    "storage_bucket": "romanita-5nlemi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:288434930634:android:81dbaeb482cdc5869dc533",
+        "android_client_info": {
+          "package_name": "com.mycompany.contentmanager"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAufx8x3k60Fm0GoZF0W7mD8GYlqx_VwzE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:288434930634:android:46a2edd894805bf39dc533",
+        "android_client_info": {
+          "package_name": "com.mycompany.romanita"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAufx8x3k60Fm0GoZF0W7mD8GYlqx_VwzE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:288434930634:android:f62328e374f5bd249dc533",
+        "android_client_info": {
+          "package_name": "com.romanita.romanita"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAufx8x3k60Fm0GoZF0W7mD8GYlqx_VwzE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
