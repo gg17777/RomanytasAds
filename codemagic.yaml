@@ -1,0 +1,45 @@
+workflows:
+  android:
+  ios-method-1:
+    name: iOS signing method-1 workflow
+    environment:
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.mycompany.romanita
+    scripts:
+      - script: keychain initialize
+      - script: keychain add-certificates
+
+      - script: xcode-project use-profiles
+      - script: flutter packages pub get
+      - name: flutter build ipa and automatic versioning 
+      script: /
+        flutter build ipa --export-options-plist=/Users/builder/export_options.plist
+    artifacts:
+      - build/ios/ipa/*.ipa
+    publishing:
+      email:
+        recipients:
+          - info@romanytas.com
+
+  ios-method-2:
+    name: iOS signing method-2 workflow
+    environment:
+      ios_signing:
+        provisioning_profiles: 
+          - ProvProfile_Romanytas
+        certificates:
+          - Distribute_certificate
+    scripts:
+      - script: xcode-project use-profiles
+      - script: flutter packages pub get
+      - name: flutter build ipa and automatic versioning 
+      script: /
+        flutter build ipa --export-options-plist=/Users/builder/export_options.plist
+    artifacts:
+      - build/ios/ipa/*.ipa
+    publishing:
+      email:
+        recipients:
+          - info@romanytas.com
+
