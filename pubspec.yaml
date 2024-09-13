@@ -142,6 +142,7 @@ dependencies:
 dependency_overrides:
   http: 1.2.1
   package_info_plus: 8.0.0
+  pointer_interceptor: ^0.10.1+1
   package_info_plus_platform_interface: 3.0.0
   uuid: ^4.0.0
   win32: 5.5.1
