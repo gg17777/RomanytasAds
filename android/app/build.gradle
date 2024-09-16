@@ -3,8 +3,6 @@ plugins {
    id "kotlin-android"
    id "dev.flutter.flutter-gradle-plugin"
    id "com.google.gms.google-services"  // Google Services plugin
-
-   
 }
 
 def localProperties = new Properties()
@@ -15,15 +13,8 @@ if (localPropertiesFile.exists()) {
     }
 }
 
-def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
-if (flutterVersionCode == null) {
-    flutterVersionCode = '1'
-}
-
-def flutterVersionName = localProperties.getProperty('flutter.versionName')
-if (flutterVersionName == null) {
-    flutterVersionName = '1.0'
-}
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode') ?: '1'
+def flutterVersionName = localProperties.getProperty('flutter.versionName') ?: '1.0'
 
 def keystoreProperties = new Properties()
 def keystorePropertiesFile = rootProject.file('key.properties')
@@ -33,7 +24,6 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     compileSdkVersion 34
-    
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -45,7 +35,6 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.mycompany.romanita"
         minSdkVersion 21
         targetSdkVersion 34
@@ -54,26 +43,27 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-   signingConfigs {
-       release {
-        if(System.getenv()["CI"]){
-           keyAlias System.getenv()["CM_KEYSTORE_PATH"]
-           keyPassword System.getenv()["CM_KEYSTORE_PASSWORD"]
-           storeFile file(System.getenv()["CM_KEY_ALIAS"])
-           storePassword System.getenv()["CM_KEY_PASSWORD"]
-        }else{
-        keyAlias keystoreProperties['keyAlias']
-           keyPassword keystoreProperties['keyPassword']
-           storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
-           storePassword keystoreProperties['storePassword']
+    signingConfigs {
+        release {
+            if (System.getenv("CI") != null) {
+                // Set up signing configuration for CI/CD
+                keyAlias System.getenv("CM_KEY_ALIAS")
+                keyPassword System.getenv("CM_KEY_PASSWORD")
+                storeFile file(System.getenv("CM_KEYSTORE_PATH"))
+                storePassword System.getenv("CM_KEYSTORE_PASSWORD")
+            } else {
+                // Set up signing configuration for local builds
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+                storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+                storePassword keystoreProperties['storePassword']
+            }
         }
-       }
-   }
+    }
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
+            // Use the correct signing configuration for release builds
             signingConfig signingConfigs.release
         }
     }
