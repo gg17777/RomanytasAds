@@ -15,6 +15,9 @@ import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
 import '/backend/firebase_dynamic_links/firebase_dynamic_links.dart';
 import '/flutter_flow/admob_util.dart';
+import 'dart:io';
+import 'package:permission_handler/permission_handler.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -69,7 +72,9 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-
+    if(Platform.isIOS){
+      Permission.appTrackingTransparency.request();
+    }
     _appStateNotifier = AppStateNotifier.instance;
     _router = createRouter(_appStateNotifier, widget.entryPage);
     userStream = romanytasFirebaseUserStream()
