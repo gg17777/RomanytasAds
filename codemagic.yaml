@@ -31,7 +31,7 @@ workflows:
       - script: keychain add-certificates
       - script: xcode-project use-profiles
       - script: flutter packages pub get
-      - script: pod repo update
+      - script: pod install --repo update
       - name: Flutter Build IPA and Automatic Versioning
         script: flutter build ipa --export-options-plist=/Users/builder/export_options.plist
     artifacts:
@@ -54,7 +54,7 @@ workflows:
       - script: keychain add-certificates
       - script: xcode-project use-profiles
       - script: flutter packages pub get
-      - script: pod repo update
+      - script: pod install --repo update
       - name: Flutter Build IPA and Automatic Versioning
         script: flutter build ipa --export-options-plist=/Users/builder/export_options.plist
     artifacts:
