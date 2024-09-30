@@ -34,10 +34,7 @@ target 'Runner' do
   use_modular_headers!
 
   # Add Facebook SDKs
-  pod 'FBSDKCoreKit', '~> 8.0.0'
-  pod 'FBSDKLoginKit', '~> 8.0.0'
-  pod 'FBSDKShareKit', '~> 8.0.0'
-  pod 'FBSDKGamingServiceKit', '~> 8.0.0'
+  pod 'FBSDKCoreKit', '~> 17.1.0'
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
   
