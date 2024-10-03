@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 class EventiListModel extends FlutterFlowModel<EventiListWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for ChoiceChips widget.
   FormFieldController<List<String>>? choiceChipsValueController;
   List<String>? get choiceChipsValues => choiceChipsValueController?.value;

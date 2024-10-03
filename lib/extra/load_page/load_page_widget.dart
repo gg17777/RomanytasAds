@@ -30,7 +30,7 @@ class _LoadPageWidgetState extends State<LoadPageWidget> {
       logFirebaseEvent('LOAD_PAGE_PAGE_loadPage_ON_INIT_STATE');
       logFirebaseEvent('loadPage_update_app_state');
       FFAppState().curTime = functions.getDate('all');
-      setState(() {});
+      safeSetState(() {});
       logFirebaseEvent('loadPage_navigate_to');
 
       context.goNamed(
@@ -45,7 +45,7 @@ class _LoadPageWidgetState extends State<LoadPageWidget> {
       );
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

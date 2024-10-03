@@ -32,8 +32,8 @@ class _EventiListWidgetState extends State<EventiListWidget> {
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'eventiList'});
     getCurrentUserLocation(defaultLocation: const LatLng(0.0, 0.0), cached: true)
-        .then((loc) => setState(() => currentUserLocationValue = loc));
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+        .then((loc) => safeSetState(() => currentUserLocationValue = loc));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -103,12 +103,12 @@ class _EventiListWidgetState extends State<EventiListWidget> {
                             ChipData('Gratis')
                           ],
                           onChanged: (val) async {
-                            setState(() => _model.choiceChipsValues = val);
+                            safeSetState(() => _model.choiceChipsValues = val);
                             logFirebaseEvent(
                                 'EVENTI_LIST_ChoiceChips_5y7s55mp_ON_FORM');
                             logFirebaseEvent('ChoiceChips_update_app_state');
 
-                            setState(() {});
+                            safeSetState(() {});
                           },
                           selectedChipStyle: ChipStyle(
                             backgroundColor:
@@ -179,7 +179,7 @@ class _EventiListWidgetState extends State<EventiListWidget> {
                               logFirebaseEvent(
                                   'EVENTI_LIST_PAGE_Icon_1zbhgivj_ON_TAP');
                               logFirebaseEvent('Icon_reset_form_fields');
-                              setState(() {
+                              safeSetState(() {
                                 _model.choiceChipsValueController?.reset();
                               });
                             },
@@ -1977,7 +1977,7 @@ class _EventiListWidgetState extends State<EventiListWidget> {
                                       duration: const Duration(milliseconds: 500),
                                       curve: Curves.ease,
                                     );
-                                    setState(() {});
+                                    safeSetState(() {});
                                   },
                                   effect:
                                       smooth_page_indicator.ExpandingDotsEffect(
@@ -2054,7 +2054,7 @@ class _EventiListWidgetState extends State<EventiListWidget> {
               alignment: const AlignmentDirectional(0.0, 1.0),
               child: wrapWithModel(
                 model: _model.bottomNavEventiModel,
-                updateCallback: () => setState(() {}),
+                updateCallback: () => safeSetState(() {}),
                 child: const BottomNavEventiWidget(),
               ),
             ),

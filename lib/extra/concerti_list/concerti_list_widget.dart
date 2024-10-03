@@ -31,7 +31,7 @@ class _ConcertiListWidgetState extends State<ConcertiListWidget> {
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -80,7 +80,7 @@ class _ConcertiListWidgetState extends State<ConcertiListWidget> {
                     onChanged: (_) => EasyDebounce.debounce(
                       '_model.textController',
                       const Duration(milliseconds: 1000),
-                      () => setState(() {}),
+                      () => safeSetState(() {}),
                     ),
                     autofocus: false,
                     obscureText: false,
@@ -663,7 +663,7 @@ class _ConcertiListWidgetState extends State<ConcertiListWidget> {
               alignment: const AlignmentDirectional(0.0, 1.0),
               child: wrapWithModel(
                 model: _model.bottomNavEventiModel,
-                updateCallback: () => setState(() {}),
+                updateCallback: () => safeSetState(() {}),
                 child: const BottomNavEventiWidget(),
               ),
             ),

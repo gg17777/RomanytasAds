@@ -6,7 +6,7 @@ export '/eventi/eventi_profile/eventi_profile_widget.dart'
     show EventiProfileWidget;
 export '/mostre/mostre_profile/mostre_profile_widget.dart'
     show MostreProfileWidget;
-export '/segnalazioni_eliminazioni/concerti/concerto_profile/concerto_profile_widget.dart'
+export '/mostre/concerti/concerto_profile/concerto_profile_widget.dart'
     show ConcertoProfileWidget;
 export '/pages/bangla_map/bangla_map_widget.dart' show BanglaMapWidget;
 export '/pages/cibo_map/cibo_map_widget.dart' show CiboMapWidget;
@@ -35,7 +35,7 @@ export '/extra/discoteche_list/discoteche_list_widget.dart'
 export '/extra/concerti_list/concerti_list_widget.dart' show ConcertiListWidget;
 export '/extra/mostre_list/mostre_list_widget.dart' show MostreListWidget;
 export '/extra/evnti_home2/evnti_home2_widget.dart' show EvntiHome2Widget;
-export '/segnalazioni_eliminazioni/concerti/concerto_in_evidenza_profile/concerto_in_evidenza_profile_widget.dart'
+export '/mostre/concerti/concerto_in_evidenza_profile/concerto_in_evidenza_profile_widget.dart'
     show ConcertoInEvidenzaProfileWidget;
 export '/segnalazioni_eliminazioni/segnalazione_cibo/segnalazione_cibo_widget.dart'
     show SegnalazioneCiboWidget;

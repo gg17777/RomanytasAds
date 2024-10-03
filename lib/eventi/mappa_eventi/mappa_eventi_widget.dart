@@ -37,7 +37,7 @@ class _MappaEventiWidgetState extends State<MappaEventiWidget> {
       logFirebaseEvent('MAPPA_EVENTI_mappaEventi_ON_INIT_STATE');
       logFirebaseEvent('mappaEventi_update_app_state');
       FFAppState().curTime = functions.getDate('all');
-      setState(() {});
+      safeSetState(() {});
       logFirebaseEvent('mappaEventi_google_analytics_event');
       logFirebaseEvent(
         'eventimap',
@@ -51,17 +51,17 @@ class _MappaEventiWidgetState extends State<MappaEventiWidget> {
         Future(() async {
           logFirebaseEvent('mappaEventi_update_page_state');
           _model.curDay = functions.getDate('day');
-          setState(() {});
+          safeSetState(() {});
         }),
         Future(() async {
           logFirebaseEvent('mappaEventi_update_page_state');
           _model.curMonth = functions.getDate('month');
-          setState(() {});
+          safeSetState(() {});
         }),
         Future(() async {
           logFirebaseEvent('mappaEventi_update_page_state');
           _model.curYear = functions.getDate('year');
-          setState(() {});
+          safeSetState(() {});
         }),
       ]);
       logFirebaseEvent('mappaEventi_custom_action');
@@ -69,8 +69,8 @@ class _MappaEventiWidgetState extends State<MappaEventiWidget> {
     });
 
     getCurrentUserLocation(defaultLocation: const LatLng(0.0, 0.0), cached: true)
-        .then((loc) => setState(() => currentUserLocationValue = loc));
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+        .then((loc) => safeSetState(() => currentUserLocationValue = loc));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -239,7 +239,7 @@ class _MappaEventiWidgetState extends State<MappaEventiWidget> {
 
                                 logFirebaseEvent('Icon_update_app_state');
                                 FFAppState().eventiState = 'eventi';
-                                setState(() {});
+                                safeSetState(() {});
                               },
                               child: Icon(
                                 Icons.chevron_left,
@@ -296,7 +296,7 @@ class _MappaEventiWidgetState extends State<MappaEventiWidget> {
                           intercepting: isWeb,
                           child: wrapWithModel(
                             model: _model.bottomNavEventiModel,
-                            updateCallback: () => setState(() {}),
+                            updateCallback: () => safeSetState(() {}),
                             child: const BottomNavEventiWidget(),
                           ),
                         ),

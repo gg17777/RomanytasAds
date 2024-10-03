@@ -22,7 +22,7 @@ class _ProvaWidgetState extends State<ProvaWidget> {
     _model = createModel(context, () => ProvaModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'prova'});
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

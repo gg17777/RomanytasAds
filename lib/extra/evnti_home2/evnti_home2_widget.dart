@@ -23,7 +23,7 @@ class _EvntiHome2WidgetState extends State<EvntiHome2Widget> {
     _model = createModel(context, () => EvntiHome2Model());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'evntiHome2'});
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -293,7 +293,7 @@ class _EvntiHome2WidgetState extends State<EvntiHome2Widget> {
               alignment: const AlignmentDirectional(0.0, 1.0),
               child: wrapWithModel(
                 model: _model.bottomNavEventiModel,
-                updateCallback: () => setState(() {}),
+                updateCallback: () => safeSetState(() {}),
                 child: const BottomNavEventiWidget(),
               ),
             ),

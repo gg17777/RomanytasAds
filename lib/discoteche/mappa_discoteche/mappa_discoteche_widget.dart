@@ -45,24 +45,24 @@ class _MappaDiscotecheWidgetState extends State<MappaDiscotecheWidget> {
       );
       logFirebaseEvent('mappaDiscoteche_update_app_state');
       FFAppState().curTime = functions.getDate('all');
-      setState(() {});
+      safeSetState(() {});
       logFirebaseEvent('mappaDiscoteche_wait__delay');
       await Future.delayed(const Duration(milliseconds: 100));
       await Future.wait([
         Future(() async {
           logFirebaseEvent('mappaDiscoteche_update_page_state');
           _model.curDay = functions.getDate('day');
-          setState(() {});
+          safeSetState(() {});
         }),
         Future(() async {
           logFirebaseEvent('mappaDiscoteche_update_page_state');
           _model.curMonth = functions.getDate('month');
-          setState(() {});
+          safeSetState(() {});
         }),
         Future(() async {
           logFirebaseEvent('mappaDiscoteche_update_page_state');
           _model.curYear = functions.getDate('year');
-          setState(() {});
+          safeSetState(() {});
         }),
       ]);
       logFirebaseEvent('mappaDiscoteche_custom_action');
@@ -70,8 +70,8 @@ class _MappaDiscotecheWidgetState extends State<MappaDiscotecheWidget> {
     });
 
     getCurrentUserLocation(defaultLocation: const LatLng(0.0, 0.0), cached: true)
-        .then((loc) => setState(() => currentUserLocationValue = loc));
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+        .then((loc) => safeSetState(() => currentUserLocationValue = loc));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -240,7 +240,7 @@ class _MappaDiscotecheWidgetState extends State<MappaDiscotecheWidget> {
 
                                 logFirebaseEvent('Icon_update_app_state');
                                 FFAppState().eventiState = 'discoteche';
-                                setState(() {});
+                                safeSetState(() {});
                               },
                               child: Icon(
                                 Icons.chevron_left,
@@ -297,7 +297,7 @@ class _MappaDiscotecheWidgetState extends State<MappaDiscotecheWidget> {
                           intercepting: isWeb,
                           child: wrapWithModel(
                             model: _model.bottomNavEventiModel,
-                            updateCallback: () => setState(() {}),
+                            updateCallback: () => safeSetState(() {}),
                             child: const BottomNavEventiWidget(),
                           ),
                         ),

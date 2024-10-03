@@ -33,8 +33,8 @@ class _DiscotecheListWidgetState extends State<DiscotecheListWidget> {
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'discotecheList'});
     getCurrentUserLocation(defaultLocation: const LatLng(0.0, 0.0), cached: true)
-        .then((loc) => setState(() => currentUserLocationValue = loc));
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+        .then((loc) => safeSetState(() => currentUserLocationValue = loc));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -104,12 +104,12 @@ class _DiscotecheListWidgetState extends State<DiscotecheListWidget> {
                             ChipData('All\'aperto')
                           ],
                           onChanged: (val) async {
-                            setState(() => _model.choiceChipsValues = val);
+                            safeSetState(() => _model.choiceChipsValues = val);
                             logFirebaseEvent(
                                 'DISCOTECHE_LIST_ChoiceChips_b364w3id_ON_');
                             logFirebaseEvent('ChoiceChips_update_app_state');
 
-                            setState(() {});
+                            safeSetState(() {});
                           },
                           selectedChipStyle: ChipStyle(
                             backgroundColor:
@@ -180,7 +180,7 @@ class _DiscotecheListWidgetState extends State<DiscotecheListWidget> {
                               logFirebaseEvent(
                                   'DISCOTECHE_LIST_Icon_duo2o5xv_ON_TAP');
                               logFirebaseEvent('Icon_reset_form_fields');
-                              setState(() {
+                              safeSetState(() {
                                 _model.choiceChipsValueController?.reset();
                               });
                             },
@@ -1716,7 +1716,7 @@ class _DiscotecheListWidgetState extends State<DiscotecheListWidget> {
                                       duration: const Duration(milliseconds: 500),
                                       curve: Curves.ease,
                                     );
-                                    setState(() {});
+                                    safeSetState(() {});
                                   },
                                   effect:
                                       smooth_page_indicator.ExpandingDotsEffect(
@@ -1793,7 +1793,7 @@ class _DiscotecheListWidgetState extends State<DiscotecheListWidget> {
               alignment: const AlignmentDirectional(0.0, 1.0),
               child: wrapWithModel(
                 model: _model.bottomNavEventiModel,
-                updateCallback: () => setState(() {}),
+                updateCallback: () => safeSetState(() {}),
                 child: const BottomNavEventiWidget(),
               ),
             ),

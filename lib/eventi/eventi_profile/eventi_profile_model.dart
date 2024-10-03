@@ -7,22 +7,22 @@ import 'package:flutter/material.dart';
 class EventiProfileModel extends FlutterFlowModel<EventiProfileWidget> {
   ///  Local state fields for this page.
 
-  bool text = false;
-
-  String pagina = 'Info';
-
   bool descrizione = false;
+
+  bool pagina = false;
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Backend Call - API (incrementViews)] action in EventiProfile widget.
   ApiCallResponse? apiResultjtr;
-  // State field(s) for TabBar widget.
-  TabController? tabBarController;
-  int get tabBarCurrentIndex =>
-      tabBarController != null ? tabBarController!.index : 0;
+  // State field(s) for PageView widget.
+  PageController? pageViewController;
 
+  int get pageViewCurrentIndex => pageViewController != null &&
+          pageViewController!.hasClients &&
+          pageViewController!.page != null
+      ? pageViewController!.page!.round()
+      : 0;
   // Model for bottomNavEventi component.
   late BottomNavEventiModel bottomNavEventiModel;
   String currentPageLink = '';
@@ -34,7 +34,6 @@ class EventiProfileModel extends FlutterFlowModel<EventiProfileWidget> {
 
   @override
   void dispose() {
-    tabBarController?.dispose();
     bottomNavEventiModel.dispose();
   }
 }

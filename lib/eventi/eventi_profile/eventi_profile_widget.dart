@@ -59,11 +59,6 @@ class _EventiProfileWidgetState extends State<EventiProfileWidget>
       );
     });
 
-    _model.tabBarController = TabController(
-      vsync: this,
-      length: 2,
-      initialIndex: 0,
-    )..addListener(() => setState(() {}));
     animationsMap.addAll({
       'iconOnActionTriggerAnimation': AnimationInfo(
         trigger: AnimationTrigger.onActionTrigger,
@@ -86,7 +81,7 @@ class _EventiProfileWidgetState extends State<EventiProfileWidget>
       this,
     );
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -178,7 +173,7 @@ class _EventiProfileWidgetState extends State<EventiProfileWidget>
 
                   logFirebaseEvent('IconButton_update_app_state');
                   FFAppState().eventiState = 'eventi';
-                  setState(() {});
+                  safeSetState(() {});
                 },
               ),
               title: Stack(
@@ -282,7 +277,9 @@ class _EventiProfileWidgetState extends State<EventiProfileWidget>
                         ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
                           child: Image.network(
-                            eventiProfileEventiRecord.locandina,
+                            eventiProfileEventiRecord.eventoAnnullato
+                                ? 'https://i.postimg.cc/7LNM9Bcz/Untitled-design-50.png'
+                                : eventiProfileEventiRecord.locandina,
                             width: double.infinity,
                             height: 200.0,
                             fit: BoxFit.cover,
@@ -337,58 +334,383 @@ class _EventiProfileWidgetState extends State<EventiProfileWidget>
                         Expanded(
                           child: Stack(
                             children: [
-                              Column(
-                                children: [
-                                  Align(
-                                    alignment: const Alignment(0.0, 0),
-                                    child: TabBar(
-                                      labelColor: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      unselectedLabelColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      labelStyle: FlutterFlowTheme.of(context)
-                                          .titleMedium
-                                          .override(
-                                            fontFamily: 'Montserrat',
-                                            letterSpacing: 0.0,
-                                          ),
-                                      unselectedLabelStyle: const TextStyle(),
-                                      indicatorColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      tabs: const [
-                                        Tab(
-                                          text: 'Info',
-                                        ),
-                                        Tab(
-                                          text: 'Prezzi',
-                                        ),
-                                      ],
-                                      controller: _model.tabBarController,
-                                      onTap: (i) async {
-                                        [() async {}, () async {}][i]();
-                                      },
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: TabBarView(
-                                      controller: _model.tabBarController,
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  20.0, 0.0, 20.0, 0.0),
-                                          child: SingleChildScrollView(
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 20.0, 0.0, 0.0),
+                              SizedBox(
+                                width: double.infinity,
+                                height: MediaQuery.sizeOf(context).height * 1.0,
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 40.0),
+                                  child: PageView(
+                                    controller: _model.pageViewController ??=
+                                        PageController(initialPage: 0),
+                                    onPageChanged: (_) async {
+                                      logFirebaseEvent(
+                                          'EVENTI_PROFILE_PageView_w51wd3xk_ON_WIDG');
+                                      logFirebaseEvent(
+                                          'PageView_update_page_state');
+                                      _model.pagina = !_model.pagina;
+                                      safeSetState(() {});
+                                    },
+                                    scrollDirection: Axis.horizontal,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            20.0, 50.0, 20.0, 0.0),
+                                        child: SingleChildScrollView(
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 20.0, 0.0, 0.0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              children: [
+                                                                Icon(
+                                                                  Icons
+                                                                      .access_time_rounded,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText,
+                                                                  size: 20.0,
+                                                                ),
+                                                                Padding(
+                                                                  padding: const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          11.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  child: Text(
+                                                                    'Dalle ',
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Montserrat',
+                                                                          fontSize:
+                                                                              14.0,
+                                                                          letterSpacing:
+                                                                              0.0,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                        ),
+                                                                  ),
+                                                                ),
+                                                                Text(
+                                                                  dateTimeFormat(
+                                                                    "Hm",
+                                                                    eventiProfileEventiRecord
+                                                                        .inizioOrario!,
+                                                                    locale: FFLocalizations.of(
+                                                                            context)
+                                                                        .languageCode,
+                                                                  ),
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Montserrat',
+                                                                        fontSize:
+                                                                            14.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                      ),
+                                                                ),
+                                                                Text(
+                                                                  ' alle ',
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Montserrat',
+                                                                        fontSize:
+                                                                            14.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                      ),
+                                                                ),
+                                                                Text(
+                                                                  dateTimeFormat(
+                                                                    "Hm",
+                                                                    eventiProfileEventiRecord
+                                                                        .fineOrario!,
+                                                                    locale: FFLocalizations.of(
+                                                                            context)
+                                                                        .languageCode,
+                                                                  ),
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Montserrat',
+                                                                        fontSize:
+                                                                            14.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                      ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              children: [
+                                                                Icon(
+                                                                  Icons
+                                                                      .location_on,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primary,
+                                                                  size: 20.0,
+                                                                ),
+                                                                Padding(
+                                                                  padding: const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          10.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  child: Text(
+                                                                    eventiProfileEventiRecord
+                                                                        .localita,
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Montserrat',
+                                                                          fontSize:
+                                                                              14.0,
+                                                                          letterSpacing:
+                                                                              0.0,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                        ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              children: [
+                                                                Padding(
+                                                                  padding: const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          2.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  child: FaIcon(
+                                                                    FontAwesomeIcons
+                                                                        .hashtag,
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryText,
+                                                                    size: 20.0,
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding: const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          12.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  child: Text(
+                                                                    eventiProfileEventiRecord
+                                                                        .categoriaEvento,
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Montserrat',
+                                                                          fontSize:
+                                                                              14.0,
+                                                                          letterSpacing:
+                                                                              0.0,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                        ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ].divide(const SizedBox(
+                                                              height: 20.0)),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Container(
+                                                      width: 50.0,
+                                                      height: 50.0,
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10.0),
+                                                      ),
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                            dateTimeFormat(
+                                                              "d",
+                                                              eventiProfileEventiRecord
+                                                                  .data!,
+                                                              locale: FFLocalizations
+                                                                      .of(context)
+                                                                  .languageCode,
+                                                            ),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Montserrat',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryBackground,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                ),
+                                                          ),
+                                                          Text(
+                                                            dateTimeFormat(
+                                                              "MMM",
+                                                              eventiProfileEventiRecord
+                                                                  .data!,
+                                                              locale: FFLocalizations
+                                                                      .of(context)
+                                                                  .languageCode,
+                                                            ),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Montserrat',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryBackground,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 15.0, 0.0, 0.0),
+                                                child: InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    logFirebaseEvent(
+                                                        'EVENTI_PROFILE_PAGE_Row_c2pfhuuh_ON_TAP');
+                                                    await Future.wait([
+                                                      Future(() async {
+                                                        logFirebaseEvent(
+                                                            'Row_update_page_state');
+                                                        _model.descrizione =
+                                                            !_model.descrizione;
+                                                        safeSetState(() {});
+                                                      }),
+                                                      Future(() async {
+                                                        if (_model
+                                                            .descrizione) {
+                                                          logFirebaseEvent(
+                                                              'Row_widget_animation');
+                                                          if (animationsMap[
+                                                                  'iconOnActionTriggerAnimation'] !=
+                                                              null) {
+                                                            await animationsMap[
+                                                                    'iconOnActionTriggerAnimation']!
+                                                                .controller
+                                                                .forward(
+                                                                    from: 0.0);
+                                                          }
+                                                        } else {
+                                                          logFirebaseEvent(
+                                                              'Row_widget_animation');
+                                                          if (animationsMap[
+                                                                  'iconOnActionTriggerAnimation'] !=
+                                                              null) {
+                                                            await animationsMap[
+                                                                    'iconOnActionTriggerAnimation']!
+                                                                .controller
+                                                                .reverse();
+                                                          }
+                                                        }
+                                                      }),
+                                                    ]);
+                                                  },
                                                   child: Row(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
@@ -396,574 +718,227 @@ class _EventiProfileWidgetState extends State<EventiProfileWidget>
                                                         MainAxisAlignment
                                                             .spaceBetween,
                                                     children: [
-                                                      Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: [
-                                                                  Icon(
-                                                                    Icons
-                                                                        .access_time_rounded,
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryText,
-                                                                    size: 20.0,
-                                                                  ),
-                                                                  Padding(
-                                                                    padding: const EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            11.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                    child: Text(
-                                                                      'Dalle ',
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Montserrat',
-                                                                            fontSize:
-                                                                                14.0,
-                                                                            letterSpacing:
-                                                                                0.0,
-                                                                            fontWeight:
-                                                                                FontWeight.w500,
-                                                                          ),
-                                                                    ),
-                                                                  ),
-                                                                  Text(
-                                                                    dateTimeFormat(
-                                                                      "Hm",
-                                                                      eventiProfileEventiRecord
-                                                                          .inizioOrario!,
-                                                                      locale: FFLocalizations.of(
-                                                                              context)
-                                                                          .languageCode,
-                                                                    ),
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Montserrat',
-                                                                          fontSize:
-                                                                              14.0,
-                                                                          letterSpacing:
-                                                                              0.0,
-                                                                          fontWeight:
-                                                                              FontWeight.w500,
-                                                                        ),
-                                                                  ),
-                                                                  Text(
-                                                                    ' alle ',
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Montserrat',
-                                                                          fontSize:
-                                                                              14.0,
-                                                                          letterSpacing:
-                                                                              0.0,
-                                                                          fontWeight:
-                                                                              FontWeight.w500,
-                                                                        ),
-                                                                  ),
-                                                                  Text(
-                                                                    dateTimeFormat(
-                                                                      "Hm",
-                                                                      eventiProfileEventiRecord
-                                                                          .fineOrario!,
-                                                                      locale: FFLocalizations.of(
-                                                                              context)
-                                                                          .languageCode,
-                                                                    ),
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Montserrat',
-                                                                          fontSize:
-                                                                              14.0,
-                                                                          letterSpacing:
-                                                                              0.0,
-                                                                          fontWeight:
-                                                                              FontWeight.w500,
-                                                                        ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: [
-                                                                  Icon(
-                                                                    Icons
-                                                                        .location_on,
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
-                                                                    size: 20.0,
-                                                                  ),
-                                                                  Padding(
-                                                                    padding: const EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            10.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                    child: Text(
-                                                                      eventiProfileEventiRecord
-                                                                          .localita,
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Montserrat',
-                                                                            fontSize:
-                                                                                14.0,
-                                                                            letterSpacing:
-                                                                                0.0,
-                                                                            fontWeight:
-                                                                                FontWeight.w500,
-                                                                          ),
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: [
-                                                                  Padding(
-                                                                    padding: const EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            2.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                    child:
-                                                                        FaIcon(
-                                                                      FontAwesomeIcons
-                                                                          .hashtag,
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primaryText,
-                                                                      size:
-                                                                          20.0,
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding: const EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            12.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                    child: Text(
-                                                                      eventiProfileEventiRecord
-                                                                          .categoriaEvento,
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Montserrat',
-                                                                            fontSize:
-                                                                                14.0,
-                                                                            letterSpacing:
-                                                                                0.0,
-                                                                            fontWeight:
-                                                                                FontWeight.w500,
-                                                                          ),
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ].divide(const SizedBox(
-                                                                height: 20.0)),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Container(
-                                                        width: 50.0,
-                                                        height: 50.0,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: FlutterFlowTheme
+                                                      Align(
+                                                        alignment:
+                                                            const AlignmentDirectional(
+                                                                -1.0, 0.0),
+                                                        child: Text(
+                                                          'Descrizione',
+                                                          textAlign:
+                                                              TextAlign.start,
+                                                          style: FlutterFlowTheme
                                                                   .of(context)
-                                                              .primary,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      10.0),
-                                                        ),
-                                                        child: Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Text(
-                                                              dateTimeFormat(
-                                                                "d",
-                                                                eventiProfileEventiRecord
-                                                                    .data!,
-                                                                locale: FFLocalizations.of(
-                                                                        context)
-                                                                    .languageCode,
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Montserrat',
+                                                                fontSize: 17.0,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
                                                               ),
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Montserrat',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .secondaryBackground,
-                                                                    fontSize:
-                                                                        16.0,
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                  ),
-                                                            ),
-                                                            Text(
-                                                              dateTimeFormat(
-                                                                "MMM",
-                                                                eventiProfileEventiRecord
-                                                                    .data!,
-                                                                locale: FFLocalizations.of(
-                                                                        context)
-                                                                    .languageCode,
-                                                              ),
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Montserrat',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .secondaryBackground,
-                                                                    fontSize:
-                                                                        16.0,
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                  ),
-                                                            ),
-                                                          ],
                                                         ),
+                                                      ),
+                                                      Icon(
+                                                        Icons
+                                                            .keyboard_arrow_down_outlined,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
+                                                        size: 24.0,
+                                                      ).animateOnActionTrigger(
+                                                        animationsMap[
+                                                            'iconOnActionTriggerAnimation']!,
                                                       ),
                                                     ],
                                                   ),
                                                 ),
+                                              ),
+                                              Stack(
+                                                children: [
+                                                  if (!_model.descrizione)
+                                                    Align(
+                                                      alignment:
+                                                          const AlignmentDirectional(
+                                                              -1.0, 0.0),
+                                                      child: InkWell(
+                                                        splashColor:
+                                                            Colors.transparent,
+                                                        focusColor:
+                                                            Colors.transparent,
+                                                        hoverColor:
+                                                            Colors.transparent,
+                                                        highlightColor:
+                                                            Colors.transparent,
+                                                        onTap: () async {
+                                                          logFirebaseEvent(
+                                                              'EVENTI_PROFILE_PAGE_Text_5r5b4f6o_ON_TAP');
+                                                          await Future.wait([
+                                                            Future(() async {
+                                                              logFirebaseEvent(
+                                                                  'Text_update_page_state');
+                                                              _model.descrizione =
+                                                                  !_model
+                                                                      .descrizione;
+                                                              safeSetState(
+                                                                  () {});
+                                                            }),
+                                                            Future(() async {
+                                                              if (_model
+                                                                  .descrizione) {
+                                                                logFirebaseEvent(
+                                                                    'Text_widget_animation');
+                                                                if (animationsMap[
+                                                                        'iconOnActionTriggerAnimation'] !=
+                                                                    null) {
+                                                                  await animationsMap[
+                                                                          'iconOnActionTriggerAnimation']!
+                                                                      .controller
+                                                                      .forward(
+                                                                          from:
+                                                                              0.0);
+                                                                }
+                                                              } else {
+                                                                logFirebaseEvent(
+                                                                    'Text_widget_animation');
+                                                                if (animationsMap[
+                                                                        'iconOnActionTriggerAnimation'] !=
+                                                                    null) {
+                                                                  await animationsMap[
+                                                                          'iconOnActionTriggerAnimation']!
+                                                                      .controller
+                                                                      .reverse();
+                                                                }
+                                                              }
+                                                            }),
+                                                          ]);
+                                                        },
+                                                        child: Text(
+                                                          eventiProfileEventiRecord
+                                                              .descrizione
+                                                              .maybeHandleOverflow(
+                                                            maxChars: 400,
+                                                            replacement: '…',
+                                                          ),
+                                                          maxLines: 6,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Montserrat',
+                                                                letterSpacing:
+                                                                    0.0,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  if (_model.descrizione)
+                                                    Align(
+                                                      alignment:
+                                                          const AlignmentDirectional(
+                                                              -1.0, 0.0),
+                                                      child: InkWell(
+                                                        splashColor:
+                                                            Colors.transparent,
+                                                        focusColor:
+                                                            Colors.transparent,
+                                                        hoverColor:
+                                                            Colors.transparent,
+                                                        highlightColor:
+                                                            Colors.transparent,
+                                                        onTap: () async {
+                                                          logFirebaseEvent(
+                                                              'EVENTI_PROFILE_PAGE_Text2_ON_TAP');
+                                                          await Future.wait([
+                                                            Future(() async {
+                                                              logFirebaseEvent(
+                                                                  'Text2_update_page_state');
+                                                              _model.descrizione =
+                                                                  !_model
+                                                                      .descrizione;
+                                                              safeSetState(
+                                                                  () {});
+                                                            }),
+                                                            Future(() async {
+                                                              if (_model
+                                                                  .descrizione) {
+                                                                logFirebaseEvent(
+                                                                    'Text2_widget_animation');
+                                                                if (animationsMap[
+                                                                        'iconOnActionTriggerAnimation'] !=
+                                                                    null) {
+                                                                  await animationsMap[
+                                                                          'iconOnActionTriggerAnimation']!
+                                                                      .controller
+                                                                      .forward(
+                                                                          from:
+                                                                              0.0);
+                                                                }
+                                                              } else {
+                                                                logFirebaseEvent(
+                                                                    'Text2_widget_animation');
+                                                                if (animationsMap[
+                                                                        'iconOnActionTriggerAnimation'] !=
+                                                                    null) {
+                                                                  await animationsMap[
+                                                                          'iconOnActionTriggerAnimation']!
+                                                                      .controller
+                                                                      .reverse();
+                                                                }
+                                                              }
+                                                            }),
+                                                          ]);
+                                                        },
+                                                        child: Text(
+                                                          eventiProfileEventiRecord
+                                                              .descrizione,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Montserrat',
+                                                                letterSpacing:
+                                                                    0.0,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                ],
+                                              ),
+                                              if (eventiProfileEventiRecord
+                                                  .locationDiversa)
                                                 Padding(
                                                   padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 15.0, 0.0, 0.0),
-                                                  child: InkWell(
-                                                    splashColor:
-                                                        Colors.transparent,
-                                                    focusColor:
-                                                        Colors.transparent,
-                                                    hoverColor:
-                                                        Colors.transparent,
-                                                    highlightColor:
-                                                        Colors.transparent,
-                                                    onTap: () async {
-                                                      logFirebaseEvent(
-                                                          'EVENTI_PROFILE_PAGE_Row_utf6onun_ON_TAP');
-                                                      await Future.wait([
-                                                        Future(() async {
-                                                          logFirebaseEvent(
-                                                              'Row_update_page_state');
-                                                          _model.descrizione =
-                                                              !_model
-                                                                  .descrizione;
-                                                          setState(() {});
-                                                        }),
-                                                        Future(() async {
-                                                          if (_model
-                                                              .descrizione) {
-                                                            logFirebaseEvent(
-                                                                'Row_widget_animation');
-                                                            if (animationsMap[
-                                                                    'iconOnActionTriggerAnimation'] !=
-                                                                null) {
-                                                              await animationsMap[
-                                                                      'iconOnActionTriggerAnimation']!
-                                                                  .controller
-                                                                  .forward(
-                                                                      from:
-                                                                          0.0);
-                                                            }
-                                                          } else {
-                                                            logFirebaseEvent(
-                                                                'Row_widget_animation');
-                                                            if (animationsMap[
-                                                                    'iconOnActionTriggerAnimation'] !=
-                                                                null) {
-                                                              await animationsMap[
-                                                                      'iconOnActionTriggerAnimation']!
-                                                                  .controller
-                                                                  .reverse();
-                                                            }
-                                                          }
-                                                        }),
-                                                      ]);
-                                                    },
-                                                    child: Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        Align(
-                                                          alignment:
-                                                              const AlignmentDirectional(
-                                                                  -1.0, 0.0),
-                                                          child: Text(
-                                                            'Descrizione',
-                                                            textAlign:
-                                                                TextAlign.start,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Montserrat',
-                                                                  fontSize:
-                                                                      17.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                ),
-                                                          ),
-                                                        ),
-                                                        Icon(
-                                                          Icons
-                                                              .keyboard_arrow_down_outlined,
+                                                  child: Text(
+                                                    'LOCATION DIVERSA DAL SOLITO',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Montserrat',
                                                           color: FlutterFlowTheme
                                                                   .of(context)
-                                                              .secondaryText,
-                                                          size: 24.0,
-                                                        ).animateOnActionTrigger(
-                                                          animationsMap[
-                                                              'iconOnActionTriggerAnimation']!,
+                                                              .primary,
+                                                          fontSize: 12.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.bold,
                                                         ),
-                                                      ],
-                                                    ),
                                                   ),
                                                 ),
-                                                Stack(
-                                                  children: [
-                                                    if (!_model.descrizione)
-                                                      Align(
-                                                        alignment:
-                                                            const AlignmentDirectional(
-                                                                -1.0, 0.0),
-                                                        child: InkWell(
-                                                          splashColor: Colors
-                                                              .transparent,
-                                                          focusColor: Colors
-                                                              .transparent,
-                                                          hoverColor: Colors
-                                                              .transparent,
-                                                          highlightColor: Colors
-                                                              .transparent,
-                                                          onTap: () async {
-                                                            logFirebaseEvent(
-                                                                'EVENTI_PROFILE_PAGE_Text_4s7wn0yr_ON_TAP');
-                                                            await Future.wait([
-                                                              Future(() async {
-                                                                logFirebaseEvent(
-                                                                    'Text_update_page_state');
-                                                                _model.descrizione =
-                                                                    !_model
-                                                                        .descrizione;
-                                                                setState(() {});
-                                                              }),
-                                                              Future(() async {
-                                                                if (_model
-                                                                    .descrizione) {
-                                                                  logFirebaseEvent(
-                                                                      'Text_widget_animation');
-                                                                  if (animationsMap[
-                                                                          'iconOnActionTriggerAnimation'] !=
-                                                                      null) {
-                                                                    await animationsMap[
-                                                                            'iconOnActionTriggerAnimation']!
-                                                                        .controller
-                                                                        .forward(
-                                                                            from:
-                                                                                0.0);
-                                                                  }
-                                                                } else {
-                                                                  logFirebaseEvent(
-                                                                      'Text_widget_animation');
-                                                                  if (animationsMap[
-                                                                          'iconOnActionTriggerAnimation'] !=
-                                                                      null) {
-                                                                    await animationsMap[
-                                                                            'iconOnActionTriggerAnimation']!
-                                                                        .controller
-                                                                        .reverse();
-                                                                  }
-                                                                }
-                                                              }),
-                                                            ]);
-                                                          },
-                                                          child: Text(
-                                                            eventiProfileEventiRecord
-                                                                .descrizione
-                                                                .maybeHandleOverflow(
-                                                              maxChars: 400,
-                                                              replacement: '…',
-                                                            ),
-                                                            maxLines: 6,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Montserrat',
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    if (_model.descrizione)
-                                                      Align(
-                                                        alignment:
-                                                            const AlignmentDirectional(
-                                                                -1.0, 0.0),
-                                                        child: InkWell(
-                                                          splashColor: Colors
-                                                              .transparent,
-                                                          focusColor: Colors
-                                                              .transparent,
-                                                          hoverColor: Colors
-                                                              .transparent,
-                                                          highlightColor: Colors
-                                                              .transparent,
-                                                          onTap: () async {
-                                                            logFirebaseEvent(
-                                                                'EVENTI_PROFILE_PAGE_Text2_ON_TAP');
-                                                            await Future.wait([
-                                                              Future(() async {
-                                                                logFirebaseEvent(
-                                                                    'Text2_update_page_state');
-                                                                _model.descrizione =
-                                                                    !_model
-                                                                        .descrizione;
-                                                                setState(() {});
-                                                              }),
-                                                              Future(() async {
-                                                                if (_model
-                                                                    .descrizione) {
-                                                                  logFirebaseEvent(
-                                                                      'Text2_widget_animation');
-                                                                  if (animationsMap[
-                                                                          'iconOnActionTriggerAnimation'] !=
-                                                                      null) {
-                                                                    await animationsMap[
-                                                                            'iconOnActionTriggerAnimation']!
-                                                                        .controller
-                                                                        .forward(
-                                                                            from:
-                                                                                0.0);
-                                                                  }
-                                                                } else {
-                                                                  logFirebaseEvent(
-                                                                      'Text2_widget_animation');
-                                                                  if (animationsMap[
-                                                                          'iconOnActionTriggerAnimation'] !=
-                                                                      null) {
-                                                                    await animationsMap[
-                                                                            'iconOnActionTriggerAnimation']!
-                                                                        .controller
-                                                                        .reverse();
-                                                                  }
-                                                                }
-                                                              }),
-                                                            ]);
-                                                          },
-                                                          child: Text(
-                                                            eventiProfileEventiRecord
-                                                                .descrizione,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Montserrat',
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                  ],
-                                                ),
-                                                if (eventiProfileEventiRecord
-                                                    .locationDiversa)
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 15.0,
-                                                                0.0, 0.0),
-                                                    child: Text(
-                                                      'LOCATION DIVERSA DAL SOLITO',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily:
-                                                                'Montserrat',
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .primary,
-                                                            fontSize: 12.0,
-                                                            letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                    ),
-                                                  ),
+                                              if ((eventiProfileEventiRecord
+                                                          .organizzatore ==
+                                                      null) ||
+                                                  !eventiProfileEventiRecord
+                                                      .organizzatore)
                                                 Flexible(
                                                   child: Padding(
                                                     padding:
@@ -980,6 +955,292 @@ class _EventiProfileWidgetState extends State<EventiProfileWidget>
                                                                 ),
                                                                 0.0,
                                                                 0.0),
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Flexible(
+                                                          child: Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: [
+                                                              Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                children: [
+                                                                  Container(
+                                                                    width: 40.0,
+                                                                    height:
+                                                                        40.0,
+                                                                    clipBehavior:
+                                                                        Clip.antiAlias,
+                                                                    decoration:
+                                                                        const BoxDecoration(
+                                                                      shape: BoxShape
+                                                                          .circle,
+                                                                    ),
+                                                                    child: Image
+                                                                        .network(
+                                                                      eventiProfileEventiRecord
+                                                                          .imgLocale,
+                                                                      fit: BoxFit
+                                                                          .cover,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              Flexible(
+                                                                child: Padding(
+                                                                  padding: const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          10.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  child: Column(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .start,
+                                                                    children: [
+                                                                      Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        children: [
+                                                                          Flexible(
+                                                                            child:
+                                                                                Align(
+                                                                              alignment: const AlignmentDirectional(-1.0, 0.0),
+                                                                              child: AutoSizeText(
+                                                                                eventiProfileEventiRecord.locale,
+                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                      fontFamily: 'Montserrat',
+                                                                                      fontSize: 16.0,
+                                                                                      letterSpacing: 0.0,
+                                                                                      fontWeight: FontWeight.w600,
+                                                                                    ),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                      Text(
+                                                                        eventiProfileEventiRecord
+                                                                            .addressText
+                                                                            .maybeHandleOverflow(
+                                                                          maxChars:
+                                                                              30,
+                                                                          replacement:
+                                                                              '…',
+                                                                        ),
+                                                                        maxLines:
+                                                                            1,
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              fontFamily: 'Montserrat',
+                                                                              fontSize: 12.0,
+                                                                              letterSpacing: 0.0,
+                                                                            ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        InkWell(
+                                                          splashColor: Colors
+                                                              .transparent,
+                                                          focusColor: Colors
+                                                              .transparent,
+                                                          hoverColor: Colors
+                                                              .transparent,
+                                                          highlightColor: Colors
+                                                              .transparent,
+                                                          onTap: () async {
+                                                            logFirebaseEvent(
+                                                                'EVENTI_PROFILE_PAGE_Text_tc49w2vt_ON_TAP');
+                                                            logFirebaseEvent(
+                                                                'Text_launch_u_r_l');
+                                                            await launchURL(
+                                                                eventiProfileEventiRecord
+                                                                    .urlMaps);
+                                                          },
+                                                          child: Text(
+                                                            'Portami li',
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Montserrat',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primary,
+                                                                  fontSize:
+                                                                      14.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              if (eventiProfileEventiRecord
+                                                  .organizzatore)
+                                                Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 15.0, 0.0, 0.0),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          Container(
+                                                            width: 40.0,
+                                                            height: 40.0,
+                                                            clipBehavior:
+                                                                Clip.antiAlias,
+                                                            decoration:
+                                                                const BoxDecoration(
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                            ),
+                                                            child:
+                                                                Image.network(
+                                                              eventiProfileEventiRecord
+                                                                  .organizzatoreImg,
+                                                              fit: BoxFit.cover,
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        10.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0),
+                                                            child: Text(
+                                                              eventiProfileEventiRecord
+                                                                  .organizzatoreName,
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Montserrat',
+                                                                    fontSize:
+                                                                        16.0,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                  ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Text(
+                                                        'Organizzatore',
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Montserrat',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primary,
+                                                                  fontSize:
+                                                                      12.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        10.0, 10.0, 10.0, 0.0),
+                                                child: InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    logFirebaseEvent(
+                                                        'EVENTI_PROFILE_StaticMap_zabz77hp_ON_TAP');
+                                                    logFirebaseEvent(
+                                                        'StaticMap_launch_u_r_l');
+                                                    await launchURL(
+                                                        eventiProfileEventiRecord
+                                                            .urlMaps);
+                                                  },
+                                                  child: FlutterFlowStaticMap(
+                                                    location:
+                                                        eventiProfileEventiRecord
+                                                            .indirizzo!,
+                                                    apiKey:
+                                                        'pk.eyJ1Ijoicm9tYW55dGFzIiwiYSI6ImNsdXd3YTYzYTBnZXMyaWxrcHllaGxybHoifQ.CM6omCc5VSoYbe94Y596NQ',
+                                                    style: mapbox
+                                                        .MapBoxStyle.Outdoors,
+                                                    width: double.infinity,
+                                                    height: 120.0,
+                                                    fit: BoxFit.cover,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8.0),
+                                                    markerColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .primary,
+                                                    zoom: 12,
+                                                    tilt: 0,
+                                                    rotation: 0,
+                                                  ),
+                                                ),
+                                              ),
+                                              if (eventiProfileEventiRecord
+                                                  .organizzatore)
+                                                Flexible(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 10.0,
+                                                                0.0, 0.0),
                                                     child: Row(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
@@ -1097,7 +1358,7 @@ class _EventiProfileWidgetState extends State<EventiProfileWidget>
                                                               .transparent,
                                                           onTap: () async {
                                                             logFirebaseEvent(
-                                                                'EVENTI_PROFILE_PAGE_Text_1nvrnitx_ON_TAP');
+                                                                'EVENTI_PROFILE_PAGE_Text_2obukrza_ON_TAP');
                                                             logFirebaseEvent(
                                                                 'Text_launch_u_r_l');
                                                             await launchURL(
@@ -1129,138 +1390,14 @@ class _EventiProfileWidgetState extends State<EventiProfileWidget>
                                                     ),
                                                   ),
                                                 ),
-                                                Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(10.0, 10.0,
-                                                          10.0, 10.0),
-                                                  child: InkWell(
-                                                    splashColor:
-                                                        Colors.transparent,
-                                                    focusColor:
-                                                        Colors.transparent,
-                                                    hoverColor:
-                                                        Colors.transparent,
-                                                    highlightColor:
-                                                        Colors.transparent,
-                                                    onTap: () async {
-                                                      logFirebaseEvent(
-                                                          'EVENTI_PROFILE_StaticMap_9nqjp5w5_ON_TAP');
-                                                      logFirebaseEvent(
-                                                          'StaticMap_launch_u_r_l');
-                                                      await launchURL(
-                                                          eventiProfileEventiRecord
-                                                              .urlMaps);
-                                                    },
-                                                    child: FlutterFlowStaticMap(
-                                                      location:
-                                                          eventiProfileEventiRecord
-                                                              .indirizzo!,
-                                                      apiKey:
-                                                          'pk.eyJ1Ijoicm9tYW55dGFzIiwiYSI6ImNsdXd3YTYzYTBnZXMyaWxrcHllaGxybHoifQ.CM6omCc5VSoYbe94Y596NQ',
-                                                      style: mapbox
-                                                          .MapBoxStyle.Outdoors,
-                                                      width: double.infinity,
-                                                      height: 120.0,
-                                                      fit: BoxFit.cover,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                      markerColor:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      zoom: 12,
-                                                      tilt: 0,
-                                                      rotation: 0,
-                                                    ),
-                                                  ),
-                                                ),
-                                                if (eventiProfileEventiRecord
-                                                    .organizzatore)
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          Container(
-                                                            width: 40.0,
-                                                            height: 40.0,
-                                                            clipBehavior:
-                                                                Clip.antiAlias,
-                                                            decoration:
-                                                                const BoxDecoration(
-                                                              shape: BoxShape
-                                                                  .circle,
-                                                            ),
-                                                            child:
-                                                                Image.network(
-                                                              eventiProfileEventiRecord
-                                                                  .organizzatoreImg,
-                                                              fit: BoxFit.cover,
-                                                            ),
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        10.0,
-                                                                        0.0,
-                                                                        0.0,
-                                                                        0.0),
-                                                            child: Text(
-                                                              eventiProfileEventiRecord
-                                                                  .organizzatoreName,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Montserrat',
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600,
-                                                                  ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Text(
-                                                        'Organizzatore',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Montserrat',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primary,
-                                                                  fontSize:
-                                                                      12.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                              ].addToEnd(
-                                                  const SizedBox(height: 110.0)),
-                                            ),
+                                            ].addToEnd(const SizedBox(height: 110.0)),
                                           ),
                                         ),
-                                        SingleChildScrollView(
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 50.0, 0.0, 0.0),
+                                        child: SingleChildScrollView(
                                           child: Column(
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
@@ -1942,7 +2079,7 @@ class _EventiProfileWidgetState extends State<EventiProfileWidget>
                                                   ),
                                                 ),
                                               if (eventiProfileEventiRecord
-                                                          .ingresso2nome ==
+                                                          .ingresso3Nome ==
                                                       '')
                                                 Padding(
                                                   padding: const EdgeInsetsDirectional
@@ -2052,10 +2189,10 @@ class _EventiProfileWidgetState extends State<EventiProfileWidget>
                                             ].addToEnd(const SizedBox(height: 100.0)),
                                           ),
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
-                                ],
+                                ),
                               ),
                               Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
@@ -2069,20 +2206,17 @@ class _EventiProfileWidgetState extends State<EventiProfileWidget>
                                       onPressed: () async {
                                         logFirebaseEvent(
                                             'EVENTI_PROFILE_PAGE_INFO_BTN_ON_TAP');
-                                        logFirebaseEvent('Button_tab_bar');
-                                        setState(() {
-                                          _model.tabBarController!.animateTo(
-                                            0,
-                                            duration:
-                                                const Duration(milliseconds: 300),
-                                            curve: Curves.ease,
-                                          );
-                                        });
-
+                                        logFirebaseEvent('Button_page_view');
+                                        await _model.pageViewController
+                                            ?.animateToPage(
+                                          0,
+                                          duration: const Duration(milliseconds: 500),
+                                          curve: Curves.ease,
+                                        );
                                         logFirebaseEvent(
                                             'Button_update_page_state');
-                                        _model.pagina = 'Info';
-                                        setState(() {});
+                                        _model.pagina = false;
+                                        safeSetState(() {});
                                       },
                                       text: 'INFO',
                                       options: FFButtonOptions(
@@ -2093,7 +2227,7 @@ class _EventiProfileWidgetState extends State<EventiProfileWidget>
                                         iconPadding:
                                             const EdgeInsetsDirectional.fromSTEB(
                                                 0.0, 0.0, 0.0, 0.0),
-                                        color: _model.pagina == 'Info'
+                                        color: _model.pagina == false
                                             ? FlutterFlowTheme.of(context)
                                                 .primary
                                             : FlutterFlowTheme.of(context)
@@ -2102,24 +2236,23 @@ class _EventiProfileWidgetState extends State<EventiProfileWidget>
                                             .titleSmall
                                             .override(
                                               fontFamily: 'Montserrat',
-                                              color: _model.pagina == 'Info'
+                                              color: _model.pagina == false
                                                   ? FlutterFlowTheme.of(context)
                                                       .secondaryBackground
-                                                  : FlutterFlowTheme.of(context)
-                                                      .primary,
+                                                  : const Color(0xFF757474),
                                               fontSize: 13.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w600,
                                             ),
                                         elevation: 3.0,
                                         borderSide: BorderSide(
-                                          color: _model.pagina == 'Info'
+                                          color: _model.pagina == false
                                               ? const Color(0x00000000)
                                               : FlutterFlowTheme.of(context)
-                                                  .primary,
-                                          width: _model.pagina == 'Info'
+                                                  .alternate,
+                                          width: _model.pagina == false
                                               ? 0.0
-                                              : 3.0,
+                                              : 1.0,
                                         ),
                                         borderRadius:
                                             BorderRadius.circular(24.0),
@@ -2129,20 +2262,17 @@ class _EventiProfileWidgetState extends State<EventiProfileWidget>
                                       onPressed: () async {
                                         logFirebaseEvent(
                                             'EVENTI_PROFILE_PAGE_PREZZI_BTN_ON_TAP');
-                                        logFirebaseEvent('Button_tab_bar');
-                                        setState(() {
-                                          _model.tabBarController!.animateTo(
-                                            _model.tabBarController!.length - 1,
-                                            duration:
-                                                const Duration(milliseconds: 300),
-                                            curve: Curves.ease,
-                                          );
-                                        });
-
+                                        logFirebaseEvent('Button_page_view');
+                                        await _model.pageViewController
+                                            ?.animateToPage(
+                                          1,
+                                          duration: const Duration(milliseconds: 500),
+                                          curve: Curves.ease,
+                                        );
                                         logFirebaseEvent(
                                             'Button_update_page_state');
-                                        _model.pagina = 'Prezzi';
-                                        setState(() {});
+                                        _model.pagina = true;
+                                        safeSetState(() {});
                                       },
                                       text: 'PREZZI',
                                       options: FFButtonOptions(
@@ -2153,7 +2283,7 @@ class _EventiProfileWidgetState extends State<EventiProfileWidget>
                                         iconPadding:
                                             const EdgeInsetsDirectional.fromSTEB(
                                                 0.0, 0.0, 0.0, 0.0),
-                                        color: _model.pagina == 'Prezzi'
+                                        color: _model.pagina == true
                                             ? FlutterFlowTheme.of(context)
                                                 .primary
                                             : FlutterFlowTheme.of(context)
@@ -2162,24 +2292,22 @@ class _EventiProfileWidgetState extends State<EventiProfileWidget>
                                             .titleSmall
                                             .override(
                                               fontFamily: 'Montserrat',
-                                              color: _model.pagina == 'Prezzi'
+                                              color: _model.pagina == true
                                                   ? FlutterFlowTheme.of(context)
                                                       .secondaryBackground
-                                                  : FlutterFlowTheme.of(context)
-                                                      .primary,
+                                                  : const Color(0xFF757474),
                                               fontSize: 14.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w600,
                                             ),
                                         elevation: 3.0,
                                         borderSide: BorderSide(
-                                          color: _model.pagina == 'Prezzi'
+                                          color: _model.pagina == true
                                               ? const Color(0x00000000)
                                               : FlutterFlowTheme.of(context)
-                                                  .primary,
-                                          width: _model.pagina == 'Prezzi'
-                                              ? 0.0
-                                              : 3.0,
+                                                  .alternate,
+                                          width:
+                                              _model.pagina == true ? 0.0 : 1.0,
                                         ),
                                         borderRadius:
                                             BorderRadius.circular(24.0),
@@ -2198,7 +2326,7 @@ class _EventiProfileWidgetState extends State<EventiProfileWidget>
                     alignment: const AlignmentDirectional(0.0, 1.0),
                     child: wrapWithModel(
                       model: _model.bottomNavEventiModel,
-                      updateCallback: () => setState(() {}),
+                      updateCallback: () => safeSetState(() {}),
                       child: const BottomNavEventiWidget(),
                     ),
                   ),

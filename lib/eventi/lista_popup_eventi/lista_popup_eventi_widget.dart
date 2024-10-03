@@ -41,7 +41,7 @@ class _ListaPopupEventiWidgetState extends State<ListaPopupEventiWidget> {
         text: valueOrDefault(currentUserDocument?.cognome, ''));
     _model.textFieldFocusNode2 ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -60,45 +60,13 @@ class _ListaPopupEventiWidgetState extends State<ListaPopupEventiWidget> {
         height: 300.0,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
-          boxShadow: const [
-            BoxShadow(
-              blurRadius: 4.0,
-              color: Color(0x33000000),
-              offset: Offset(
-                4.0,
-                4.0,
-              ),
-            )
-          ],
           borderRadius: BorderRadius.circular(24.0),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
-            Align(
-              alignment: const AlignmentDirectional(1.0, -1.0),
-              child: Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 10.0, 0.0),
-                child: InkWell(
-                  splashColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onTap: () async {
-                    logFirebaseEvent('LISTA_POPUP_EVENTI_Icon_q3ajxdvr_ON_TAP');
-                    logFirebaseEvent('Icon_bottom_sheet');
-                    Navigator.pop(context);
-                  },
-                  child: Icon(
-                    Icons.keyboard_arrow_down,
-                    color: FlutterFlowTheme.of(context).primary,
-                    size: 40.0,
-                  ),
-                ),
-              ),
-            ),
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(30.0, 10.0, 30.0, 0.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(30.0, 50.0, 30.0, 0.0),
               child: AuthUserStreamWidget(
                 builder: (context) => TextFormField(
                   controller: _model.textController1,
@@ -219,41 +187,81 @@ class _ListaPopupEventiWidgetState extends State<ListaPopupEventiWidget> {
             ),
             Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
-              child: FFButtonWidget(
-                onPressed: () async {
-                  logFirebaseEvent('LISTA_POPUP_EVENTI_COMP_INVIA_BTN_ON_TAP');
-                  logFirebaseEvent('Button_backend_call');
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  FFButtonWidget(
+                    onPressed: () async {
+                      logFirebaseEvent(
+                          'LISTA_POPUP_EVENTI_COMP_INVIA_BTN_ON_TAP');
+                      logFirebaseEvent('Button_backend_call');
 
-                  await ListaEventiRecord.collection
-                      .doc()
-                      .set(createListaEventiRecordData(
-                        nome: _model.textController1.text,
-                        cognome: _model.textController2.text,
-                        eventoRef: widget.eventoRef,
-                      ));
-                  logFirebaseEvent('Button_bottom_sheet');
-                  Navigator.pop(context);
-                },
-                text: 'INVIA',
-                options: FFButtonOptions(
-                  width: 150.0,
-                  height: 40.0,
-                  padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-                  iconPadding:
-                      const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                  color: FlutterFlowTheme.of(context).primary,
-                  textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                        fontFamily: 'Montserrat',
-                        color: Colors.white,
-                        letterSpacing: 0.0,
+                      await ListaEventiRecord.collection
+                          .doc()
+                          .set(createListaEventiRecordData(
+                            nome: _model.textController1.text,
+                            cognome: _model.textController2.text,
+                            eventoRef: widget.eventoRef,
+                          ));
+                      logFirebaseEvent('Button_bottom_sheet');
+                      Navigator.pop(context);
+                    },
+                    text: 'Invia',
+                    options: FFButtonOptions(
+                      width: 100.0,
+                      height: 40.0,
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+                      iconPadding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: FlutterFlowTheme.of(context).primary,
+                      textStyle:
+                          FlutterFlowTheme.of(context).titleSmall.override(
+                                fontFamily: 'Montserrat',
+                                color: Colors.white,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.w600,
+                              ),
+                      elevation: 3.0,
+                      borderSide: const BorderSide(
+                        color: Colors.transparent,
+                        width: 1.0,
                       ),
-                  elevation: 3.0,
-                  borderSide: const BorderSide(
-                    color: Colors.transparent,
-                    width: 1.0,
+                      borderRadius: BorderRadius.circular(24.0),
+                    ),
                   ),
-                  borderRadius: BorderRadius.circular(24.0),
-                ),
+                  FFButtonWidget(
+                    onPressed: () async {
+                      logFirebaseEvent('LISTA_POPUP_EVENTI_ANNULLA_BTN_ON_TAP');
+                      logFirebaseEvent('Button_bottom_sheet');
+                      Navigator.pop(context);
+                    },
+                    text: 'Annulla',
+                    options: FFButtonOptions(
+                      width: 100.0,
+                      height: 40.0,
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+                      iconPadding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      textStyle:
+                          FlutterFlowTheme.of(context).titleSmall.override(
+                                fontFamily: 'Montserrat',
+                                color: const Color(0xFF757474),
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.w600,
+                              ),
+                      elevation: 3.0,
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).alternate,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(24.0),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

@@ -13,18 +13,20 @@ class DiscotecaProfileModel extends FlutterFlowModel<DiscotecaProfileWidget> {
 
   String descrizione2 = 'metà';
 
-  String pagina = 'Info';
+  bool pagina = false;
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Backend Call - API (incrementViews)] action in DiscotecaProfile widget.
   ApiCallResponse? apiResults1b;
-  // State field(s) for TabBar widget.
-  TabController? tabBarController;
-  int get tabBarCurrentIndex =>
-      tabBarController != null ? tabBarController!.index : 0;
+  // State field(s) for PageView widget.
+  PageController? pageViewController;
 
+  int get pageViewCurrentIndex => pageViewController != null &&
+          pageViewController!.hasClients &&
+          pageViewController!.page != null
+      ? pageViewController!.page!.round()
+      : 0;
   // Model for bottomNavEventi component.
   late BottomNavEventiModel bottomNavEventiModel;
   String currentPageLink = '';
@@ -36,7 +38,6 @@ class DiscotecaProfileModel extends FlutterFlowModel<DiscotecaProfileWidget> {
 
   @override
   void dispose() {
-    tabBarController?.dispose();
     bottomNavEventiModel.dispose();
   }
 }

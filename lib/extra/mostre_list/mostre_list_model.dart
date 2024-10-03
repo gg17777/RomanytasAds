@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 class MostreListModel extends FlutterFlowModel<MostreListWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Model for bottomNavEventi component.
   late BottomNavEventiModel bottomNavEventiModel;
 
