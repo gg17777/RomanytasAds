@@ -78,9 +78,9 @@ class _CiboMapWidgetState extends State<CiboMapWidget> {
     });
 
     getCurrentUserLocation(defaultLocation: const LatLng(0.0, 0.0), cached: true)
-        .then((loc) => setState(() => currentUserLocationValue = loc));
+        .then((loc) => safeSetState(() => currentUserLocationValue = loc));
     _model.switchValue = false;
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -276,19 +276,19 @@ class _CiboMapWidgetState extends State<CiboMapWidget> {
                         child: Switch.adaptive(
                           value: _model.switchValue!,
                           onChanged: (newValue) async {
-                            setState(() => _model.switchValue = newValue);
+                            safeSetState(() => _model.switchValue = newValue);
                             if (newValue) {
                               logFirebaseEvent(
                                   'CIBO_MAP_Switch_efw36q20_ON_TOGGLE_ON');
                               logFirebaseEvent('Switch_update_page_state');
                               _model.zozzoni = true;
-                              setState(() {});
+                              safeSetState(() {});
                             } else {
                               logFirebaseEvent(
                                   'CIBO_MAP_Switch_efw36q20_ON_TOGGLE_OFF');
                               logFirebaseEvent('Switch_update_page_state');
                               _model.zozzoni = false;
-                              setState(() {});
+                              safeSetState(() {});
                             }
                           },
                           activeColor: FlutterFlowTheme.of(context).primary,
@@ -320,7 +320,7 @@ class _CiboMapWidgetState extends State<CiboMapWidget> {
                 alignment: const AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
                   model: _model.bottomNavCiboModel,
-                  updateCallback: () => setState(() {}),
+                  updateCallback: () => safeSetState(() {}),
                   child: const BottomNavCiboWidget(),
                 ),
               ),

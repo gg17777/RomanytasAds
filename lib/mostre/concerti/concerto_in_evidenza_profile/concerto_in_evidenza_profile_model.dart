@@ -1,10 +1,12 @@
 import '/backend/api_requests/api_calls.dart';
 import '/bottom_nav/bottom_nav_eventi/bottom_nav_eventi_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'mostre_profile_widget.dart' show MostreProfileWidget;
+import 'concerto_in_evidenza_profile_widget.dart'
+    show ConcertoInEvidenzaProfileWidget;
 import 'package:flutter/material.dart';
 
-class MostreProfileModel extends FlutterFlowModel<MostreProfileWidget> {
+class ConcertoInEvidenzaProfileModel
+    extends FlutterFlowModel<ConcertoInEvidenzaProfileWidget> {
   ///  Local state fields for this page.
 
   bool descrizione = false;
@@ -13,8 +15,8 @@ class MostreProfileModel extends FlutterFlowModel<MostreProfileWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  // Stores action output result for [Backend Call - API (incrementViews)] action in MostreProfile widget.
-  ApiCallResponse? apiResulthla;
+  // Stores action output result for [Backend Call - API (incrementViews)] action in concertoInEvidenzaProfile widget.
+  ApiCallResponse? apiResultfej;
   // State field(s) for PageView widget.
   PageController? pageViewController;
 

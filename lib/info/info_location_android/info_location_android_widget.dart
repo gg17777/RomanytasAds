@@ -27,7 +27,7 @@ class _InfoLocationAndroidWidgetState extends State<InfoLocationAndroidWidget> {
     super.initState();
     _model = createModel(context, () => InfoLocationAndroidModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -43,19 +43,9 @@ class _InfoLocationAndroidWidgetState extends State<InfoLocationAndroidWidget> {
       alignment: const AlignmentDirectional(0.0, 0.0),
       child: Container(
         width: 300.0,
-        height: 400.0,
+        height: MediaQuery.sizeOf(context).width > 700.0 ? 450.0 : 370.0,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
-          boxShadow: const [
-            BoxShadow(
-              blurRadius: 4.0,
-              color: Color(0x33000000),
-              offset: Offset(
-                4.0,
-                4.0,
-              ),
-            )
-          ],
           borderRadius: BorderRadius.circular(24.0),
         ),
         child: Column(
@@ -130,11 +120,11 @@ class _InfoLocationAndroidWidgetState extends State<InfoLocationAndroidWidget> {
               padding: const EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
               child: FFButtonWidget(
                 onPressed: () async {
-                  logFirebaseEvent('INFO_LOCATION_ANDROID_COMP_OK_BTN_ON_TAP');
+                  logFirebaseEvent('INFO_LOCATION_ANDROID_CHIUDI_BTN_ON_TAP');
                   logFirebaseEvent('Button_bottom_sheet');
                   Navigator.pop(context);
                 },
-                text: 'Ok',
+                text: 'Chiudi',
                 options: FFButtonOptions(
                   width: 100.0,
                   height: 40.0,
@@ -146,7 +136,7 @@ class _InfoLocationAndroidWidgetState extends State<InfoLocationAndroidWidget> {
                         fontFamily: 'Montserrat',
                         color: Colors.white,
                         letterSpacing: 0.0,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w600,
                       ),
                   elevation: 3.0,
                   borderSide: const BorderSide(

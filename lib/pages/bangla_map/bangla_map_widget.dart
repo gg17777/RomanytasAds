@@ -108,8 +108,8 @@ class _BanglaMapWidgetState extends State<BanglaMapWidget> {
     });
 
     getCurrentUserLocation(defaultLocation: const LatLng(0.0, 0.0), cached: true)
-        .then((loc) => setState(() => currentUserLocationValue = loc));
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+        .then((loc) => safeSetState(() => currentUserLocationValue = loc));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -285,7 +285,7 @@ class _BanglaMapWidgetState extends State<BanglaMapWidget> {
                   intercepting: isWeb,
                   child: wrapWithModel(
                     model: _model.bottomNavBanglaModel,
-                    updateCallback: () => setState(() {}),
+                    updateCallback: () => safeSetState(() {}),
                     child: const BottomNavBanglaWidget(),
                   ),
                 ),

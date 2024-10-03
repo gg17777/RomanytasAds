@@ -3,6 +3,7 @@ import '/backend/backend.dart';
 import '/bottom_nav/bottom_nav_profilo/bottom_nav_profilo_widget.dart';
 import '/components/change_email/change_email_widget.dart';
 import '/components/change_name/change_name_widget.dart';
+import '/components/elimina_account_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -41,7 +42,7 @@ class _ImpostazioniAccountWidgetState extends State<ImpostazioniAccountWidget> {
       await actions.lockOrientation();
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -293,7 +294,7 @@ class _ImpostazioniAccountWidgetState extends State<ImpostazioniAccountWidget> {
                                           currentUserDocument?.notifications,
                                           false),
                                   onChanged: (newValue) async {
-                                    setState(() =>
+                                    safeSetState(() =>
                                         _model.checkboxValue1 = newValue!);
                                   },
                                   side: BorderSide(
@@ -356,7 +357,7 @@ class _ImpostazioniAccountWidgetState extends State<ImpostazioniAccountWidget> {
                                             currentUserDocument?.marketing,
                                             false),
                                     onChanged: (newValue) async {
-                                      setState(() =>
+                                      safeSetState(() =>
                                           _model.checkboxValue2 = newValue!);
                                     },
                                     side: BorderSide(
@@ -500,15 +501,24 @@ class _ImpostazioniAccountWidgetState extends State<ImpostazioniAccountWidget> {
                               onTap: () async {
                                 logFirebaseEvent(
                                     'IMPOSTAZIONI_ACCOUNT_Text_n64nxnqf_ON_TA');
-                                logFirebaseEvent('Text_auth');
-                                await authManager.deleteUser(context);
-                                logFirebaseEvent('Text_auth');
-                                GoRouter.of(context).prepareAuthEvent();
-                                await authManager.signOut();
-                                GoRouter.of(context).clearRedirectLocation();
-
-                                context.goNamedAuth(
-                                    'eventiHome', context.mounted);
+                                logFirebaseEvent('Text_bottom_sheet');
+                                await showModalBottomSheet(
+                                  isScrollControlled: true,
+                                  backgroundColor: Colors.transparent,
+                                  enableDrag: false,
+                                  context: context,
+                                  builder: (context) {
+                                    return GestureDetector(
+                                      onTap: () =>
+                                          FocusScope.of(context).unfocus(),
+                                      child: Padding(
+                                        padding:
+                                            MediaQuery.viewInsetsOf(context),
+                                        child: const EliminaAccountWidget(),
+                                      ),
+                                    );
+                                  },
+                                ).then((value) => safeSetState(() {}));
                               },
                               child: Text(
                                 'Elimina account',
@@ -534,7 +544,7 @@ class _ImpostazioniAccountWidgetState extends State<ImpostazioniAccountWidget> {
                 alignment: const AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
                   model: _model.bottomNavProfiloModel,
-                  updateCallback: () => setState(() {}),
+                  updateCallback: () => safeSetState(() {}),
                   child: const BottomNavProfiloWidget(),
                 ),
               ),

@@ -7,7 +7,6 @@ class SegnalazioneNasoniModel
     extends FlutterFlowModel<SegnalazioneNasoniWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for PlacePicker widget.
   FFPlace placePickerValue = const FFPlace();
   // Model for bottomNavNasoni component.

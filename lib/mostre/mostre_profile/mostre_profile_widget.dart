@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_static_map.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/mostre/orari_mostra/orari_mostra_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:mapbox_search/mapbox_search.dart' as mapbox;
 import 'package:auto_size_text/auto_size_text.dart';
@@ -57,11 +58,6 @@ class _MostreProfileWidgetState extends State<MostreProfileWidget>
       );
     });
 
-    _model.tabBarController = TabController(
-      vsync: this,
-      length: 2,
-      initialIndex: 0,
-    )..addListener(() => setState(() {}));
     animationsMap.addAll({
       'iconOnActionTriggerAnimation': AnimationInfo(
         trigger: AnimationTrigger.onActionTrigger,
@@ -84,7 +80,7 @@ class _MostreProfileWidgetState extends State<MostreProfileWidget>
       this,
     );
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -143,7 +139,7 @@ class _MostreProfileWidgetState extends State<MostreProfileWidget>
                   context.safePop();
                   logFirebaseEvent('IconButton_update_app_state');
                   FFAppState().eventiState = 'mostre';
-                  setState(() {});
+                  safeSetState(() {});
                 },
               ),
               title: Stack(
@@ -305,291 +301,176 @@ class _MostreProfileWidgetState extends State<MostreProfileWidget>
                       Expanded(
                         child: Stack(
                           children: [
-                            Column(
-                              children: [
-                                Align(
-                                  alignment: const Alignment(0.0, 0),
-                                  child: TabBar(
-                                    labelColor: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    unselectedLabelColor:
-                                        FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                    labelStyle: FlutterFlowTheme.of(context)
-                                        .titleMedium
-                                        .override(
-                                          fontFamily: 'Montserrat',
-                                          letterSpacing: 0.0,
-                                        ),
-                                    unselectedLabelStyle: const TextStyle(),
-                                    indicatorColor: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    tabs: const [
-                                      Tab(
-                                        text: 'Info',
-                                      ),
-                                      Tab(
-                                        text: 'Prezzi',
-                                      ),
-                                    ],
-                                    controller: _model.tabBarController,
-                                    onTap: (i) async {
-                                      [() async {}, () async {}][i]();
-                                    },
-                                  ),
-                                ),
-                                Expanded(
-                                  child: TabBarView(
-                                    controller: _model.tabBarController,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            20.0, 0.0, 20.0, 0.0),
-                                        child: SingleChildScrollView(
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Flexible(
-                                                child: Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 20.0, 0.0, 0.0),
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Flexible(
-                                                        child: Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              children: [
-                                                                Icon(
-                                                                  Icons
-                                                                      .access_time_rounded,
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryText,
-                                                                  size: 20.0,
-                                                                ),
-                                                                Flexible(
-                                                                  child:
-                                                                      Padding(
-                                                                    padding: const EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            11.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                    child: Text(
-                                                                      mostreProfileMostreRecord
-                                                                          .orario,
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Montserrat',
-                                                                            fontSize:
-                                                                                14.0,
-                                                                            letterSpacing:
-                                                                                0.0,
-                                                                            fontWeight:
-                                                                                FontWeight.w500,
-                                                                          ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              children: [
-                                                                Icon(
-                                                                  Icons
-                                                                      .location_on,
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primary,
-                                                                  size: 20.0,
-                                                                ),
-                                                                Padding(
-                                                                  padding: const EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          10.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                                  child: Text(
-                                                                    mostreProfileMostreRecord
-                                                                        .localita,
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Montserrat',
-                                                                          fontSize:
-                                                                              14.0,
-                                                                          letterSpacing:
-                                                                              0.0,
-                                                                          fontWeight:
-                                                                              FontWeight.w500,
-                                                                        ),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              children: [
-                                                                Icon(
-                                                                  Icons.museum,
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryText,
-                                                                  size: 20.0,
-                                                                ),
-                                                                Padding(
-                                                                  padding: const EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          10.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                                  child: Text(
-                                                                    mostreProfileMostreRecord
-                                                                        .categoriaMostre,
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Montserrat',
-                                                                          fontSize:
-                                                                              14.0,
-                                                                          letterSpacing:
-                                                                              0.0,
-                                                                          fontWeight:
-                                                                              FontWeight.w500,
-                                                                        ),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ].divide(const SizedBox(
-                                                              height: 20.0)),
-                                                        ),
-                                                      ),
-                                                      Column(
+                            SizedBox(
+                              width: double.infinity,
+                              height: MediaQuery.sizeOf(context).height * 1.0,
+                              child: Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 40.0),
+                                child: PageView(
+                                  controller: _model.pageViewController ??=
+                                      PageController(initialPage: 0),
+                                  onPageChanged: (_) async {
+                                    logFirebaseEvent(
+                                        'MOSTRE_PROFILE_PageView_91q1bblb_ON_WIDG');
+                                    logFirebaseEvent(
+                                        'PageView_update_page_state');
+                                    _model.pagina = !_model.pagina;
+                                    safeSetState(() {});
+                                  },
+                                  scrollDirection: Axis.horizontal,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          20.0, 50.0, 20.0, 0.0),
+                                      child: SingleChildScrollView(
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Flexible(
+                                              child: Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 20.0, 0.0, 0.0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Flexible(
+                                                      child: Column(
                                                         mainAxisSize:
                                                             MainAxisSize.max,
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
-                                                                .end,
+                                                                .start,
                                                         children: [
                                                           Row(
                                                             mainAxisSize:
                                                                 MainAxisSize
                                                                     .max,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .center,
                                                             children: [
-                                                              Text(
-                                                                'Dal ',
-                                                                style: FlutterFlowTheme.of(
+                                                              Icon(
+                                                                Icons
+                                                                    .access_time_rounded,
+                                                                color: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Montserrat',
-                                                                      fontSize:
-                                                                          16.0,
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                    ),
+                                                                    .primaryText,
+                                                                size: 20.0,
                                                               ),
                                                               Padding(
                                                                 padding:
                                                                     const EdgeInsetsDirectional
                                                                         .fromSTEB(
+                                                                            10.0,
                                                                             0.0,
                                                                             0.0,
-                                                                            3.0,
                                                                             0.0),
-                                                                child: Text(
-                                                                  dateTimeFormat(
-                                                                    "d",
-                                                                    mostreProfileMostreRecord
-                                                                        .dataInizio!,
-                                                                    locale: FFLocalizations.of(
+                                                                child: InkWell(
+                                                                  splashColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  focusColor: Colors
+                                                                      .transparent,
+                                                                  hoverColor: Colors
+                                                                      .transparent,
+                                                                  highlightColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  onTap:
+                                                                      () async {
+                                                                    logFirebaseEvent(
+                                                                        'MOSTRE_PROFILE_PAGE_Text_quzp0ni0_ON_TAP');
+                                                                    logFirebaseEvent(
+                                                                        'Text_bottom_sheet');
+                                                                    await showModalBottomSheet(
+                                                                      isScrollControlled:
+                                                                          true,
+                                                                      backgroundColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      enableDrag:
+                                                                          false,
+                                                                      context:
+                                                                          context,
+                                                                      builder:
+                                                                          (context) {
+                                                                        return GestureDetector(
+                                                                          onTap: () =>
+                                                                              FocusScope.of(context).unfocus(),
+                                                                          child:
+                                                                              Padding(
+                                                                            padding:
+                                                                                MediaQuery.viewInsetsOf(context),
+                                                                            child:
+                                                                                OrariMostraWidget(
+                                                                              mostraRef: widget.mostreRef!,
+                                                                            ),
+                                                                          ),
+                                                                        );
+                                                                      },
+                                                                    ).then((value) =>
+                                                                        safeSetState(
+                                                                            () {}));
+                                                                  },
+                                                                  child: Text(
+                                                                    'Vedi Orari',
+                                                                    style: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .languageCode,
+                                                                        .bodyMedium
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Montserrat',
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primary,
+                                                                          letterSpacing:
+                                                                              0.0,
+                                                                          fontWeight:
+                                                                              FontWeight.w600,
+                                                                        ),
                                                                   ),
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Montserrat',
-                                                                        fontSize:
-                                                                            16.0,
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                        fontWeight:
-                                                                            FontWeight.w600,
-                                                                      ),
                                                                 ),
                                                               ),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: [
+                                                              Icon(
+                                                                Icons
+                                                                    .location_on,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                                size: 20.0,
+                                                              ),
                                                               Padding(
                                                                 padding:
                                                                     const EdgeInsetsDirectional
                                                                         .fromSTEB(
+                                                                            10.0,
                                                                             0.0,
                                                                             0.0,
-                                                                            3.0,
                                                                             0.0),
                                                                 child: Text(
-                                                                  dateTimeFormat(
-                                                                    "MMM",
-                                                                    mostreProfileMostreRecord
-                                                                        .dataInizio!,
-                                                                    locale: FFLocalizations.of(
-                                                                            context)
-                                                                        .languageCode,
-                                                                  ),
+                                                                  mostreProfileMostreRecord
+                                                                      .localita,
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
                                                                       .bodyMedium
                                                                       .override(
                                                                         fontFamily:
                                                                             'Montserrat',
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primary,
                                                                         fontSize:
-                                                                            16.0,
+                                                                            14.0,
                                                                         letterSpacing:
                                                                             0.0,
                                                                         fontWeight:
-                                                                            FontWeight.w600,
+                                                                            FontWeight.w500,
                                                                       ),
                                                                 ),
                                                               ),
@@ -599,12 +480,94 @@ class _MostreProfileWidgetState extends State<MostreProfileWidget>
                                                             mainAxisSize:
                                                                 MainAxisSize
                                                                     .max,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .center,
                                                             children: [
-                                                              Text(
-                                                                'al ',
+                                                              Icon(
+                                                                Icons.museum,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryText,
+                                                                size: 20.0,
+                                                              ),
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            10.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                child: Text(
+                                                                  mostreProfileMostreRecord
+                                                                      .categoriaMostre,
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Montserrat',
+                                                                        fontSize:
+                                                                            14.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                      ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ].divide(const SizedBox(
+                                                            height: 20.0)),
+                                                      ),
+                                                    ),
+                                                    Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .end,
+                                                      children: [
+                                                        Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Text(
+                                                              'Dal ',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Montserrat',
+                                                                    fontSize:
+                                                                        16.0,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                  ),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          3.0,
+                                                                          0.0),
+                                                              child: Text(
+                                                                dateTimeFormat(
+                                                                  "d",
+                                                                  mostreProfileMostreRecord
+                                                                      .dataInizio!,
+                                                                  locale: FFLocalizations.of(
+                                                                          context)
+                                                                      .languageCode,
+                                                                ),
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyMedium
@@ -617,48 +580,23 @@ class _MostreProfileWidgetState extends State<MostreProfileWidget>
                                                                           0.0,
                                                                       fontWeight:
                                                                           FontWeight
-                                                                              .w500,
+                                                                              .w600,
                                                                     ),
                                                               ),
-                                                              Padding(
-                                                                padding:
-                                                                    const EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            3.0,
-                                                                            0.0),
-                                                                child: Text(
-                                                                  dateTimeFormat(
-                                                                    "d",
-                                                                    mostreProfileMostreRecord
-                                                                        .dataFine!,
-                                                                    locale: FFLocalizations.of(
-                                                                            context)
-                                                                        .languageCode,
-                                                                  ),
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Montserrat',
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
-                                                                        fontSize:
-                                                                            16.0,
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                        fontWeight:
-                                                                            FontWeight.w600,
-                                                                      ),
-                                                                ),
-                                                              ),
-                                                              Text(
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          3.0,
+                                                                          0.0),
+                                                              child: Text(
                                                                 dateTimeFormat(
                                                                   "MMM",
                                                                   mostreProfileMostreRecord
-                                                                      .dataFine!,
+                                                                      .dataInizio!,
                                                                   locale: FFLocalizations.of(
                                                                           context)
                                                                       .languageCode,
@@ -681,67 +619,362 @@ class _MostreProfileWidgetState extends State<MostreProfileWidget>
                                                                               .w600,
                                                                     ),
                                                               ),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Text(
+                                                              'al ',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Montserrat',
+                                                                    fontSize:
+                                                                        16.0,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                  ),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          3.0,
+                                                                          0.0),
+                                                              child: Text(
+                                                                dateTimeFormat(
+                                                                  "d",
+                                                                  mostreProfileMostreRecord
+                                                                      .dataFine!,
+                                                                  locale: FFLocalizations.of(
+                                                                          context)
+                                                                      .languageCode,
+                                                                ),
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Montserrat',
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryText,
+                                                                      fontSize:
+                                                                          16.0,
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w600,
+                                                                    ),
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              dateTimeFormat(
+                                                                "MMM",
+                                                                mostreProfileMostreRecord
+                                                                    .dataFine!,
+                                                                locale: FFLocalizations.of(
+                                                                        context)
+                                                                    .languageCode,
+                                                              ),
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Montserrat',
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primary,
+                                                                    fontSize:
+                                                                        16.0,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                  ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
-                                              Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 15.0, 0.0, 0.0),
-                                                child: InkWell(
-                                                  splashColor:
-                                                      Colors.transparent,
-                                                  focusColor:
-                                                      Colors.transparent,
-                                                  hoverColor:
-                                                      Colors.transparent,
-                                                  highlightColor:
-                                                      Colors.transparent,
-                                                  onTap: () async {
-                                                    logFirebaseEvent(
-                                                        'MOSTRE_PROFILE_PAGE_Row_3aepn38p_ON_TAP');
-                                                    await Future.wait([
-                                                      Future(() async {
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      0.0, 15.0, 0.0, 0.0),
+                                              child: InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  logFirebaseEvent(
+                                                      'MOSTRE_PROFILE_PAGE_Row_xrhrt987_ON_TAP');
+                                                  await Future.wait([
+                                                    Future(() async {
+                                                      logFirebaseEvent(
+                                                          'Row_update_page_state');
+                                                      _model.descrizione =
+                                                          !_model.descrizione;
+                                                      safeSetState(() {});
+                                                    }),
+                                                    Future(() async {
+                                                      if (_model.descrizione) {
                                                         logFirebaseEvent(
-                                                            'Row_update_page_state');
-                                                        _model.descrizione =
-                                                            !_model.descrizione;
-                                                        setState(() {});
-                                                      }),
-                                                      Future(() async {
-                                                        if (_model
-                                                            .descrizione) {
-                                                          logFirebaseEvent(
-                                                              'Row_widget_animation');
-                                                          if (animationsMap[
-                                                                  'iconOnActionTriggerAnimation'] !=
-                                                              null) {
-                                                            await animationsMap[
-                                                                    'iconOnActionTriggerAnimation']!
-                                                                .controller
-                                                                .forward(
-                                                                    from: 0.0);
-                                                          }
-                                                        } else {
-                                                          logFirebaseEvent(
-                                                              'Row_widget_animation');
-                                                          if (animationsMap[
-                                                                  'iconOnActionTriggerAnimation'] !=
-                                                              null) {
-                                                            await animationsMap[
-                                                                    'iconOnActionTriggerAnimation']!
-                                                                .controller
-                                                                .reverse();
-                                                          }
+                                                            'Row_widget_animation');
+                                                        if (animationsMap[
+                                                                'iconOnActionTriggerAnimation'] !=
+                                                            null) {
+                                                          await animationsMap[
+                                                                  'iconOnActionTriggerAnimation']!
+                                                              .controller
+                                                              .forward(
+                                                                  from: 0.0);
                                                         }
-                                                      }),
-                                                    ]);
-                                                  },
+                                                      } else {
+                                                        logFirebaseEvent(
+                                                            'Row_widget_animation');
+                                                        if (animationsMap[
+                                                                'iconOnActionTriggerAnimation'] !=
+                                                            null) {
+                                                          await animationsMap[
+                                                                  'iconOnActionTriggerAnimation']!
+                                                              .controller
+                                                              .reverse();
+                                                        }
+                                                      }
+                                                    }),
+                                                  ]);
+                                                },
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Align(
+                                                      alignment:
+                                                          const AlignmentDirectional(
+                                                              -1.0, 0.0),
+                                                      child: Text(
+                                                        'Descrizione',
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                        style: FlutterFlowTheme
+                                                                .of(context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              fontFamily:
+                                                                  'Montserrat',
+                                                              fontSize: 17.0,
+                                                              letterSpacing:
+                                                                  0.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                            ),
+                                                      ),
+                                                    ),
+                                                    Icon(
+                                                      Icons
+                                                          .keyboard_arrow_down_outlined,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondaryText,
+                                                      size: 24.0,
+                                                    ).animateOnActionTrigger(
+                                                      animationsMap[
+                                                          'iconOnActionTriggerAnimation']!,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            Stack(
+                                              children: [
+                                                if (!_model.descrizione)
+                                                  Align(
+                                                    alignment:
+                                                        const AlignmentDirectional(
+                                                            -1.0, 0.0),
+                                                    child: InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        logFirebaseEvent(
+                                                            'MOSTRE_PROFILE_PAGE_Text_xxazef0g_ON_TAP');
+                                                        await Future.wait([
+                                                          Future(() async {
+                                                            logFirebaseEvent(
+                                                                'Text_update_page_state');
+                                                            _model.descrizione =
+                                                                !_model
+                                                                    .descrizione;
+                                                            safeSetState(() {});
+                                                          }),
+                                                          Future(() async {
+                                                            if (_model
+                                                                .descrizione) {
+                                                              logFirebaseEvent(
+                                                                  'Text_widget_animation');
+                                                              if (animationsMap[
+                                                                      'iconOnActionTriggerAnimation'] !=
+                                                                  null) {
+                                                                await animationsMap[
+                                                                        'iconOnActionTriggerAnimation']!
+                                                                    .controller
+                                                                    .forward(
+                                                                        from:
+                                                                            0.0);
+                                                              }
+                                                            } else {
+                                                              logFirebaseEvent(
+                                                                  'Text_widget_animation');
+                                                              if (animationsMap[
+                                                                      'iconOnActionTriggerAnimation'] !=
+                                                                  null) {
+                                                                await animationsMap[
+                                                                        'iconOnActionTriggerAnimation']!
+                                                                    .controller
+                                                                    .reverse();
+                                                              }
+                                                            }
+                                                          }),
+                                                        ]);
+                                                      },
+                                                      child: Text(
+                                                        mostreProfileMostreRecord
+                                                            .descrizione
+                                                            .maybeHandleOverflow(
+                                                          maxChars: 400,
+                                                          replacement: '…',
+                                                        ),
+                                                        maxLines: 6,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Montserrat',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                if (_model.descrizione)
+                                                  Align(
+                                                    alignment:
+                                                        const AlignmentDirectional(
+                                                            -1.0, 0.0),
+                                                    child: InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        logFirebaseEvent(
+                                                            'MOSTRE_PROFILE_PAGE_Text2_ON_TAP');
+                                                        await Future.wait([
+                                                          Future(() async {
+                                                            logFirebaseEvent(
+                                                                'Text2_update_page_state');
+                                                            _model.descrizione =
+                                                                !_model
+                                                                    .descrizione;
+                                                            safeSetState(() {});
+                                                          }),
+                                                          Future(() async {
+                                                            if (_model
+                                                                .descrizione) {
+                                                              logFirebaseEvent(
+                                                                  'Text2_widget_animation');
+                                                              if (animationsMap[
+                                                                      'iconOnActionTriggerAnimation'] !=
+                                                                  null) {
+                                                                await animationsMap[
+                                                                        'iconOnActionTriggerAnimation']!
+                                                                    .controller
+                                                                    .forward(
+                                                                        from:
+                                                                            0.0);
+                                                              }
+                                                            } else {
+                                                              logFirebaseEvent(
+                                                                  'Text2_widget_animation');
+                                                              if (animationsMap[
+                                                                      'iconOnActionTriggerAnimation'] !=
+                                                                  null) {
+                                                                await animationsMap[
+                                                                        'iconOnActionTriggerAnimation']!
+                                                                    .controller
+                                                                    .reverse();
+                                                              }
+                                                            }
+                                                          }),
+                                                        ]);
+                                                      },
+                                                      child: Text(
+                                                        mostreProfileMostreRecord
+                                                            .descrizione,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Montserrat',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                              ],
+                                            ),
+                                            if ((mostreProfileMostreRecord
+                                                        .organizzatore ==
+                                                    null) ||
+                                                !mostreProfileMostreRecord
+                                                    .organizzatore)
+                                              Flexible(
+                                                child: Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 20.0, 0.0, 0.0),
                                                   child: Row(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
@@ -749,200 +982,277 @@ class _MostreProfileWidgetState extends State<MostreProfileWidget>
                                                         MainAxisAlignment
                                                             .spaceBetween,
                                                     children: [
-                                                      Align(
-                                                        alignment:
-                                                            const AlignmentDirectional(
-                                                                -1.0, 0.0),
+                                                      Flexible(
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              children: [
+                                                                Container(
+                                                                  width: 40.0,
+                                                                  height: 40.0,
+                                                                  clipBehavior:
+                                                                      Clip.antiAlias,
+                                                                  decoration:
+                                                                      const BoxDecoration(
+                                                                    shape: BoxShape
+                                                                        .circle,
+                                                                  ),
+                                                                  child: Image
+                                                                      .network(
+                                                                    mostreProfileMostreRecord
+                                                                        .imgLocale,
+                                                                    fit: BoxFit
+                                                                        .cover,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            Flexible(
+                                                              child: Padding(
+                                                                padding:
+                                                                    const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            10.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                child: Column(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    Align(
+                                                                      alignment:
+                                                                          const AlignmentDirectional(
+                                                                              -1.0,
+                                                                              0.0),
+                                                                      child:
+                                                                          AutoSizeText(
+                                                                        mostreProfileMostreRecord
+                                                                            .locale,
+                                                                        maxLines:
+                                                                            1,
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              fontFamily: 'Montserrat',
+                                                                              fontSize: 16.0,
+                                                                              letterSpacing: 0.0,
+                                                                              fontWeight: FontWeight.w600,
+                                                                            ),
+                                                                      ),
+                                                                    ),
+                                                                    Text(
+                                                                      mostreProfileMostreRecord
+                                                                          .addressText
+                                                                          .maybeHandleOverflow(
+                                                                        maxChars:
+                                                                            30,
+                                                                        replacement:
+                                                                            '…',
+                                                                      ),
+                                                                      maxLines:
+                                                                          1,
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Montserrat',
+                                                                            fontSize:
+                                                                                12.0,
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                          ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      InkWell(
+                                                        splashColor:
+                                                            Colors.transparent,
+                                                        focusColor:
+                                                            Colors.transparent,
+                                                        hoverColor:
+                                                            Colors.transparent,
+                                                        highlightColor:
+                                                            Colors.transparent,
+                                                        onTap: () async {
+                                                          logFirebaseEvent(
+                                                              'MOSTRE_PROFILE_PAGE_Text_233i46gu_ON_TAP');
+                                                          logFirebaseEvent(
+                                                              'Text_launch_u_r_l');
+                                                          await launchURL(
+                                                              mostreProfileMostreRecord
+                                                                  .urlMaps);
+                                                        },
                                                         child: Text(
-                                                          'Descrizione',
-                                                          textAlign:
-                                                              TextAlign.start,
+                                                          'Portami li',
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .bodyMedium
                                                               .override(
                                                                 fontFamily:
                                                                     'Montserrat',
-                                                                fontSize: 17.0,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                                fontSize: 14.0,
                                                                 letterSpacing:
                                                                     0.0,
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .w600,
+                                                                        .bold,
                                                               ),
                                                         ),
-                                                      ),
-                                                      Icon(
-                                                        Icons
-                                                            .keyboard_arrow_down_outlined,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
-                                                        size: 24.0,
-                                                      ).animateOnActionTrigger(
-                                                        animationsMap[
-                                                            'iconOnActionTriggerAnimation']!,
                                                       ),
                                                     ],
                                                   ),
                                                 ),
                                               ),
-                                              Stack(
-                                                children: [
-                                                  if (!_model.descrizione)
-                                                    Align(
-                                                      alignment:
-                                                          const AlignmentDirectional(
-                                                              -1.0, 0.0),
-                                                      child: InkWell(
-                                                        splashColor:
-                                                            Colors.transparent,
-                                                        focusColor:
-                                                            Colors.transparent,
-                                                        hoverColor:
-                                                            Colors.transparent,
-                                                        highlightColor:
-                                                            Colors.transparent,
-                                                        onTap: () async {
-                                                          logFirebaseEvent(
-                                                              'MOSTRE_PROFILE_PAGE_Text_1z65ix4e_ON_TAP');
-                                                          await Future.wait([
-                                                            Future(() async {
-                                                              logFirebaseEvent(
-                                                                  'Text_update_page_state');
-                                                              _model.descrizione =
-                                                                  !_model
-                                                                      .descrizione;
-                                                              setState(() {});
-                                                            }),
-                                                            Future(() async {
-                                                              if (_model
-                                                                  .descrizione) {
-                                                                logFirebaseEvent(
-                                                                    'Text_widget_animation');
-                                                                if (animationsMap[
-                                                                        'iconOnActionTriggerAnimation'] !=
-                                                                    null) {
-                                                                  await animationsMap[
-                                                                          'iconOnActionTriggerAnimation']!
-                                                                      .controller
-                                                                      .forward(
-                                                                          from:
-                                                                              0.0);
-                                                                }
-                                                              } else {
-                                                                logFirebaseEvent(
-                                                                    'Text_widget_animation');
-                                                                if (animationsMap[
-                                                                        'iconOnActionTriggerAnimation'] !=
-                                                                    null) {
-                                                                  await animationsMap[
-                                                                          'iconOnActionTriggerAnimation']!
-                                                                      .controller
-                                                                      .reverse();
-                                                                }
-                                                              }
-                                                            }),
-                                                          ]);
-                                                        },
-                                                        child: Text(
-                                                          mostreProfileMostreRecord
-                                                              .descrizione
-                                                              .maybeHandleOverflow(
-                                                            maxChars: 400,
-                                                            replacement: '…',
-                                                          ),
-                                                          maxLines: 6,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Montserrat',
-                                                                letterSpacing:
-                                                                    0.0,
-                                                              ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  if (_model.descrizione)
-                                                    Align(
-                                                      alignment:
-                                                          const AlignmentDirectional(
-                                                              -1.0, 0.0),
-                                                      child: InkWell(
-                                                        splashColor:
-                                                            Colors.transparent,
-                                                        focusColor:
-                                                            Colors.transparent,
-                                                        hoverColor:
-                                                            Colors.transparent,
-                                                        highlightColor:
-                                                            Colors.transparent,
-                                                        onTap: () async {
-                                                          logFirebaseEvent(
-                                                              'MOSTRE_PROFILE_PAGE_Text2_ON_TAP');
-                                                          await Future.wait([
-                                                            Future(() async {
-                                                              logFirebaseEvent(
-                                                                  'Text2_update_page_state');
-                                                              _model.descrizione =
-                                                                  !_model
-                                                                      .descrizione;
-                                                              setState(() {});
-                                                            }),
-                                                            Future(() async {
-                                                              if (_model
-                                                                  .descrizione) {
-                                                                logFirebaseEvent(
-                                                                    'Text2_widget_animation');
-                                                                if (animationsMap[
-                                                                        'iconOnActionTriggerAnimation'] !=
-                                                                    null) {
-                                                                  await animationsMap[
-                                                                          'iconOnActionTriggerAnimation']!
-                                                                      .controller
-                                                                      .forward(
-                                                                          from:
-                                                                              0.0);
-                                                                }
-                                                              } else {
-                                                                logFirebaseEvent(
-                                                                    'Text2_widget_animation');
-                                                                if (animationsMap[
-                                                                        'iconOnActionTriggerAnimation'] !=
-                                                                    null) {
-                                                                  await animationsMap[
-                                                                          'iconOnActionTriggerAnimation']!
-                                                                      .controller
-                                                                      .reverse();
-                                                                }
-                                                              }
-                                                            }),
-                                                          ]);
-                                                        },
-                                                        child: Text(
-                                                          mostreProfileMostreRecord
-                                                              .descrizione,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Montserrat',
-                                                                letterSpacing:
-                                                                    0.0,
-                                                              ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                ],
-                                              ),
+                                            if (mostreProfileMostreRecord
+                                                .organizzatore)
                                               Padding(
                                                 padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 20.0, 0.0, 0.0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        Container(
+                                                          width: 40.0,
+                                                          height: 40.0,
+                                                          clipBehavior:
+                                                              Clip.antiAlias,
+                                                          decoration:
+                                                              const BoxDecoration(
+                                                            shape:
+                                                                BoxShape.circle,
+                                                          ),
+                                                          child: Image.network(
+                                                            mostreProfileMostreRecord
+                                                                .organizzatoreImg,
+                                                            fit: BoxFit.cover,
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      10.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0),
+                                                          child: Text(
+                                                            mostreProfileMostreRecord
+                                                                .organizzatoreName,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Montserrat',
+                                                                  fontSize:
+                                                                      16.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Text(
+                                                      'Organizzatore',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily:
+                                                                'Montserrat',
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primary,
+                                                            fontSize: 12.0,
+                                                            letterSpacing: 0.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      10.0, 20.0, 10.0, 0.0),
+                                              child: InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  logFirebaseEvent(
+                                                      'MOSTRE_PROFILE_StaticMap_8huazf6n_ON_TAP');
+                                                  logFirebaseEvent(
+                                                      'StaticMap_launch_u_r_l');
+                                                  await launchURL(
+                                                      mostreProfileMostreRecord
+                                                          .urlMaps);
+                                                },
+                                                child: FlutterFlowStaticMap(
+                                                  location:
+                                                      mostreProfileMostreRecord
+                                                          .indirizzo!,
+                                                  apiKey:
+                                                      'pk.eyJ1Ijoicm9tYW55dGFzIiwiYSI6ImNsdXd3YTYzYTBnZXMyaWxrcHllaGxybHoifQ.CM6omCc5VSoYbe94Y596NQ',
+                                                  style: mapbox
+                                                      .MapBoxStyle.Outdoors,
+                                                  width: double.infinity,
+                                                  height: 120.0,
+                                                  fit: BoxFit.cover,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                  markerColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .primary,
+                                                  zoom: 12,
+                                                  tilt: 0,
+                                                  rotation: 0,
+                                                ),
+                                              ),
+                                            ),
+                                            if (mostreProfileMostreRecord
+                                                .organizzatore)
+                                              Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 10.0, 0.0, 0.0),
                                                 child: Row(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
@@ -1056,7 +1366,7 @@ class _MostreProfileWidgetState extends State<MostreProfileWidget>
                                                           Colors.transparent,
                                                       onTap: () async {
                                                         logFirebaseEvent(
-                                                            'MOSTRE_PROFILE_PAGE_Text_uw414lxq_ON_TAP');
+                                                            'MOSTRE_PROFILE_PAGE_Text_fu464ven_ON_TAP');
                                                         logFirebaseEvent(
                                                             'Text_launch_u_r_l');
                                                         await launchURL(
@@ -1088,108 +1398,71 @@ class _MostreProfileWidgetState extends State<MostreProfileWidget>
                                                   ],
                                                 ),
                                               ),
-                                              Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        10.0, 20.0, 10.0, 10.0),
-                                                child: InkWell(
-                                                  splashColor:
-                                                      Colors.transparent,
-                                                  focusColor:
-                                                      Colors.transparent,
-                                                  hoverColor:
-                                                      Colors.transparent,
-                                                  highlightColor:
-                                                      Colors.transparent,
-                                                  onTap: () async {
-                                                    logFirebaseEvent(
-                                                        'MOSTRE_PROFILE_StaticMap_9i5ro74w_ON_TAP');
-                                                    logFirebaseEvent(
-                                                        'StaticMap_launch_u_r_l');
-                                                    await launchURL(
-                                                        mostreProfileMostreRecord
-                                                            .urlMaps);
-                                                  },
-                                                  child: FlutterFlowStaticMap(
-                                                    location:
-                                                        mostreProfileMostreRecord
-                                                            .indirizzo!,
-                                                    apiKey:
-                                                        'pk.eyJ1Ijoicm9tYW55dGFzIiwiYSI6ImNsdXd3YTYzYTBnZXMyaWxrcHllaGxybHoifQ.CM6omCc5VSoYbe94Y596NQ',
-                                                    style: mapbox
-                                                        .MapBoxStyle.Outdoors,
-                                                    width: double.infinity,
-                                                    height: 120.0,
-                                                    fit: BoxFit.cover,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8.0),
-                                                    markerColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .primary,
-                                                    zoom: 12,
-                                                    tilt: 0,
-                                                    rotation: 0,
-                                                  ),
-                                                ),
-                                              ),
-                                            ].addToEnd(const SizedBox(height: 110.0)),
-                                          ),
+                                          ].addToEnd(const SizedBox(height: 110.0)),
                                         ),
                                       ),
-                                      SingleChildScrollView(
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Align(
-                                              alignment: const AlignmentDirectional(
-                                                  -1.0, 0.0),
-                                              child: Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        20.0, 20.0, 0.0, 0.0),
-                                                child: Text(
-                                                  'Biglietti',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Montserrat',
-                                                        fontSize: 20.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 50.0, 0.0, 0.0),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          SingleChildScrollView(
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Align(
+                                                  alignment:
+                                                      const AlignmentDirectional(
+                                                          -1.0, 0.0),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(20.0,
+                                                                20.0, 0.0, 0.0),
+                                                    child: Text(
+                                                      'Biglietti',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily:
+                                                                'Montserrat',
+                                                            fontSize: 20.0,
+                                                            letterSpacing: 0.0,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                          ),
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      20.0, 20.0, 20.0, 0.0),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Column(
+                                                Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(20.0, 20.0,
+                                                          20.0, 0.0),
+                                                  child: Row(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
                                                     crossAxisAlignment:
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
-                                                      Text(
-                                                        mostreProfileMostreRecord
-                                                            .ingresso1,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
+                                                      Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            mostreProfileMostreRecord
+                                                                .ingresso1,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
                                                                 .bodyMedium
                                                                 .override(
                                                                   fontFamily:
@@ -1200,355 +1473,429 @@ class _MostreProfileWidgetState extends State<MostreProfileWidget>
                                                                       FontWeight
                                                                           .w600,
                                                                 ),
+                                                          ),
+                                                          Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: [
+                                                              Text(
+                                                                mostreProfileMostreRecord
+                                                                    .ingresso1Descrizione,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Montserrat',
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                    ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ],
                                                       ),
                                                       Row(
                                                         mainAxisSize:
                                                             MainAxisSize.max,
                                                         children: [
-                                                          Text(
-                                                            mostreProfileMostreRecord
-                                                                .ingresso1Descrizione,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Montserrat',
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      if (mostreProfileMostreRecord
-                                                                  .ingresso1Prezzo !=
-                                                              '')
-                                                        Text(
-                                                          '€',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Montserrat',
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                              ),
-                                                        ),
-                                                      Stack(
-                                                        children: [
-                                                          Text(
-                                                            mostreProfileMostreRecord
-                                                                .ingresso1Prezzo,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Montserrat',
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                ),
-                                                          ),
                                                           if (mostreProfileMostreRecord
-                                                                      .ingresso1Prezzo ==
+                                                                      .ingresso1Prezzo !=
                                                                   '')
                                                             Text(
-                                                              'Gratis',
+                                                              '€',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyMedium
                                                                   .override(
                                                                     fontFamily:
                                                                         'Montserrat',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
                                                                     letterSpacing:
                                                                         0.0,
                                                                     fontWeight:
                                                                         FontWeight
-                                                                            .bold,
+                                                                            .w500,
                                                                   ),
                                                             ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      20.0, 20.0, 20.0, 0.0),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        mostreProfileMostreRecord
-                                                            .ingresso2,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Montserrat',
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
+                                                          Stack(
+                                                            children: [
+                                                              Text(
+                                                                mostreProfileMostreRecord
+                                                                    .ingresso1Prezzo,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Montserrat',
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                    ),
+                                                              ),
+                                                              if (mostreProfileMostreRecord
+                                                                          .ingresso1Prezzo ==
+                                                                      '')
+                                                                Text(
+                                                                  'Gratis',
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Montserrat',
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primary,
+                                                                        fontSize:
+                                                                            16.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        fontWeight:
+                                                                            FontWeight.bold,
+                                                                      ),
                                                                 ),
-                                                      ),
-                                                      Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          Text(
-                                                            mostreProfileMostreRecord
-                                                                .ingresso2Descrizione,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Montserrat',
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                ),
+                                                            ],
                                                           ),
                                                         ],
                                                       ),
                                                     ],
-                                                  ),
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      if (mostreProfileMostreRecord
-                                                                  .ingresso2Prezzo !=
-                                                              '')
-                                                        Text(
-                                                          '€',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Montserrat',
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                              ),
-                                                        ),
-                                                      Text(
-                                                        mostreProfileMostreRecord
-                                                            .ingresso2Prezzo,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Montserrat',
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      20.0, 20.0, 20.0, 0.0),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        mostreProfileMostreRecord
-                                                            .ingresso3,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Montserrat',
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                ),
-                                                      ),
-                                                      Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          Text(
-                                                            mostreProfileMostreRecord
-                                                                .ingressiGratisDescrizione,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Montserrat',
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      if (mostreProfileMostreRecord
-                                                                  .ingresso3Prezzo !=
-                                                              '')
-                                                        Text(
-                                                          '€',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Montserrat',
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                              ),
-                                                        ),
-                                                      Text(
-                                                        mostreProfileMostreRecord
-                                                            .ingresso3Prezzo,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Montserrat',
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            if (mostreProfileMostreRecord
-                                                .biglietti)
-                                              Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 50.0, 0.0, 0.0),
-                                                child: FFButtonWidget(
-                                                  onPressed: () async {
-                                                    logFirebaseEvent(
-                                                        'MOSTRE_PROFILE_PAGE_BIGLIETTI_BTN_ON_TAP');
-                                                    logFirebaseEvent(
-                                                        'Button_launch_u_r_l');
-                                                    await launchURL(
-                                                        mostreProfileMostreRecord
-                                                            .urlBiglietti);
-                                                  },
-                                                  text: 'Biglietti',
-                                                  options: FFButtonOptions(
-                                                    height: 40.0,
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(32.0, 0.0,
-                                                                32.0, 0.0),
-                                                    iconPadding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                0.0, 0.0),
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primary,
-                                                    textStyle: FlutterFlowTheme
-                                                            .of(context)
-                                                        .titleSmall
-                                                        .override(
-                                                          fontFamily:
-                                                              'Montserrat',
-                                                          color: Colors.white,
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                                    elevation: 3.0,
-                                                    borderSide: const BorderSide(
-                                                      color: Colors.transparent,
-                                                      width: 1.0,
-                                                    ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            24.0),
                                                   ),
                                                 ),
-                                              ),
-                                          ].addToEnd(const SizedBox(height: 100.0)),
-                                        ),
+                                                Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(20.0, 20.0,
+                                                          20.0, 0.0),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            mostreProfileMostreRecord
+                                                                .ingresso2,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Montserrat',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                ),
+                                                          ),
+                                                          Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: [
+                                                              Text(
+                                                                mostreProfileMostreRecord
+                                                                    .ingresso2Descrizione,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Montserrat',
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                    ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          if (mostreProfileMostreRecord
+                                                                      .ingresso2Prezzo !=
+                                                                  '')
+                                                            Text(
+                                                              '€',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Montserrat',
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                  ),
+                                                            ),
+                                                          Stack(
+                                                            children: [
+                                                              Text(
+                                                                mostreProfileMostreRecord
+                                                                    .ingresso2Prezzo,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Montserrat',
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                    ),
+                                                              ),
+                                                              if ((mostreProfileMostreRecord
+                                                                              .ingresso2 !=
+                                                                          '') &&
+                                                                  (mostreProfileMostreRecord
+                                                                              .ingresso2Prezzo ==
+                                                                          ''))
+                                                                Text(
+                                                                  'Gratis',
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Montserrat',
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primary,
+                                                                        fontSize:
+                                                                            16.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        fontWeight:
+                                                                            FontWeight.bold,
+                                                                      ),
+                                                                ),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(20.0, 20.0,
+                                                          20.0, 0.0),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            mostreProfileMostreRecord
+                                                                .ingresso3,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Montserrat',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                ),
+                                                          ),
+                                                          Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: [
+                                                              Text(
+                                                                mostreProfileMostreRecord
+                                                                    .ingressiGratisDescrizione,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Montserrat',
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                    ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          if (mostreProfileMostreRecord
+                                                                      .ingresso3Prezzo !=
+                                                                  '')
+                                                            Text(
+                                                              '€',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Montserrat',
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                  ),
+                                                            ),
+                                                          Stack(
+                                                            children: [
+                                                              Text(
+                                                                mostreProfileMostreRecord
+                                                                    .ingresso3Prezzo,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Montserrat',
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                    ),
+                                                              ),
+                                                              if ((mostreProfileMostreRecord
+                                                                              .ingresso3 !=
+                                                                          '') &&
+                                                                  (mostreProfileMostreRecord
+                                                                              .ingresso3Prezzo ==
+                                                                          ''))
+                                                                Text(
+                                                                  'Gratis',
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Montserrat',
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primary,
+                                                                        fontSize:
+                                                                            16.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        fontWeight:
+                                                                            FontWeight.bold,
+                                                                      ),
+                                                                ),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                if (mostreProfileMostreRecord
+                                                    .biglietti)
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 50.0,
+                                                                0.0, 0.0),
+                                                    child: FFButtonWidget(
+                                                      onPressed: () async {
+                                                        logFirebaseEvent(
+                                                            'MOSTRE_PROFILE_PAGE_BIGLIETTI_BTN_ON_TAP');
+                                                        logFirebaseEvent(
+                                                            'Button_launch_u_r_l');
+                                                        await launchURL(
+                                                            mostreProfileMostreRecord
+                                                                .urlBiglietti);
+                                                      },
+                                                      text: 'Biglietti',
+                                                      options: FFButtonOptions(
+                                                        height: 40.0,
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    32.0,
+                                                                    0.0,
+                                                                    32.0,
+                                                                    0.0),
+                                                        iconPadding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                        textStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleSmall
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Montserrat',
+                                                                  color: Colors
+                                                                      .white,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                        elevation: 3.0,
+                                                        borderSide: const BorderSide(
+                                                          color: Colors
+                                                              .transparent,
+                                                          width: 1.0,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(24.0),
+                                                      ),
+                                                    ),
+                                                  ),
+                                              ].addToEnd(
+                                                  const SizedBox(height: 100.0)),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                              ],
+                              ),
                             ),
                             Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
@@ -1562,19 +1909,17 @@ class _MostreProfileWidgetState extends State<MostreProfileWidget>
                                     onPressed: () async {
                                       logFirebaseEvent(
                                           'MOSTRE_PROFILE_PAGE_INFO_BTN_ON_TAP');
-                                      logFirebaseEvent('Button_tab_bar');
-                                      setState(() {
-                                        _model.tabBarController!.animateTo(
-                                          0,
-                                          duration: const Duration(milliseconds: 300),
-                                          curve: Curves.ease,
-                                        );
-                                      });
-
+                                      logFirebaseEvent('Button_page_view');
+                                      await _model.pageViewController
+                                          ?.animateToPage(
+                                        0,
+                                        duration: const Duration(milliseconds: 500),
+                                        curve: Curves.ease,
+                                      );
                                       logFirebaseEvent(
                                           'Button_update_page_state');
-                                      _model.pagina = 'Info';
-                                      setState(() {});
+                                      _model.pagina = false;
+                                      safeSetState(() {});
                                     },
                                     text: 'INFO',
                                     options: FFButtonOptions(
@@ -1585,7 +1930,7 @@ class _MostreProfileWidgetState extends State<MostreProfileWidget>
                                       iconPadding:
                                           const EdgeInsetsDirectional.fromSTEB(
                                               0.0, 0.0, 0.0, 0.0),
-                                      color: _model.pagina == 'Info'
+                                      color: _model.pagina == false
                                           ? FlutterFlowTheme.of(context).primary
                                           : FlutterFlowTheme.of(context)
                                               .secondaryBackground,
@@ -1593,23 +1938,22 @@ class _MostreProfileWidgetState extends State<MostreProfileWidget>
                                           .titleSmall
                                           .override(
                                             fontFamily: 'Montserrat',
-                                            color: _model.pagina == 'Info'
+                                            color: _model.pagina == false
                                                 ? FlutterFlowTheme.of(context)
                                                     .secondaryBackground
-                                                : FlutterFlowTheme.of(context)
-                                                    .primary,
+                                                : const Color(0xFF757474),
                                             fontSize: 13.0,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w600,
                                           ),
                                       elevation: 3.0,
                                       borderSide: BorderSide(
-                                        color: _model.pagina == 'Info'
+                                        color: _model.pagina == false
                                             ? const Color(0x00000000)
                                             : FlutterFlowTheme.of(context)
-                                                .primary,
+                                                .alternate,
                                         width:
-                                            _model.pagina == 'Info' ? 0.0 : 3.0,
+                                            _model.pagina == false ? 0.0 : 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(24.0),
                                     ),
@@ -1618,19 +1962,17 @@ class _MostreProfileWidgetState extends State<MostreProfileWidget>
                                     onPressed: () async {
                                       logFirebaseEvent(
                                           'MOSTRE_PROFILE_PAGE_PREZZI_BTN_ON_TAP');
-                                      logFirebaseEvent('Button_tab_bar');
-                                      setState(() {
-                                        _model.tabBarController!.animateTo(
-                                          _model.tabBarController!.length - 1,
-                                          duration: const Duration(milliseconds: 300),
-                                          curve: Curves.ease,
-                                        );
-                                      });
-
+                                      logFirebaseEvent('Button_page_view');
+                                      await _model.pageViewController
+                                          ?.animateToPage(
+                                        1,
+                                        duration: const Duration(milliseconds: 500),
+                                        curve: Curves.ease,
+                                      );
                                       logFirebaseEvent(
                                           'Button_update_page_state');
-                                      _model.pagina = 'Prezzi';
-                                      setState(() {});
+                                      _model.pagina = true;
+                                      safeSetState(() {});
                                     },
                                     text: 'PREZZI',
                                     options: FFButtonOptions(
@@ -1641,7 +1983,7 @@ class _MostreProfileWidgetState extends State<MostreProfileWidget>
                                       iconPadding:
                                           const EdgeInsetsDirectional.fromSTEB(
                                               0.0, 0.0, 0.0, 0.0),
-                                      color: _model.pagina == 'Prezzi'
+                                      color: _model.pagina == true
                                           ? FlutterFlowTheme.of(context).primary
                                           : FlutterFlowTheme.of(context)
                                               .secondaryBackground,
@@ -1649,24 +1991,22 @@ class _MostreProfileWidgetState extends State<MostreProfileWidget>
                                           .titleSmall
                                           .override(
                                             fontFamily: 'Montserrat',
-                                            color: _model.pagina == 'Prezzi'
+                                            color: _model.pagina == true
                                                 ? FlutterFlowTheme.of(context)
                                                     .secondaryBackground
-                                                : FlutterFlowTheme.of(context)
-                                                    .primary,
+                                                : const Color(0xFF757474),
                                             fontSize: 14.0,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w600,
                                           ),
                                       elevation: 3.0,
                                       borderSide: BorderSide(
-                                        color: _model.pagina == 'Prezzi'
+                                        color: _model.pagina == true
                                             ? const Color(0x00000000)
                                             : FlutterFlowTheme.of(context)
-                                                .primary,
-                                        width: _model.pagina == 'Prezzi'
-                                            ? 0.0
-                                            : 3.0,
+                                                .alternate,
+                                        width:
+                                            _model.pagina == true ? 0.0 : 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(24.0),
                                     ),
@@ -1683,7 +2023,7 @@ class _MostreProfileWidgetState extends State<MostreProfileWidget>
                     alignment: const AlignmentDirectional(0.0, 1.0),
                     child: wrapWithModel(
                       model: _model.bottomNavEventiModel,
-                      updateCallback: () => setState(() {}),
+                      updateCallback: () => safeSetState(() {}),
                       child: const BottomNavEventiWidget(),
                     ),
                   ),

@@ -35,7 +35,7 @@ class _ProfiloWidgetState extends State<ProfiloWidget> {
       await actions.lockOrientation();
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -1200,7 +1200,7 @@ class _ProfiloWidgetState extends State<ProfiloWidget> {
                   alignment: const AlignmentDirectional(0.0, 1.0),
                   child: wrapWithModel(
                     model: _model.bottomNavProfiloModel,
-                    updateCallback: () => setState(() {}),
+                    updateCallback: () => safeSetState(() {}),
                     child: const BottomNavProfiloWidget(),
                   ),
                 ),

@@ -36,7 +36,7 @@ class _SegnalazioneWidgetState extends State<SegnalazioneWidget> {
     _model.textController2 ??= TextEditingController(text: currentUserEmail);
     _model.textFieldFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -204,7 +204,7 @@ class _SegnalazioneWidgetState extends State<SegnalazioneWidget> {
                     onChanged: (_) => EasyDebounce.debounce(
                       '_model.textTextController',
                       const Duration(milliseconds: 500),
-                      () => setState(() {}),
+                      () => safeSetState(() {}),
                     ),
                     autofocus: false,
                     obscureText: false,
@@ -334,7 +334,7 @@ class _SegnalazioneWidgetState extends State<SegnalazioneWidget> {
                       if (selectedMedia != null &&
                           selectedMedia.every((m) =>
                               validateFileFormat(m.storagePath, context))) {
-                        setState(() => _model.isDataUploading = true);
+                        safeSetState(() => _model.isDataUploading = true);
                         var selectedUploadedFiles = <FFUploadedFile>[];
 
                         var downloadUrls = <String>[];
@@ -370,14 +370,14 @@ class _SegnalazioneWidgetState extends State<SegnalazioneWidget> {
                         if (selectedUploadedFiles.length ==
                                 selectedMedia.length &&
                             downloadUrls.length == selectedMedia.length) {
-                          setState(() {
+                          safeSetState(() {
                             _model.uploadedLocalFile =
                                 selectedUploadedFiles.first;
                             _model.uploadedFileUrl = downloadUrls.first;
                           });
                           showUploadMessage(context, 'Success!');
                         } else {
-                          setState(() {});
+                          safeSetState(() {});
                           showUploadMessage(context, 'Failed to upload data');
                           return;
                         }

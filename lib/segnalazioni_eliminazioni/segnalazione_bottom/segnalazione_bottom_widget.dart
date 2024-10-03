@@ -27,7 +27,7 @@ class _SegnalazioneBottomWidgetState extends State<SegnalazioneBottomWidget> {
     super.initState();
     _model = createModel(context, () => SegnalazioneBottomModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

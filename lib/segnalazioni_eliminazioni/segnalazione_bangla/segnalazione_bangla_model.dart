@@ -7,7 +7,6 @@ class SegnalazioneBanglaModel
     extends FlutterFlowModel<SegnalazioneBanglaWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for PlacePicker widget.
   FFPlace placePickerValue = const FFPlace();
   // State field(s) for TextField widget.

@@ -15,7 +15,6 @@ class EventiHomeModel extends FlutterFlowModel<EventiHomeWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Custom Action - isOverrideCacheAction] action in eventiHome widget.
   bool? isCacheOverride;
   // State field(s) for PageView widget.

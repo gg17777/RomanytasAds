@@ -43,7 +43,7 @@ class _SegnalazioneBanglaWidgetState extends State<SegnalazioneBanglaWidget> {
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -89,7 +89,7 @@ class _SegnalazioneBanglaWidgetState extends State<SegnalazioneBanglaWidget> {
             },
           ),
           title: Text(
-            'AGGIUGNI BANGLA',
+            'AGGIUNGI BANGLA',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Montserrat',
                   color: Colors.white,
@@ -152,7 +152,7 @@ class _SegnalazioneBanglaWidgetState extends State<SegnalazioneBanglaWidget> {
                           webGoogleMapsApiKey:
                               'AIzaSyASvMadv5YCMP1XXJa6ff6soGnDxadin5Y',
                           onSelect: (place) async {
-                            setState(() => _model.placePickerValue = place);
+                            safeSetState(() => _model.placePickerValue = place);
                           },
                           defaultText: 'Inserisci indirizzo',
                           icon: Icon(
@@ -326,7 +326,7 @@ class _SegnalazioneBanglaWidgetState extends State<SegnalazioneBanglaWidget> {
                 alignment: const AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
                   model: _model.bottomNavBanglaModel,
-                  updateCallback: () => setState(() {}),
+                  updateCallback: () => safeSetState(() {}),
                   child: const BottomNavBanglaWidget(),
                 ),
               ),

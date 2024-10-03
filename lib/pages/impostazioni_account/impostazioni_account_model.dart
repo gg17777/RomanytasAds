@@ -7,7 +7,6 @@ class ImpostazioniAccountModel
     extends FlutterFlowModel<ImpostazioniAccountWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for Checkbox widget.
   bool? checkboxValue1;
   // State field(s) for Checkbox widget.

@@ -50,7 +50,7 @@ class _EventiHomeWidgetState extends State<EventiHomeWidget> {
       if (FFAppState().lastCacheTime == null) {
         logFirebaseEvent('eventiHome_update_app_state');
         FFAppState().lastCacheTime = getCurrentTimestamp;
-        setState(() {});
+        safeSetState(() {});
       }
       logFirebaseEvent('eventiHome_custom_action');
       _model.isCacheOverride = await actions.isOverrideCacheAction(
@@ -61,35 +61,35 @@ class _EventiHomeWidgetState extends State<EventiHomeWidget> {
         logFirebaseEvent('eventiHome_update_app_state');
         FFAppState().lastCacheTime = getCurrentTimestamp;
         FFAppState().isCacheOverride = true;
-        setState(() {});
+        safeSetState(() {});
         logFirebaseEvent('eventiHome_clear_query_cache');
         FFAppState().clearEventiCacheCache();
         logFirebaseEvent('eventiHome_wait__delay');
         await Future.delayed(const Duration(milliseconds: 1000));
         logFirebaseEvent('eventiHome_update_app_state');
         FFAppState().isCacheOverride = false;
-        setState(() {});
+        safeSetState(() {});
       }
       logFirebaseEvent('eventiHome_update_app_state');
       FFAppState().curTime = functions.getDate('all');
-      setState(() {});
+      safeSetState(() {});
       logFirebaseEvent('eventiHome_wait__delay');
       await Future.delayed(const Duration(milliseconds: 100));
       await Future.wait([
         Future(() async {
           logFirebaseEvent('eventiHome_update_page_state');
           _model.curDay = functions.getDate('day');
-          setState(() {});
+          safeSetState(() {});
         }),
         Future(() async {
           logFirebaseEvent('eventiHome_update_page_state');
           _model.curMonth = functions.getDate('month');
-          setState(() {});
+          safeSetState(() {});
         }),
         Future(() async {
           logFirebaseEvent('eventiHome_update_page_state');
           _model.curYear = functions.getDate('year');
-          setState(() {});
+          safeSetState(() {});
         }),
       ]);
       if (FFAppState().eventiState == 'discoteche') {
@@ -130,14 +130,14 @@ class _EventiHomeWidgetState extends State<EventiHomeWidget> {
         if (FFAppState().review == 3) {
           logFirebaseEvent('eventiHome_update_app_state');
           FFAppState().review = FFAppState().review + 1;
-          setState(() {});
+          safeSetState(() {});
           logFirebaseEvent('eventiHome_custom_action');
           await actions.inAppReview();
           return;
         } else {
           logFirebaseEvent('eventiHome_update_app_state');
           FFAppState().review = FFAppState().review + 1;
-          setState(() {});
+          safeSetState(() {});
           return;
         }
       } else {
@@ -146,11 +146,11 @@ class _EventiHomeWidgetState extends State<EventiHomeWidget> {
     });
 
     getCurrentUserLocation(defaultLocation: const LatLng(0.0, 0.0), cached: true)
-        .then((loc) => setState(() => currentUserLocationValue = loc));
+        .then((loc) => safeSetState(() => currentUserLocationValue = loc));
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -339,7 +339,7 @@ class _EventiHomeWidgetState extends State<EventiHomeWidget> {
                                                       ChipData('Gratis')
                                                     ],
                                                     onChanged: (val) async {
-                                                      setState(() => _model
+                                                      safeSetState(() => _model
                                                               .choiceChipsValues1 =
                                                           val);
                                                       logFirebaseEvent(
@@ -347,7 +347,7 @@ class _EventiHomeWidgetState extends State<EventiHomeWidget> {
                                                       logFirebaseEvent(
                                                           'ChoiceChips_update_app_state');
 
-                                                      setState(() {});
+                                                      safeSetState(() {});
                                                     },
                                                     selectedChipStyle:
                                                         ChipStyle(
@@ -476,7 +476,7 @@ class _EventiHomeWidgetState extends State<EventiHomeWidget> {
                                                             'EVENTI_HOME_PAGE_Icon_dmwcieu0_ON_TAP');
                                                         logFirebaseEvent(
                                                             'Icon_reset_form_fields');
-                                                        setState(() {
+                                                        safeSetState(() {
                                                           _model
                                                               .choiceChipsValueController1
                                                               ?.reset();
@@ -1004,7 +1004,7 @@ class _EventiHomeWidgetState extends State<EventiHomeWidget> {
                                                                             ClipRRect(
                                                                               borderRadius: BorderRadius.circular(8.0),
                                                                               child: Image.network(
-                                                                                eventiDataItem.locandina,
+                                                                                eventiDataItem.eventoAnnullato ? 'https://i.postimg.cc/GtmLWpqK/evento-annullato.png' : eventiDataItem.locandina,
                                                                                 width: 160.0,
                                                                                 height: 90.0,
                                                                                 fit: BoxFit.cover,
@@ -1412,7 +1412,7 @@ class _EventiHomeWidgetState extends State<EventiHomeWidget> {
                                                       ChipData('All\'aperto')
                                                     ],
                                                     onChanged: (val) async {
-                                                      setState(() => _model
+                                                      safeSetState(() => _model
                                                               .choiceChipsValues2 =
                                                           val);
                                                       logFirebaseEvent(
@@ -1420,7 +1420,7 @@ class _EventiHomeWidgetState extends State<EventiHomeWidget> {
                                                       logFirebaseEvent(
                                                           'ChoiceChips_update_app_state');
 
-                                                      setState(() {});
+                                                      safeSetState(() {});
                                                     },
                                                     selectedChipStyle:
                                                         ChipStyle(
@@ -1549,7 +1549,7 @@ class _EventiHomeWidgetState extends State<EventiHomeWidget> {
                                                             'EVENTI_HOME_PAGE_Icon_ha1g15e1_ON_TAP');
                                                         logFirebaseEvent(
                                                             'Icon_reset_form_fields');
-                                                        setState(() {
+                                                        safeSetState(() {
                                                           _model
                                                               .choiceChipsValueController2
                                                               ?.reset();
@@ -1780,7 +1780,7 @@ class _EventiHomeWidgetState extends State<EventiHomeWidget> {
                                                                             ClipRRect(
                                                                               borderRadius: BorderRadius.circular(8.0),
                                                                               child: Image.network(
-                                                                                serateDataItem.locandina,
+                                                                                serateDataItem.serataAnnullata ? 'https://i.postimg.cc/GtmLWpqK/evento-annullato.png' : serateDataItem.locandina,
                                                                                 width: 160.0,
                                                                                 height: 90.0,
                                                                                 fit: BoxFit.cover,
@@ -2190,7 +2190,7 @@ class _EventiHomeWidgetState extends State<EventiHomeWidget> {
                                                     '_model.textController',
                                                     const Duration(
                                                         milliseconds: 1000),
-                                                    () => setState(() {}),
+                                                    () => safeSetState(() {}),
                                                   ),
                                                   autofocus: false,
                                                   obscureText: false,
@@ -3349,7 +3349,7 @@ class _EventiHomeWidgetState extends State<EventiHomeWidget> {
                                     duration: const Duration(milliseconds: 500),
                                     curve: Curves.ease,
                                   );
-                                  setState(() {});
+                                  safeSetState(() {});
                                 },
                                 effect:
                                     smooth_page_indicator.ExpandingDotsEffect(
@@ -3377,7 +3377,7 @@ class _EventiHomeWidgetState extends State<EventiHomeWidget> {
                 alignment: const AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
                   model: _model.bottomNavEventiModel,
-                  updateCallback: () => setState(() {}),
+                  updateCallback: () => safeSetState(() {}),
                   child: const BottomNavEventiWidget(),
                 ),
               ),

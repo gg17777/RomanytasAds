@@ -40,7 +40,7 @@ class _SegnalazioneNasoniWidgetState extends State<SegnalazioneNasoniWidget> {
       await actions.lockOrientation();
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -163,7 +163,7 @@ class _SegnalazioneNasoniWidgetState extends State<SegnalazioneNasoniWidget> {
                           webGoogleMapsApiKey:
                               'AIzaSyASvMadv5YCMP1XXJa6ff6soGnDxadin5Y',
                           onSelect: (place) async {
-                            setState(() => _model.placePickerValue = place);
+                            safeSetState(() => _model.placePickerValue = place);
                           },
                           defaultText: 'Inserisci indirizzo',
                           icon: Icon(
@@ -276,7 +276,7 @@ class _SegnalazioneNasoniWidgetState extends State<SegnalazioneNasoniWidget> {
                 alignment: const AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
                   model: _model.bottomNavNasoniModel,
-                  updateCallback: () => setState(() {}),
+                  updateCallback: () => safeSetState(() {}),
                   child: const BottomNavNasoniWidget(),
                 ),
               ),
