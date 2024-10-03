@@ -44,7 +44,7 @@ class _Auth12WidgetState extends State<Auth12Widget>
       vsync: this,
       length: 2,
       initialIndex: 0,
-    )..addListener(() => setState(() {}));
+    )..addListener(() => safeSetState(() {}));
     _model.emailAddressTextController ??= TextEditingController();
     _model.emailAddressFocusNode ??= FocusNode();
 
@@ -121,7 +121,7 @@ class _Auth12WidgetState extends State<Auth12Widget>
       ),
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -429,7 +429,7 @@ class _Auth12WidgetState extends State<Auth12Widget>
                                                                 context)
                                                             .primaryBackground,
                                                     suffixIcon: InkWell(
-                                                      onTap: () => setState(
+                                                      onTap: () => safeSetState(
                                                         () => _model
                                                                 .passwordVisibility =
                                                             !_model
@@ -819,7 +819,7 @@ class _Auth12WidgetState extends State<Auth12Widget>
                                                                 context)
                                                             .primaryBackground,
                                                     suffixIcon: InkWell(
-                                                      onTap: () => setState(
+                                                      onTap: () => safeSetState(
                                                         () => _model
                                                                 .passwordCreateVisibility =
                                                             !_model
@@ -945,7 +945,7 @@ class _Auth12WidgetState extends State<Auth12Widget>
                                                                 context)
                                                             .primaryBackground,
                                                     suffixIcon: InkWell(
-                                                      onTap: () => setState(
+                                                      onTap: () => safeSetState(
                                                         () => _model
                                                                 .passwordConfirmVisibility =
                                                             !_model
@@ -1069,7 +1069,7 @@ class _Auth12WidgetState extends State<Auth12Widget>
                                   onChanged: (_) => EasyDebounce.debounce(
                                     '_model.nomeTextController',
                                     const Duration(milliseconds: 100),
-                                    () => setState(() {}),
+                                    () => safeSetState(() {}),
                                   ),
                                   autofocus: true,
                                   autofillHints: const [AutofillHints.email],
@@ -1143,7 +1143,7 @@ class _Auth12WidgetState extends State<Auth12Widget>
                                   onChanged: (_) => EasyDebounce.debounce(
                                     '_model.cognomeTextController',
                                     const Duration(milliseconds: 100),
-                                    () => setState(() {}),
+                                    () => safeSetState(() {}),
                                   ),
                                   autofocus: true,
                                   autofillHints: const [AutofillHints.email],
@@ -1237,7 +1237,7 @@ class _Auth12WidgetState extends State<Auth12Widget>
                                         child: Checkbox(
                                           value: _model.checkboxValue1 ??= true,
                                           onChanged: (newValue) async {
-                                            setState(() => _model
+                                            safeSetState(() => _model
                                                 .checkboxValue1 = newValue!);
                                           },
                                           side: BorderSide(
@@ -1299,7 +1299,7 @@ class _Auth12WidgetState extends State<Auth12Widget>
                                     child: Checkbox(
                                       value: _model.checkboxValue2 ??= false,
                                       onChanged: (newValue) async {
-                                        setState(() =>
+                                        safeSetState(() =>
                                             _model.checkboxValue2 = newValue!);
                                       },
                                       side: BorderSide(

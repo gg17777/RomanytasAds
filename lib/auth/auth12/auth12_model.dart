@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 class Auth12Model extends FlutterFlowModel<Auth12Widget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for PageView widget.
   PageController? pageViewController;
 

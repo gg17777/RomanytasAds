@@ -42,13 +42,13 @@ class _BottomSheetBanglaWidgetState extends State<BottomSheetBanglaWidget> {
     if (!isWeb) {
       _keyboardVisibilitySubscription =
           KeyboardVisibilityController().onChange.listen((bool visible) {
-        setState(() {
+        safeSetState(() {
           _isKeyboardVisible = visible;
         });
       });
     }
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -221,7 +221,7 @@ class _BottomSheetBanglaWidgetState extends State<BottomSheetBanglaWidget> {
                           alignment: const AlignmentDirectional(1.0, 1.0),
                           child: Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 10.0, 15.0),
+                                0.0, 0.0, 20.0, 15.0),
                             child: FFButtonWidget(
                               onPressed: () async {
                                 logFirebaseEvent(
@@ -258,16 +258,15 @@ class _BottomSheetBanglaWidgetState extends State<BottomSheetBanglaWidget> {
                                     .titleSmall
                                     .override(
                                       fontFamily: 'Montserrat',
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
+                                      color: const Color(0xFF757474),
                                       fontSize: 14.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w600,
                                     ),
                                 elevation: 3.0,
                                 borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  width: 3.0,
+                                  color: FlutterFlowTheme.of(context).alternate,
+                                  width: 1.0,
                                 ),
                                 borderRadius: BorderRadius.circular(24.0),
                               ),

@@ -27,7 +27,7 @@ class _GrazieBugWidgetState extends State<GrazieBugWidget> {
     super.initState();
     _model = createModel(context, () => GrazieBugModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

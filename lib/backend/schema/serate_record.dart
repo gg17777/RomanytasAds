@@ -250,6 +250,11 @@ class SerateRecord extends FirestoreRecord {
   String get createdBy => _createdBy ?? '';
   bool hasCreatedBy() => _createdBy != null;
 
+  // "serataAnnullata" field.
+  bool? _serataAnnullata;
+  bool get serataAnnullata => _serataAnnullata ?? false;
+  bool hasSerataAnnullata() => _serataAnnullata != null;
+
   void _initializeFields() {
     _titolo = snapshotData['Titolo'] as String?;
     _locandina = snapshotData['Locandina'] as String?;
@@ -298,6 +303,7 @@ class SerateRecord extends FirestoreRecord {
     _organizzatore = snapshotData['organizzatore'] as bool?;
     _appName = snapshotData['app_name'] as String?;
     _createdBy = snapshotData['createdBy'] as String?;
+    _serataAnnullata = snapshotData['serataAnnullata'] as bool?;
   }
 
   static CollectionReference get collection =>
@@ -379,6 +385,7 @@ Map<String, dynamic> createSerateRecordData({
   bool? organizzatore,
   String? appName,
   String? createdBy,
+  bool? serataAnnullata,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -427,6 +434,7 @@ Map<String, dynamic> createSerateRecordData({
       'organizzatore': organizzatore,
       'app_name': appName,
       'createdBy': createdBy,
+      'serataAnnullata': serataAnnullata,
     }.withoutNulls,
   );
 
@@ -485,7 +493,8 @@ class SerateRecordDocumentEquality implements Equality<SerateRecord> {
         e1?.organizzatoreImg == e2?.organizzatoreImg &&
         e1?.organizzatore == e2?.organizzatore &&
         e1?.appName == e2?.appName &&
-        e1?.createdBy == e2?.createdBy;
+        e1?.createdBy == e2?.createdBy &&
+        e1?.serataAnnullata == e2?.serataAnnullata;
   }
 
   @override
@@ -536,7 +545,8 @@ class SerateRecordDocumentEquality implements Equality<SerateRecord> {
         e?.organizzatoreImg,
         e?.organizzatore,
         e?.appName,
-        e?.createdBy
+        e?.createdBy,
+        e?.serataAnnullata
       ]);
 
   @override

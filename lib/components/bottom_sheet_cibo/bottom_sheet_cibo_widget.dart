@@ -42,13 +42,13 @@ class _BottomSheetCiboWidgetState extends State<BottomSheetCiboWidget> {
     if (!isWeb) {
       _keyboardVisibilitySubscription =
           KeyboardVisibilityController().onChange.listen((bool visible) {
-        setState(() {
+        safeSetState(() {
           _isKeyboardVisible = visible;
         });
       });
     }
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -203,7 +203,7 @@ class _BottomSheetCiboWidgetState extends State<BottomSheetCiboWidget> {
                                   Flexible(
                                     child: Padding(
                                       padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 50.0, 0.0),
+                                          0.0, 0.0, 65.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
@@ -214,33 +214,42 @@ class _BottomSheetCiboWidgetState extends State<BottomSheetCiboWidget> {
                                             size: 24.0,
                                           ),
                                           Flexible(
-                                            child: Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      10.0, 0.0, 0.0, 0.0),
-                                              child: Text(
-                                                containerGetCiboByIdRowList
-                                                    .first.descrizione!,
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'Montserrat',
-                                                      color: containerGetCiboByIdRowList
-                                                                  .first
-                                                                  .zozzoni ==
-                                                              1
-                                                          ? FlutterFlowTheme.of(
-                                                                  context)
-                                                              .secondaryBackground
-                                                          : FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryText,
-                                                      fontSize: 14.0,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FontWeight.w500,
+                                            child: SingleChildScrollView(
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(10.0, 0.0,
+                                                                0.0, 0.0),
+                                                    child: Text(
+                                                      containerGetCiboByIdRowList
+                                                          .first.descrizione!,
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily:
+                                                                'Montserrat',
+                                                            color: containerGetCiboByIdRowList
+                                                                        .first
+                                                                        .zozzoni ==
+                                                                    1
+                                                                ? FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryBackground
+                                                                : FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryText,
+                                                            fontSize: 14.0,
+                                                            letterSpacing: 0.0,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                          ),
                                                     ),
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                           ),
@@ -285,7 +294,7 @@ class _BottomSheetCiboWidgetState extends State<BottomSheetCiboWidget> {
                       alignment: const AlignmentDirectional(1.0, 1.0),
                       child: Padding(
                         padding: const EdgeInsetsDirectional.fromSTEB(
-                            0.0, 0.0, 10.0, 15.0),
+                            0.0, 0.0, 20.0, 15.0),
                         child: FFButtonWidget(
                           onPressed: () async {
                             logFirebaseEvent(
@@ -322,15 +331,15 @@ class _BottomSheetCiboWidgetState extends State<BottomSheetCiboWidget> {
                                 .titleSmall
                                 .override(
                                   fontFamily: 'Montserrat',
-                                  color: FlutterFlowTheme.of(context).primary,
+                                  color: const Color(0xFF757474),
                                   fontSize: 14.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w600,
                                 ),
                             elevation: 3.0,
                             borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).primary,
-                              width: 3.0,
+                              color: FlutterFlowTheme.of(context).alternate,
+                              width: 1.0,
                             ),
                             borderRadius: BorderRadius.circular(24.0),
                           ),

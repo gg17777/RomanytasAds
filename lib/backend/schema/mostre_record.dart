@@ -180,6 +180,146 @@ class MostreRecord extends FirestoreRecord {
   String get appName => _appName ?? '';
   bool hasAppName() => _appName != null;
 
+  // "closedMonday" field.
+  bool? _closedMonday;
+  bool get closedMonday => _closedMonday ?? false;
+  bool hasClosedMonday() => _closedMonday != null;
+
+  // "closedTuesday" field.
+  bool? _closedTuesday;
+  bool get closedTuesday => _closedTuesday ?? false;
+  bool hasClosedTuesday() => _closedTuesday != null;
+
+  // "closedWednesday" field.
+  bool? _closedWednesday;
+  bool get closedWednesday => _closedWednesday ?? false;
+  bool hasClosedWednesday() => _closedWednesday != null;
+
+  // "closedThursday" field.
+  bool? _closedThursday;
+  bool get closedThursday => _closedThursday ?? false;
+  bool hasClosedThursday() => _closedThursday != null;
+
+  // "closedFriday" field.
+  bool? _closedFriday;
+  bool get closedFriday => _closedFriday ?? false;
+  bool hasClosedFriday() => _closedFriday != null;
+
+  // "closedSaturday" field.
+  bool? _closedSaturday;
+  bool get closedSaturday => _closedSaturday ?? false;
+  bool hasClosedSaturday() => _closedSaturday != null;
+
+  // "closedSunday" field.
+  bool? _closedSunday;
+  bool get closedSunday => _closedSunday ?? false;
+  bool hasClosedSunday() => _closedSunday != null;
+
+  // "organizzatore" field.
+  bool? _organizzatore;
+  bool get organizzatore => _organizzatore ?? false;
+  bool hasOrganizzatore() => _organizzatore != null;
+
+  // "organizzatoreName" field.
+  String? _organizzatoreName;
+  String get organizzatoreName => _organizzatoreName ?? '';
+  bool hasOrganizzatoreName() => _organizzatoreName != null;
+
+  // "organizzatoreImg" field.
+  String? _organizzatoreImg;
+  String get organizzatoreImg => _organizzatoreImg ?? '';
+  bool hasOrganizzatoreImg() => _organizzatoreImg != null;
+
+  // "startMonday" field.
+  String? _startMonday;
+  String get startMonday => _startMonday ?? '';
+  bool hasStartMonday() => _startMonday != null;
+
+  // "endMonday" field.
+  String? _endMonday;
+  String get endMonday => _endMonday ?? '';
+  bool hasEndMonday() => _endMonday != null;
+
+  // "startTuesday" field.
+  String? _startTuesday;
+  String get startTuesday => _startTuesday ?? '';
+  bool hasStartTuesday() => _startTuesday != null;
+
+  // "endTuesday" field.
+  String? _endTuesday;
+  String get endTuesday => _endTuesday ?? '';
+  bool hasEndTuesday() => _endTuesday != null;
+
+  // "startWednesday" field.
+  String? _startWednesday;
+  String get startWednesday => _startWednesday ?? '';
+  bool hasStartWednesday() => _startWednesday != null;
+
+  // "endWednesday" field.
+  String? _endWednesday;
+  String get endWednesday => _endWednesday ?? '';
+  bool hasEndWednesday() => _endWednesday != null;
+
+  // "startThursday" field.
+  String? _startThursday;
+  String get startThursday => _startThursday ?? '';
+  bool hasStartThursday() => _startThursday != null;
+
+  // "endThursday" field.
+  String? _endThursday;
+  String get endThursday => _endThursday ?? '';
+  bool hasEndThursday() => _endThursday != null;
+
+  // "startFriday" field.
+  String? _startFriday;
+  String get startFriday => _startFriday ?? '';
+  bool hasStartFriday() => _startFriday != null;
+
+  // "endFriday" field.
+  String? _endFriday;
+  String get endFriday => _endFriday ?? '';
+  bool hasEndFriday() => _endFriday != null;
+
+  // "startSaturday" field.
+  String? _startSaturday;
+  String get startSaturday => _startSaturday ?? '';
+  bool hasStartSaturday() => _startSaturday != null;
+
+  // "endSaturday" field.
+  String? _endSaturday;
+  String get endSaturday => _endSaturday ?? '';
+  bool hasEndSaturday() => _endSaturday != null;
+
+  // "startSunday" field.
+  String? _startSunday;
+  String get startSunday => _startSunday ?? '';
+  bool hasStartSunday() => _startSunday != null;
+
+  // "endSunday" field.
+  String? _endSunday;
+  String get endSunday => _endSunday ?? '';
+  bool hasEndSunday() => _endSunday != null;
+
+  // "mostraMngRef" field.
+  DocumentReference? _mostraMngRef;
+  DocumentReference? get mostraMngRef => _mostraMngRef;
+  bool hasMostraMngRef() => _mostraMngRef != null;
+
+  // "ingresso2B" field.
+  bool? _ingresso2B;
+  bool get ingresso2B => _ingresso2B ?? false;
+  bool hasIngresso2B() => _ingresso2B != null;
+
+  // "ingresso3B" field.
+  bool? _ingresso3B;
+  bool get ingresso3B => _ingresso3B ?? false;
+  bool hasIngresso3B() => _ingresso3B != null;
+
+  // "usaOrariMuseo" field.
+  bool? _usaOrariMuseo;
+  bool get usaOrariMuseo => _usaOrariMuseo ?? false;
+  bool hasUsaOrariMuseo() => _usaOrariMuseo != null;
+
   void _initializeFields() {
     _titolo = snapshotData['Titolo'] as String?;
     _locandina = snapshotData['Locandina'] as String?;
@@ -215,6 +355,34 @@ class MostreRecord extends FirestoreRecord {
     _mapViews = castToType<int>(snapshotData['mapViews']);
     _createdBy = snapshotData['createdBy'] as String?;
     _appName = snapshotData['app_name'] as String?;
+    _closedMonday = snapshotData['closedMonday'] as bool?;
+    _closedTuesday = snapshotData['closedTuesday'] as bool?;
+    _closedWednesday = snapshotData['closedWednesday'] as bool?;
+    _closedThursday = snapshotData['closedThursday'] as bool?;
+    _closedFriday = snapshotData['closedFriday'] as bool?;
+    _closedSaturday = snapshotData['closedSaturday'] as bool?;
+    _closedSunday = snapshotData['closedSunday'] as bool?;
+    _organizzatore = snapshotData['organizzatore'] as bool?;
+    _organizzatoreName = snapshotData['organizzatoreName'] as String?;
+    _organizzatoreImg = snapshotData['organizzatoreImg'] as String?;
+    _startMonday = snapshotData['startMonday'] as String?;
+    _endMonday = snapshotData['endMonday'] as String?;
+    _startTuesday = snapshotData['startTuesday'] as String?;
+    _endTuesday = snapshotData['endTuesday'] as String?;
+    _startWednesday = snapshotData['startWednesday'] as String?;
+    _endWednesday = snapshotData['endWednesday'] as String?;
+    _startThursday = snapshotData['startThursday'] as String?;
+    _endThursday = snapshotData['endThursday'] as String?;
+    _startFriday = snapshotData['startFriday'] as String?;
+    _endFriday = snapshotData['endFriday'] as String?;
+    _startSaturday = snapshotData['startSaturday'] as String?;
+    _endSaturday = snapshotData['endSaturday'] as String?;
+    _startSunday = snapshotData['startSunday'] as String?;
+    _endSunday = snapshotData['endSunday'] as String?;
+    _mostraMngRef = snapshotData['mostraMngRef'] as DocumentReference?;
+    _ingresso2B = snapshotData['ingresso2B'] as bool?;
+    _ingresso3B = snapshotData['ingresso3B'] as bool?;
+    _usaOrariMuseo = snapshotData['usaOrariMuseo'] as bool?;
   }
 
   static CollectionReference get collection =>
@@ -284,6 +452,34 @@ Map<String, dynamic> createMostreRecordData({
   int? mapViews,
   String? createdBy,
   String? appName,
+  bool? closedMonday,
+  bool? closedTuesday,
+  bool? closedWednesday,
+  bool? closedThursday,
+  bool? closedFriday,
+  bool? closedSaturday,
+  bool? closedSunday,
+  bool? organizzatore,
+  String? organizzatoreName,
+  String? organizzatoreImg,
+  String? startMonday,
+  String? endMonday,
+  String? startTuesday,
+  String? endTuesday,
+  String? startWednesday,
+  String? endWednesday,
+  String? startThursday,
+  String? endThursday,
+  String? startFriday,
+  String? endFriday,
+  String? startSaturday,
+  String? endSaturday,
+  String? startSunday,
+  String? endSunday,
+  DocumentReference? mostraMngRef,
+  bool? ingresso2B,
+  bool? ingresso3B,
+  bool? usaOrariMuseo,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -320,6 +516,34 @@ Map<String, dynamic> createMostreRecordData({
       'mapViews': mapViews,
       'createdBy': createdBy,
       'app_name': appName,
+      'closedMonday': closedMonday,
+      'closedTuesday': closedTuesday,
+      'closedWednesday': closedWednesday,
+      'closedThursday': closedThursday,
+      'closedFriday': closedFriday,
+      'closedSaturday': closedSaturday,
+      'closedSunday': closedSunday,
+      'organizzatore': organizzatore,
+      'organizzatoreName': organizzatoreName,
+      'organizzatoreImg': organizzatoreImg,
+      'startMonday': startMonday,
+      'endMonday': endMonday,
+      'startTuesday': startTuesday,
+      'endTuesday': endTuesday,
+      'startWednesday': startWednesday,
+      'endWednesday': endWednesday,
+      'startThursday': startThursday,
+      'endThursday': endThursday,
+      'startFriday': startFriday,
+      'endFriday': endFriday,
+      'startSaturday': startSaturday,
+      'endSaturday': endSaturday,
+      'startSunday': startSunday,
+      'endSunday': endSunday,
+      'mostraMngRef': mostraMngRef,
+      'ingresso2B': ingresso2B,
+      'ingresso3B': ingresso3B,
+      'usaOrariMuseo': usaOrariMuseo,
     }.withoutNulls,
   );
 
@@ -363,7 +587,35 @@ class MostreRecordDocumentEquality implements Equality<MostreRecord> {
         e1?.verificato == e2?.verificato &&
         e1?.mapViews == e2?.mapViews &&
         e1?.createdBy == e2?.createdBy &&
-        e1?.appName == e2?.appName;
+        e1?.appName == e2?.appName &&
+        e1?.closedMonday == e2?.closedMonday &&
+        e1?.closedTuesday == e2?.closedTuesday &&
+        e1?.closedWednesday == e2?.closedWednesday &&
+        e1?.closedThursday == e2?.closedThursday &&
+        e1?.closedFriday == e2?.closedFriday &&
+        e1?.closedSaturday == e2?.closedSaturday &&
+        e1?.closedSunday == e2?.closedSunday &&
+        e1?.organizzatore == e2?.organizzatore &&
+        e1?.organizzatoreName == e2?.organizzatoreName &&
+        e1?.organizzatoreImg == e2?.organizzatoreImg &&
+        e1?.startMonday == e2?.startMonday &&
+        e1?.endMonday == e2?.endMonday &&
+        e1?.startTuesday == e2?.startTuesday &&
+        e1?.endTuesday == e2?.endTuesday &&
+        e1?.startWednesday == e2?.startWednesday &&
+        e1?.endWednesday == e2?.endWednesday &&
+        e1?.startThursday == e2?.startThursday &&
+        e1?.endThursday == e2?.endThursday &&
+        e1?.startFriday == e2?.startFriday &&
+        e1?.endFriday == e2?.endFriday &&
+        e1?.startSaturday == e2?.startSaturday &&
+        e1?.endSaturday == e2?.endSaturday &&
+        e1?.startSunday == e2?.startSunday &&
+        e1?.endSunday == e2?.endSunday &&
+        e1?.mostraMngRef == e2?.mostraMngRef &&
+        e1?.ingresso2B == e2?.ingresso2B &&
+        e1?.ingresso3B == e2?.ingresso3B &&
+        e1?.usaOrariMuseo == e2?.usaOrariMuseo;
   }
 
   @override
@@ -400,7 +652,35 @@ class MostreRecordDocumentEquality implements Equality<MostreRecord> {
         e?.verificato,
         e?.mapViews,
         e?.createdBy,
-        e?.appName
+        e?.appName,
+        e?.closedMonday,
+        e?.closedTuesday,
+        e?.closedWednesday,
+        e?.closedThursday,
+        e?.closedFriday,
+        e?.closedSaturday,
+        e?.closedSunday,
+        e?.organizzatore,
+        e?.organizzatoreName,
+        e?.organizzatoreImg,
+        e?.startMonday,
+        e?.endMonday,
+        e?.startTuesday,
+        e?.endTuesday,
+        e?.startWednesday,
+        e?.endWednesday,
+        e?.startThursday,
+        e?.endThursday,
+        e?.startFriday,
+        e?.endFriday,
+        e?.startSaturday,
+        e?.endSaturday,
+        e?.startSunday,
+        e?.endSunday,
+        e?.mostraMngRef,
+        e?.ingresso2B,
+        e?.ingresso3B,
+        e?.usaOrariMuseo
       ]);
 
   @override

@@ -42,17 +42,17 @@ class _BottomSheetNasoniWidgetState extends State<BottomSheetNasoniWidget> {
     _model = createModel(context, () => BottomSheetNasoniModel());
 
     getCurrentUserLocation(defaultLocation: const LatLng(0.0, 0.0), cached: true)
-        .then((loc) => setState(() => currentUserLocationValue = loc));
+        .then((loc) => safeSetState(() => currentUserLocationValue = loc));
     if (!isWeb) {
       _keyboardVisibilitySubscription =
           KeyboardVisibilityController().onChange.listen((bool visible) {
-        setState(() {
+        safeSetState(() {
           _isKeyboardVisible = visible;
         });
       });
     }
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -289,16 +289,15 @@ class _BottomSheetNasoniWidgetState extends State<BottomSheetNasoniWidget> {
                                     .titleSmall
                                     .override(
                                       fontFamily: 'Montserrat',
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
+                                      color: const Color(0xFF757474),
                                       fontSize: 14.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.bold,
                                     ),
                                 elevation: 3.0,
                                 borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  width: 3.0,
+                                  color: FlutterFlowTheme.of(context).alternate,
+                                  width: 1.0,
                                 ),
                                 borderRadius: BorderRadius.circular(24.0),
                               ),

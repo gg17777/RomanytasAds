@@ -33,7 +33,7 @@ class _ShareButtonWidgetState extends State<ShareButtonWidget> {
     super.initState();
     _model = createModel(context, () => ShareButtonModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

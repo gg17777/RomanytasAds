@@ -230,6 +230,11 @@ class EventiRecord extends FirestoreRecord {
   String get appName => _appName ?? '';
   bool hasAppName() => _appName != null;
 
+  // "eventoAnnullato" field.
+  bool? _eventoAnnullato;
+  bool get eventoAnnullato => _eventoAnnullato ?? false;
+  bool hasEventoAnnullato() => _eventoAnnullato != null;
+
   void _initializeFields() {
     _titolo = snapshotData['Titolo'] as String?;
     _locandina = snapshotData['Locandina'] as String?;
@@ -275,6 +280,7 @@ class EventiRecord extends FirestoreRecord {
     _locationDiversa = snapshotData['locationDiversa'] as bool?;
     _createdBy = snapshotData['createdBy'] as String?;
     _appName = snapshotData['app_name'] as String?;
+    _eventoAnnullato = snapshotData['eventoAnnullato'] as bool?;
   }
 
   static CollectionReference get collection =>
@@ -352,6 +358,7 @@ Map<String, dynamic> createEventiRecordData({
   bool? locationDiversa,
   String? createdBy,
   String? appName,
+  bool? eventoAnnullato,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -396,6 +403,7 @@ Map<String, dynamic> createEventiRecordData({
       'locationDiversa': locationDiversa,
       'createdBy': createdBy,
       'app_name': appName,
+      'eventoAnnullato': eventoAnnullato,
     }.withoutNulls,
   );
 
@@ -450,7 +458,8 @@ class EventiRecordDocumentEquality implements Equality<EventiRecord> {
         e1?.organizzatore == e2?.organizzatore &&
         e1?.locationDiversa == e2?.locationDiversa &&
         e1?.createdBy == e2?.createdBy &&
-        e1?.appName == e2?.appName;
+        e1?.appName == e2?.appName &&
+        e1?.eventoAnnullato == e2?.eventoAnnullato;
   }
 
   @override
@@ -497,7 +506,8 @@ class EventiRecordDocumentEquality implements Equality<EventiRecord> {
         e?.organizzatore,
         e?.locationDiversa,
         e?.createdBy,
-        e?.appName
+        e?.appName,
+        e?.eventoAnnullato
       ]);
 
   @override

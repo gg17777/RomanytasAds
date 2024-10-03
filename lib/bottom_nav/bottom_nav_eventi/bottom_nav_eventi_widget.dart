@@ -33,13 +33,13 @@ class _BottomNavEventiWidgetState extends State<BottomNavEventiWidget> {
     if (!isWeb) {
       _keyboardVisibilitySubscription =
           KeyboardVisibilityController().onChange.listen((bool visible) {
-        setState(() {
+        safeSetState(() {
           _isKeyboardVisible = visible;
         });
       });
     }
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -163,7 +163,7 @@ class _BottomNavEventiWidgetState extends State<BottomNavEventiWidget> {
 
                           logFirebaseEvent('Column_update_app_state');
                           FFAppState().eventiState = '';
-                          setState(() {});
+                          safeSetState(() {});
                         },
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
@@ -217,7 +217,7 @@ class _BottomNavEventiWidgetState extends State<BottomNavEventiWidget> {
 
                           logFirebaseEvent('Column_update_app_state');
                           FFAppState().eventiState = '';
-                          setState(() {});
+                          safeSetState(() {});
                         },
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
@@ -271,7 +271,7 @@ class _BottomNavEventiWidgetState extends State<BottomNavEventiWidget> {
 
                           logFirebaseEvent('Column_update_app_state');
                           FFAppState().eventiState = '';
-                          setState(() {});
+                          safeSetState(() {});
                         },
                         child: Column(
                           mainAxisSize: MainAxisSize.max,

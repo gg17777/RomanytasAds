@@ -31,7 +31,7 @@ class _ChangeEmailWidgetState extends State<ChangeEmailWidget> {
     _model.textController ??= TextEditingController(text: currentUserEmail);
     _model.textFieldFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -47,47 +47,15 @@ class _ChangeEmailWidgetState extends State<ChangeEmailWidget> {
       alignment: const AlignmentDirectional(0.0, 0.0),
       child: Container(
         width: 300.0,
-        height: 250.0,
+        height: MediaQuery.sizeOf(context).width > 700.0 ? 300.0 : 250.0,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
-          boxShadow: const [
-            BoxShadow(
-              blurRadius: 4.0,
-              color: Color(0x33000000),
-              offset: Offset(
-                4.0,
-                4.0,
-              ),
-            )
-          ],
-          borderRadius: BorderRadius.circular(12.0),
+          borderRadius: BorderRadius.circular(24.0),
         ),
         child: Stack(
           children: [
-            Align(
-              alignment: const AlignmentDirectional(1.0, -1.0),
-              child: Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 10.0, 0.0),
-                child: InkWell(
-                  splashColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onTap: () async {
-                    logFirebaseEvent('CHANGE_EMAIL_COMP_Icon_cqrno3q2_ON_TAP');
-                    logFirebaseEvent('Icon_bottom_sheet');
-                    Navigator.pop(context);
-                  },
-                  child: Icon(
-                    Icons.keyboard_arrow_down_outlined,
-                    color: FlutterFlowTheme.of(context).primary,
-                    size: 30.0,
-                  ),
-                ),
-              ),
-            ),
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 60.0, 0.0, 0.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 50.0, 0.0, 0.0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
@@ -102,7 +70,7 @@ class _ChangeEmailWidgetState extends State<ChangeEmailWidget> {
                   ),
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(24.0, 20.0, 24.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(24.0, 25.0, 24.0, 0.0),
                     child: TextFormField(
                       controller: _model.textController,
                       focusNode: _model.textFieldFocusNode,
@@ -161,42 +129,84 @@ class _ChangeEmailWidgetState extends State<ChangeEmailWidget> {
                   ),
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
-                    child: FFButtonWidget(
-                      onPressed: () async {
-                        logFirebaseEvent(
-                            'CHANGE_EMAIL_COMP_MODIFICA_BTN_ON_TAP');
-                        logFirebaseEvent('Button_backend_call');
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 35.0, 0.0, 0.0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        FFButtonWidget(
+                          onPressed: () async {
+                            logFirebaseEvent(
+                                'CHANGE_EMAIL_COMP_MODIFICA_BTN_ON_TAP');
+                            logFirebaseEvent('Button_backend_call');
 
-                        await currentUserReference!
-                            .update(createUsersRecordData(
-                          email: _model.textController.text,
-                        ));
-                        logFirebaseEvent('Button_navigate_to');
+                            await currentUserReference!
+                                .update(createUsersRecordData(
+                              email: _model.textController.text,
+                            ));
+                            logFirebaseEvent('Button_navigate_to');
 
-                        context.pushNamed('impostazioniAccount');
-                      },
-                      text: 'Modifica',
-                      options: FFButtonOptions(
-                        height: 40.0,
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            24.0, 0.0, 24.0, 0.0),
-                        iconPadding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: FlutterFlowTheme.of(context).primary,
-                        textStyle:
-                            FlutterFlowTheme.of(context).titleSmall.override(
+                            context.pushNamed('impostazioniAccount');
+                          },
+                          text: 'Modifica',
+                          options: FFButtonOptions(
+                            width: 110.0,
+                            height: 40.0,
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                20.0, 0.0, 20.0, 0.0),
+                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: FlutterFlowTheme.of(context).primary,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
                                   fontFamily: 'Montserrat',
                                   color: Colors.white,
+                                  fontSize: 16.0,
                                   letterSpacing: 0.0,
                                 ),
-                        elevation: 3.0,
-                        borderSide: const BorderSide(
-                          color: Colors.transparent,
-                          width: 1.0,
+                            elevation: 3.0,
+                            borderSide: const BorderSide(
+                              color: Colors.transparent,
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(24.0),
+                          ),
                         ),
-                        borderRadius: BorderRadius.circular(24.0),
-                      ),
+                        FFButtonWidget(
+                          onPressed: () async {
+                            logFirebaseEvent(
+                                'CHANGE_EMAIL_COMP_ANNULLA_BTN_ON_TAP');
+                            logFirebaseEvent('Button_bottom_sheet');
+                            Navigator.pop(context);
+                          },
+                          text: 'Annulla',
+                          options: FFButtonOptions(
+                            width: 110.0,
+                            height: 40.0,
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                24.0, 0.0, 24.0, 0.0),
+                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  fontFamily: 'Montserrat',
+                                  color: const Color(0xFF757474),
+                                  fontSize: 16.0,
+                                  letterSpacing: 0.0,
+                                ),
+                            elevation: 3.0,
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).alternate,
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(24.0),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],

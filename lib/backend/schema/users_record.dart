@@ -115,6 +115,36 @@ class UsersRecord extends FirestoreRecord {
   String get createdBy => _createdBy ?? '';
   bool hasCreatedBy() => _createdBy != null;
 
+  // "insta" field.
+  String? _insta;
+  String get insta => _insta ?? '';
+  bool hasInsta() => _insta != null;
+
+  // "IndirizzoLocaleText" field.
+  String? _indirizzoLocaleText;
+  String get indirizzoLocaleText => _indirizzoLocaleText ?? '';
+  bool hasIndirizzoLocaleText() => _indirizzoLocaleText != null;
+
+  // "verificato" field.
+  bool? _verificato;
+  bool get verificato => _verificato ?? false;
+  bool hasVerificato() => _verificato != null;
+
+  // "imgLocale" field.
+  String? _imgLocale;
+  String get imgLocale => _imgLocale ?? '';
+  bool hasImgLocale() => _imgLocale != null;
+
+  // "locOrOrg" field.
+  String? _locOrOrg;
+  String get locOrOrg => _locOrOrg ?? '';
+  bool hasLocOrOrg() => _locOrOrg != null;
+
+  // "createDate" field.
+  DateTime? _createDate;
+  DateTime? get createDate => _createDate;
+  bool hasCreateDate() => _createDate != null;
+
   void _initializeFields() {
     _nome = snapshotData['Nome'] as String?;
     _cognome = snapshotData['Cognome'] as String?;
@@ -136,6 +166,12 @@ class UsersRecord extends FirestoreRecord {
     _locORorg = snapshotData['locORorg'] as bool?;
     _appName = snapshotData['app_name'] as String?;
     _createdBy = snapshotData['createdBy'] as String?;
+    _insta = snapshotData['insta'] as String?;
+    _indirizzoLocaleText = snapshotData['IndirizzoLocaleText'] as String?;
+    _verificato = snapshotData['verificato'] as bool?;
+    _imgLocale = snapshotData['imgLocale'] as String?;
+    _locOrOrg = snapshotData['locOrOrg'] as String?;
+    _createDate = snapshotData['createDate'] as DateTime?;
   }
 
   static CollectionReference get collection =>
@@ -192,6 +228,12 @@ Map<String, dynamic> createUsersRecordData({
   bool? locORorg,
   String? appName,
   String? createdBy,
+  String? insta,
+  String? indirizzoLocaleText,
+  bool? verificato,
+  String? imgLocale,
+  String? locOrOrg,
+  DateTime? createDate,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -215,6 +257,12 @@ Map<String, dynamic> createUsersRecordData({
       'locORorg': locORorg,
       'app_name': appName,
       'createdBy': createdBy,
+      'insta': insta,
+      'IndirizzoLocaleText': indirizzoLocaleText,
+      'verificato': verificato,
+      'imgLocale': imgLocale,
+      'locOrOrg': locOrOrg,
+      'createDate': createDate,
     }.withoutNulls,
   );
 
@@ -245,7 +293,13 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.userRef == e2?.userRef &&
         e1?.locORorg == e2?.locORorg &&
         e1?.appName == e2?.appName &&
-        e1?.createdBy == e2?.createdBy;
+        e1?.createdBy == e2?.createdBy &&
+        e1?.insta == e2?.insta &&
+        e1?.indirizzoLocaleText == e2?.indirizzoLocaleText &&
+        e1?.verificato == e2?.verificato &&
+        e1?.imgLocale == e2?.imgLocale &&
+        e1?.locOrOrg == e2?.locOrOrg &&
+        e1?.createDate == e2?.createDate;
   }
 
   @override
@@ -269,7 +323,13 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.userRef,
         e?.locORorg,
         e?.appName,
-        e?.createdBy
+        e?.createdBy,
+        e?.insta,
+        e?.indirizzoLocaleText,
+        e?.verificato,
+        e?.imgLocale,
+        e?.locOrOrg,
+        e?.createDate
       ]);
 
   @override

@@ -28,7 +28,7 @@ class _GrazieSegnalazioneWidgetState extends State<GrazieSegnalazioneWidget> {
     super.initState();
     _model = createModel(context, () => GrazieSegnalazioneModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
