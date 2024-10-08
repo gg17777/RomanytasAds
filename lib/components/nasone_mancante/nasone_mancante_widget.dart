@@ -27,6 +27,8 @@ class NasoneMancanteWidget extends StatefulWidget {
 class _NasoneMancanteWidgetState extends State<NasoneMancanteWidget> {
   late NasoneMancanteModel _model;
 
+  LatLng? currentUserLocationValue;
+
   @override
   void setState(VoidCallback callback) {
     super.setState(callback);
@@ -154,6 +156,9 @@ class _NasoneMancanteWidgetState extends State<NasoneMancanteWidget> {
                                 : () async {
                                     logFirebaseEvent(
                                         'NASONE_MANCANTE_COMP_INVIA_BTN_ON_TAP');
+                                    currentUserLocationValue =
+                                        await getCurrentUserLocation(
+                                            defaultLocation: const LatLng(0.0, 0.0));
                                     logFirebaseEvent('Button_backend_call');
 
                                     await SegnalazioniNasoniRecord.collection
@@ -177,6 +182,7 @@ class _NasoneMancanteWidgetState extends State<NasoneMancanteWidget> {
                                                   .first.addressText,
                                           createdBy: currentUserUid,
                                           appName: 'romanytas',
+                                          userLoc: currentUserLocationValue,
                                         ));
                                     logFirebaseEvent('Button_bottom_sheet');
                                     await showModalBottomSheet(

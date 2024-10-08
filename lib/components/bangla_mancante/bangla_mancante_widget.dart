@@ -27,6 +27,8 @@ class BanglaMancanteWidget extends StatefulWidget {
 class _BanglaMancanteWidgetState extends State<BanglaMancanteWidget> {
   late BanglaMancanteModel _model;
 
+  LatLng? currentUserLocationValue;
+
   @override
   void setState(VoidCallback callback) {
     super.setState(callback);
@@ -156,6 +158,9 @@ class _BanglaMancanteWidgetState extends State<BanglaMancanteWidget> {
                                 : () async {
                                     logFirebaseEvent(
                                         'BANGLA_MANCANTE_COMP_INVIA_BTN_ON_TAP');
+                                    currentUserLocationValue =
+                                        await getCurrentUserLocation(
+                                            defaultLocation: const LatLng(0.0, 0.0));
                                     logFirebaseEvent('Button_backend_call');
 
                                     await SegnalazioniBanglaRecord.collection
@@ -182,6 +187,7 @@ class _BanglaMancanteWidgetState extends State<BanglaMancanteWidget> {
                                                   .first.addressText,
                                           createdBy: currentUserUid,
                                           appName: 'romanytas',
+                                          userLoc: currentUserLocationValue,
                                         ));
                                     logFirebaseEvent('Button_bottom_sheet');
                                     await showModalBottomSheet(
