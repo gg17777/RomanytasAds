@@ -65,6 +65,11 @@ class SegnalazioniNasoniRecord extends FirestoreRecord {
   String get appName => _appName ?? '';
   bool hasAppName() => _appName != null;
 
+  // "userLoc" field.
+  LatLng? _userLoc;
+  LatLng? get userLoc => _userLoc;
+  bool hasUserLoc() => _userLoc != null;
+
   void _initializeFields() {
     _indirizzo = snapshotData['Indirizzo'] as LatLng?;
     _orarioChiusura = snapshotData['OrarioChiusura'] as String?;
@@ -76,6 +81,7 @@ class SegnalazioniNasoniRecord extends FirestoreRecord {
     _indirizzoText = snapshotData['indirizzoText'] as String?;
     _createdBy = snapshotData['createdBy'] as String?;
     _appName = snapshotData['app_name'] as String?;
+    _userLoc = snapshotData['userLoc'] as LatLng?;
   }
 
   static CollectionReference get collection =>
@@ -124,6 +130,7 @@ Map<String, dynamic> createSegnalazioniNasoniRecordData({
   String? indirizzoText,
   String? createdBy,
   String? appName,
+  LatLng? userLoc,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -137,6 +144,7 @@ Map<String, dynamic> createSegnalazioniNasoniRecordData({
       'indirizzoText': indirizzoText,
       'createdBy': createdBy,
       'app_name': appName,
+      'userLoc': userLoc,
     }.withoutNulls,
   );
 
@@ -158,7 +166,8 @@ class SegnalazioniNasoniRecordDocumentEquality
         e1?.aggiungi == e2?.aggiungi &&
         e1?.indirizzoText == e2?.indirizzoText &&
         e1?.createdBy == e2?.createdBy &&
-        e1?.appName == e2?.appName;
+        e1?.appName == e2?.appName &&
+        e1?.userLoc == e2?.userLoc;
   }
 
   @override
@@ -172,7 +181,8 @@ class SegnalazioniNasoniRecordDocumentEquality
         e?.aggiungi,
         e?.indirizzoText,
         e?.createdBy,
-        e?.appName
+        e?.appName,
+        e?.userLoc
       ]);
 
   @override
