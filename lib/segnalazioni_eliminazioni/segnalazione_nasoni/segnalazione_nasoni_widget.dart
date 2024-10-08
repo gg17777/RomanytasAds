@@ -157,11 +157,11 @@ class _SegnalazioneNasoniWidgetState extends State<SegnalazioneNasoniWidget> {
                             40.0, 50.0, 40.0, 0.0),
                         child: FlutterFlowPlacePicker(
                           iOSGoogleMapsApiKey:
-                              'AIzaSyDR5-vblj7zu3V1bIfJAiNm2pEhkTioDdo',
+                              'AIzaSyDNF22UBYyIhMbSgYxRHGeZj7wnOCrc3bY',
                           androidGoogleMapsApiKey:
-                              'AIzaSyBAnvgPmnSxrlr_uDv6TWNwSmt7SPeLevg',
+                              'AIzaSyAufx8x3k60Fm0GoZF0W7mD8GYlqx_VwzE',
                           webGoogleMapsApiKey:
-                              'AIzaSyASvMadv5YCMP1XXJa6ff6soGnDxadin5Y',
+                              'AIzaSyD4DNMICzskTZKEiL7X1WqQbkIkVXPBnvY',
                           onSelect: (place) async {
                             safeSetState(() => _model.placePickerValue = place);
                           },

@@ -2,18 +2,18 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'info_bangla_model.dart';
-export 'info_bangla_model.dart';
+import 'info_bangla_copy_model.dart';
+export 'info_bangla_copy_model.dart';
 
-class InfoBanglaWidget extends StatefulWidget {
-  const InfoBanglaWidget({super.key});
+class InfoBanglaCopyWidget extends StatefulWidget {
+  const InfoBanglaCopyWidget({super.key});
 
   @override
-  State<InfoBanglaWidget> createState() => _InfoBanglaWidgetState();
+  State<InfoBanglaCopyWidget> createState() => _InfoBanglaCopyWidgetState();
 }
 
-class _InfoBanglaWidgetState extends State<InfoBanglaWidget> {
-  late InfoBanglaModel _model;
+class _InfoBanglaCopyWidgetState extends State<InfoBanglaCopyWidget> {
+  late InfoBanglaCopyModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -24,7 +24,7 @@ class _InfoBanglaWidgetState extends State<InfoBanglaWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => InfoBanglaModel());
+    _model = createModel(context, () => InfoBanglaCopyModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
@@ -42,7 +42,7 @@ class _InfoBanglaWidgetState extends State<InfoBanglaWidget> {
       alignment: const AlignmentDirectional(0.0, 0.0),
       child: Container(
         width: 300.0,
-        height: 420.0,
+        height: 340.0,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
           borderRadius: BorderRadius.circular(24.0),
@@ -113,7 +113,7 @@ class _InfoBanglaWidgetState extends State<InfoBanglaWidget> {
               padding: const EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
               child: FFButtonWidget(
                 onPressed: () async {
-                  logFirebaseEvent('INFO_BANGLA_COMP_CHIUDI_BTN_ON_TAP');
+                  logFirebaseEvent('INFO_BANGLA_COPY_COMP_CHIUDI_BTN_ON_TAP');
                   if (_model.checkboxValue!) {
                     logFirebaseEvent('Button_update_app_state');
                     FFAppState().infoBangla = true;

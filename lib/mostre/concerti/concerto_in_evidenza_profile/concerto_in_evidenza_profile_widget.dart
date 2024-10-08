@@ -325,6 +325,14 @@ class _ConcertoInEvidenzaProfileWidgetState
                                 child: PageView(
                                   controller: _model.pageViewController ??=
                                       PageController(initialPage: 0),
+                                  onPageChanged: (_) async {
+                                    logFirebaseEvent(
+                                        'CONCERTO_IN_EVIDENZA_PROFILE_PageView_ac');
+                                    logFirebaseEvent(
+                                        'PageView_update_page_state');
+                                    _model.pagina = !_model.pagina;
+                                    safeSetState(() {});
+                                  },
                                   scrollDirection: Axis.horizontal,
                                   children: [
                                     Padding(
@@ -483,79 +491,72 @@ class _ConcertoInEvidenzaProfileWidgetState
                                                       ),
                                                     ],
                                                   ),
-                                                  Container(
-                                                    width: 50.0,
-                                                    height: 50.0,
-                                                    decoration: BoxDecoration(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10.0),
-                                                    ),
-                                                    child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text(
-                                                          dateTimeFormat(
-                                                            "d",
-                                                            concertoInEvidenzaProfileConcertiInEvidenzaRecord
-                                                                .data!,
-                                                            locale: FFLocalizations
-                                                                    .of(context)
-                                                                .languageCode,
-                                                          ),
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Montserrat',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryBackground,
-                                                                fontSize: 16.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
+                                                  Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Text(
+                                                        dateTimeFormat(
+                                                          "d",
+                                                          concertoInEvidenzaProfileConcertiInEvidenzaRecord
+                                                              .data!,
+                                                          locale:
+                                                              FFLocalizations.of(
+                                                                      context)
+                                                                  .languageCode,
                                                         ),
-                                                        Text(
-                                                          dateTimeFormat(
-                                                            "MMM",
-                                                            concertoInEvidenzaProfileConcertiInEvidenzaRecord
-                                                                .data!,
-                                                            locale: FFLocalizations
-                                                                    .of(context)
-                                                                .languageCode,
-                                                          ),
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Montserrat',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryBackground,
-                                                                fontSize: 16.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Montserrat',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                ),
+                                                      ),
+                                                      Text(
+                                                        dateTimeFormat(
+                                                          "MMM",
+                                                          concertoInEvidenzaProfileConcertiInEvidenzaRecord
+                                                              .data!,
+                                                          locale:
+                                                              FFLocalizations.of(
+                                                                      context)
+                                                                  .languageCode,
                                                         ),
-                                                      ],
-                                                    ),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Montserrat',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primary,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                ),
+                                                      ),
+                                                    ],
                                                   ),
                                                 ],
                                               ),
