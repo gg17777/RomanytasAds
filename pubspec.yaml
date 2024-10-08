@@ -65,6 +65,8 @@ dependencies:
   flutter_keyboard_visibility: 5.4.1
   flutter_native_splash: 2.3.1
   flutter_plugin_android_lifecycle: 2.0.20
+  facebook_audience_network: ^1.0.1
+  facebook_app_events: ^0.19.3
   font_awesome_flutter: 10.7.0
   from_css_color: 2.0.0
   geolocator: 12.0.0
