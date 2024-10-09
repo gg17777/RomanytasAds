@@ -74,7 +74,7 @@ dependencies:
   sqflite: 2.2.6
   timeago: 3.6.1
   universal_io: 2.2.2
-  url_launcher: 6.2.5
+  url_launcher: 6.3.0
   video_player: 2.8.6
   xml: 6.5.0
 
