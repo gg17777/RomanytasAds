@@ -22,9 +22,9 @@ sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
 flutter:
-sdk: flutter
+  sdk: flutter
 flutter_localizations:
-sdk: flutter
+  sdk: flutter
 auto_size_text: 3.0.0
 cached_network_image: 3.3.1
 cloud_firestore: 4.17.3
@@ -60,8 +60,8 @@ firebase_storage_web: 3.9.5
 flutter_animate: 4.5.0
 flutter_cache_manager: 3.3.1
 flutter_google_places: 
-git:
-url: https://github.com/ShehanYjoz/flutter_google_places.git
+  git:
+    url: https://github.com/ShehanYjoz/flutter_google_places.git
 flutter_keyboard_visibility: 5.4.1
 flutter_native_splash: 2.3.1
 flutter_plugin_android_lifecycle: 2.0.20
