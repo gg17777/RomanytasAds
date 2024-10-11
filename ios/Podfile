@@ -1,4 +1,5 @@
 $FirebaseAnalyticsWithoutAdIdSupport = true
+
 # Uncomment this line to define a global platform for your project
 platform :ios, '14.0.0'
 
@@ -45,7 +46,10 @@ end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
+
+    # Enable ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES for all targets
     target.build_configurations.each do |config|
+      config.build_settings['ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES'] = 'YES'
       config.build_settings.delete 'IPHONEOS_DEPLOYMENT_TARGET'
     end
   end
