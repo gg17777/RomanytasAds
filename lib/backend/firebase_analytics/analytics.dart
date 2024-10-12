@@ -29,7 +29,7 @@ void logFirebaseEvent(String eventName, {Map<String?, dynamic>? parameters}) {
     }
   }
 
-  FirebaseAnalytics.instance.logEvent(name: eventName, parameters: params);
+  FirebaseAnalytics.instance.logEvent(name: eventName, parameters: params as Map<String, Object>?);
 }
 
 void logFirebaseAuthEvent(User? user, String method) {
