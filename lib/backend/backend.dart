@@ -45,6 +45,7 @@ import 'schema/meet_up_places_record.dart';
 import 'schema/count_female_swipes_record.dart';
 import 'schema/not_me_in_photo_count_record.dart';
 import 'schema/tickets_record.dart';
+import 'schema/update_img_record.dart';
 
 export 'dart:async' show StreamSubscription;
 export 'package:cloud_firestore/cloud_firestore.dart' hide Order;
@@ -93,6 +94,7 @@ export 'schema/meet_up_places_record.dart';
 export 'schema/count_female_swipes_record.dart';
 export 'schema/not_me_in_photo_count_record.dart';
 export 'schema/tickets_record.dart';
+export 'schema/update_img_record.dart';
 
 /// Functions to query ConcertiRecords (as a Stream and as a Future).
 Future<int> queryConcertiRecordCount({
@@ -1616,6 +1618,43 @@ Future<List<TicketsRecord>> queryTicketsRecordOnce({
     queryCollectionOnce(
       TicketsRecord.collection(parent),
       TicketsRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query UpdateImgRecords (as a Stream and as a Future).
+Future<int> queryUpdateImgRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      UpdateImgRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<UpdateImgRecord>> queryUpdateImgRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      UpdateImgRecord.collection,
+      UpdateImgRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<UpdateImgRecord>> queryUpdateImgRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      UpdateImgRecord.collection,
+      UpdateImgRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,

@@ -291,6 +291,7 @@ final parametersBuilderMap =
       ),
   'my_eventsCopy': ParameterData.none(),
   'prova': ParameterData.none(),
+  'updateImg': ParameterData.none(),
 };
 
 Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {
