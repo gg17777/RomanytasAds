@@ -142,35 +142,34 @@ class _ModifyEmailWidgetState extends State<ModifyEmailWidget> {
                                   ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).secondary,
+                              color: Color(0x00000000),
                               width: 1.0,
                             ),
-                            borderRadius: BorderRadius.circular(4.0),
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).tertiary,
+                              color: Color(0x00000000),
                               width: 1.0,
                             ),
-                            borderRadius: BorderRadius.circular(4.0),
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
                           errorBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: FlutterFlowTheme.of(context).error,
                               width: 1.0,
                             ),
-                            borderRadius: BorderRadius.circular(4.0),
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: FlutterFlowTheme.of(context).error,
                               width: 1.0,
                             ),
-                            borderRadius: BorderRadius.circular(4.0),
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
                           filled: true,
-                          fillColor:
-                              FlutterFlowTheme.of(context).secondaryBackground,
+                          fillColor: FlutterFlowTheme.of(context).accent3,
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Montserrat',

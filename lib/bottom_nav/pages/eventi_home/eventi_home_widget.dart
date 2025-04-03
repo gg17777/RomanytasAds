@@ -640,26 +640,14 @@ class _EventiHomeWidgetState extends State<EventiHomeWidget>
                                                                           children: [
                                                                             Padding(
                                                                               padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 3.0),
-                                                                              child: InkWell(
-                                                                                splashColor: Colors.transparent,
-                                                                                focusColor: Colors.transparent,
-                                                                                hoverColor: Colors.transparent,
-                                                                                highlightColor: Colors.transparent,
-                                                                                onTap: () async {
-                                                                                  logFirebaseEvent('EVENTI_HOME_PAGE_Text_k46zhkwi_ON_TAP');
-                                                                                  logFirebaseEvent('Text_navigate_to');
-
-                                                                                  context.pushNamed(ProvaWidget.routeName);
-                                                                                },
-                                                                                child: Text(
-                                                                                  extraConcertItem.titolo,
-                                                                                  style: FlutterFlowTheme.of(context).titleLarge.override(
-                                                                                        fontFamily: 'Montserrat',
-                                                                                        fontSize: 15.0,
-                                                                                        letterSpacing: 0.0,
-                                                                                        fontWeight: FontWeight.w600,
-                                                                                      ),
-                                                                                ),
+                                                                              child: Text(
+                                                                                extraConcertItem.titolo,
+                                                                                style: FlutterFlowTheme.of(context).titleLarge.override(
+                                                                                      fontFamily: 'Montserrat',
+                                                                                      fontSize: 15.0,
+                                                                                      letterSpacing: 0.0,
+                                                                                      fontWeight: FontWeight.w600,
+                                                                                    ),
                                                                               ),
                                                                             ),
                                                                             Row(
@@ -1200,40 +1188,43 @@ class _EventiHomeWidgetState extends State<EventiHomeWidget>
                                                                                               ),
                                                                                             );
                                                                                           } else {
-                                                                                            return InkWell(
-                                                                                              splashColor: Colors.transparent,
-                                                                                              focusColor: Colors.transparent,
-                                                                                              hoverColor: Colors.transparent,
-                                                                                              highlightColor: Colors.transparent,
-                                                                                              onTap: () async {
-                                                                                                logFirebaseEvent('EVENTI_HOME_PAGE_Image_e53n5jil_ON_TAP');
-                                                                                                logFirebaseEvent('Image_bottom_sheet');
-                                                                                                await showModalBottomSheet(
-                                                                                                  isScrollControlled: true,
-                                                                                                  backgroundColor: Colors.transparent,
-                                                                                                  enableDrag: false,
-                                                                                                  context: context,
-                                                                                                  builder: (context) {
-                                                                                                    return GestureDetector(
-                                                                                                      onTap: () {
-                                                                                                        FocusScope.of(context).unfocus();
-                                                                                                        FocusManager.instance.primaryFocus?.unfocus();
-                                                                                                      },
-                                                                                                      child: Padding(
-                                                                                                        padding: MediaQuery.viewInsetsOf(context),
-                                                                                                        child: InfoListaSpecialWidget(),
-                                                                                                      ),
-                                                                                                    );
-                                                                                                  },
-                                                                                                ).then((value) => safeSetState(() {}));
-                                                                                              },
-                                                                                              child: ClipRRect(
-                                                                                                borderRadius: BorderRadius.circular(8.0),
-                                                                                                child: Image.asset(
-                                                                                                  'assets/images/OutOut_logo_tondo_bigsd.png',
-                                                                                                  width: 30.0,
-                                                                                                  height: 30.0,
-                                                                                                  fit: BoxFit.cover,
+                                                                                            return Visibility(
+                                                                                              visible: eventiDataItem.lista,
+                                                                                              child: InkWell(
+                                                                                                splashColor: Colors.transparent,
+                                                                                                focusColor: Colors.transparent,
+                                                                                                hoverColor: Colors.transparent,
+                                                                                                highlightColor: Colors.transparent,
+                                                                                                onTap: () async {
+                                                                                                  logFirebaseEvent('EVENTI_HOME_PAGE_Image_e53n5jil_ON_TAP');
+                                                                                                  logFirebaseEvent('Image_bottom_sheet');
+                                                                                                  await showModalBottomSheet(
+                                                                                                    isScrollControlled: true,
+                                                                                                    backgroundColor: Colors.transparent,
+                                                                                                    enableDrag: false,
+                                                                                                    context: context,
+                                                                                                    builder: (context) {
+                                                                                                      return GestureDetector(
+                                                                                                        onTap: () {
+                                                                                                          FocusScope.of(context).unfocus();
+                                                                                                          FocusManager.instance.primaryFocus?.unfocus();
+                                                                                                        },
+                                                                                                        child: Padding(
+                                                                                                          padding: MediaQuery.viewInsetsOf(context),
+                                                                                                          child: InfoListaSpecialWidget(),
+                                                                                                        ),
+                                                                                                      );
+                                                                                                    },
+                                                                                                  ).then((value) => safeSetState(() {}));
+                                                                                                },
+                                                                                                child: ClipRRect(
+                                                                                                  borderRadius: BorderRadius.circular(8.0),
+                                                                                                  child: Image.asset(
+                                                                                                    'assets/images/OutOut_logo_tondo_bigsd.png',
+                                                                                                    width: 30.0,
+                                                                                                    height: 30.0,
+                                                                                                    fit: BoxFit.cover,
+                                                                                                  ),
                                                                                                 ),
                                                                                               ),
                                                                                             );
