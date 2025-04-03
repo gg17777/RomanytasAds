@@ -9,9 +9,9 @@ import '/flutter_flow/flutter_flow_util.dart';
 
 class ConcertiRecord extends FirestoreRecord {
   ConcertiRecord._(
-    super.reference,
-    super.data,
-  ) {
+    DocumentReference reference,
+    Map<String, dynamic> data,
+  ) : super(reference, data) {
     _initializeFields();
   }
 
@@ -140,6 +140,11 @@ class ConcertiRecord extends FirestoreRecord {
   String get createdBy => _createdBy ?? '';
   bool hasCreatedBy() => _createdBy != null;
 
+  // "city" field.
+  String? _city;
+  String get city => _city ?? '';
+  bool hasCity() => _city != null;
+
   void _initializeFields() {
     _titolo = snapshotData['Titolo'] as String?;
     _locandina = snapshotData['Locandina'] as String?;
@@ -166,6 +171,7 @@ class ConcertiRecord extends FirestoreRecord {
     _shared = castToType<int>(snapshotData['shared']);
     _appName = snapshotData['app_name'] as String?;
     _createdBy = snapshotData['createdBy'] as String?;
+    _city = snapshotData['city'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -228,6 +234,7 @@ Map<String, dynamic> createConcertiRecordData({
   int? shared,
   String? appName,
   String? createdBy,
+  String? city,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -256,6 +263,7 @@ Map<String, dynamic> createConcertiRecordData({
       'shared': shared,
       'app_name': appName,
       'createdBy': createdBy,
+      'city': city,
     }.withoutNulls,
   );
 
@@ -291,7 +299,8 @@ class ConcertiRecordDocumentEquality implements Equality<ConcertiRecord> {
         e1?.views == e2?.views &&
         e1?.shared == e2?.shared &&
         e1?.appName == e2?.appName &&
-        e1?.createdBy == e2?.createdBy;
+        e1?.createdBy == e2?.createdBy &&
+        e1?.city == e2?.city;
   }
 
   @override
@@ -320,7 +329,8 @@ class ConcertiRecordDocumentEquality implements Equality<ConcertiRecord> {
         e?.views,
         e?.shared,
         e?.appName,
-        e?.createdBy
+        e?.createdBy,
+        e?.city
       ]);
 
   @override

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:from_css_color/from_css_color.dart';
+import '/backend/algolia/serialization_util.dart';
 
 import '/flutter_flow/flutter_flow_util.dart';
 
@@ -50,6 +51,38 @@ dynamic deserializeStructParam<T>(
   }
 }
 
+dynamic convertAlgoliaStruct<T>(
+  dynamic data,
+  ParamType paramType,
+  bool isList, {
+  required StructBuilder<T> structBuilder,
+}) {
+  if (data == null) {
+    return null;
+  } else if (isList) {
+    if (data is! Iterable) {
+      return null;
+    }
+    return data
+        .map<T>((e) => convertAlgoliaStruct<T>(
+              e,
+              paramType,
+              false,
+              structBuilder: structBuilder,
+            ))
+        .toList();
+  } else if (data is Map<String, dynamic>) {
+    return structBuilder(data);
+  } else {
+    return convertAlgoliaParam<T>(
+      data,
+      paramType,
+      isList,
+      structBuilder: structBuilder,
+    );
+  }
+}
+
 List<T>? getStructList<T>(
   dynamic value,
   StructBuilder<T> structBuilder,
@@ -57,8 +90,8 @@ List<T>? getStructList<T>(
     value is! List
         ? null
         : value
-            .whereType<Map<String, dynamic>>()
-            .map((e) => structBuilder(e))
+            .where((e) => e is Map<String, dynamic>)
+            .map((e) => structBuilder(e as Map<String, dynamic>))
             .toList();
 
 Color? getSchemaColor(dynamic value) => value is String

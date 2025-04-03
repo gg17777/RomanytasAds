@@ -9,9 +9,9 @@ import '/flutter_flow/flutter_flow_util.dart';
 
 class ListaEventiRecord extends FirestoreRecord {
   ListaEventiRecord._(
-    super.reference,
-    super.data,
-  ) {
+    DocumentReference reference,
+    Map<String, dynamic> data,
+  ) : super(reference, data) {
     _initializeFields();
   }
 
@@ -30,11 +30,6 @@ class ListaEventiRecord extends FirestoreRecord {
   bool get entrato => _entrato ?? false;
   bool hasEntrato() => _entrato != null;
 
-  // "eventoRef" field.
-  DocumentReference? _eventoRef;
-  DocumentReference? get eventoRef => _eventoRef;
-  bool hasEventoRef() => _eventoRef != null;
-
   // "createdBy" field.
   String? _createdBy;
   String get createdBy => _createdBy ?? '';
@@ -45,17 +40,35 @@ class ListaEventiRecord extends FirestoreRecord {
   String get appName => _appName ?? '';
   bool hasAppName() => _appName != null;
 
+  // "userRef" field.
+  DocumentReference? _userRef;
+  DocumentReference? get userRef => _userRef;
+  bool hasUserRef() => _userRef != null;
+
+  // "event_date" field.
+  DateTime? _eventDate;
+  DateTime? get eventDate => _eventDate;
+  bool hasEventDate() => _eventDate != null;
+
+  DocumentReference get parentReference => reference.parent.parent!;
+
   void _initializeFields() {
     _nome = snapshotData['nome'] as String?;
     _cognome = snapshotData['cognome'] as String?;
     _entrato = snapshotData['entrato'] as bool?;
-    _eventoRef = snapshotData['eventoRef'] as DocumentReference?;
     _createdBy = snapshotData['createdBy'] as String?;
     _appName = snapshotData['app_name'] as String?;
+    _userRef = snapshotData['userRef'] as DocumentReference?;
+    _eventDate = snapshotData['event_date'] as DateTime?;
   }
 
-  static CollectionReference get collection =>
-      FirebaseFirestore.instance.collection('listaEventi');
+  static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
+      parent != null
+          ? parent.collection('listaEventi')
+          : FirebaseFirestore.instance.collectionGroup('listaEventi');
+
+  static DocumentReference createDoc(DocumentReference parent, {String? id}) =>
+      parent.collection('listaEventi').doc(id);
 
   static Stream<ListaEventiRecord> getDocument(DocumentReference ref) =>
       ref.snapshots().map((s) => ListaEventiRecord.fromSnapshot(s));
@@ -92,18 +105,20 @@ Map<String, dynamic> createListaEventiRecordData({
   String? nome,
   String? cognome,
   bool? entrato,
-  DocumentReference? eventoRef,
   String? createdBy,
   String? appName,
+  DocumentReference? userRef,
+  DateTime? eventDate,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'nome': nome,
       'cognome': cognome,
       'entrato': entrato,
-      'eventoRef': eventoRef,
       'createdBy': createdBy,
       'app_name': appName,
+      'userRef': userRef,
+      'event_date': eventDate,
     }.withoutNulls,
   );
 
@@ -118,9 +133,10 @@ class ListaEventiRecordDocumentEquality implements Equality<ListaEventiRecord> {
     return e1?.nome == e2?.nome &&
         e1?.cognome == e2?.cognome &&
         e1?.entrato == e2?.entrato &&
-        e1?.eventoRef == e2?.eventoRef &&
         e1?.createdBy == e2?.createdBy &&
-        e1?.appName == e2?.appName;
+        e1?.appName == e2?.appName &&
+        e1?.userRef == e2?.userRef &&
+        e1?.eventDate == e2?.eventDate;
   }
 
   @override
@@ -128,9 +144,10 @@ class ListaEventiRecordDocumentEquality implements Equality<ListaEventiRecord> {
         e?.nome,
         e?.cognome,
         e?.entrato,
-        e?.eventoRef,
         e?.createdBy,
-        e?.appName
+        e?.appName,
+        e?.userRef,
+        e?.eventDate
       ]);
 
   @override

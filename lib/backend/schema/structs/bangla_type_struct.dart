@@ -1,5 +1,5 @@
 // ignore_for_file: unnecessary_getters_setters
-
+import '/backend/algolia/serialization_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -67,6 +67,24 @@ class BanglaTypeStruct extends FFFirebaseStruct {
           data['date_time'],
           ParamType.DateTime,
           false,
+        ),
+      );
+
+  static BanglaTypeStruct fromAlgoliaData(Map<String, dynamic> data) =>
+      BanglaTypeStruct(
+        latlng: convertAlgoliaParam(
+          data,
+          ParamType.LatLng,
+          false,
+        ),
+        dateTime: convertAlgoliaParam(
+          data['date_time'],
+          ParamType.DateTime,
+          false,
+        ),
+        firestoreUtilData: FirestoreUtilData(
+          clearUnsetFields: false,
+          create: true,
         ),
       );
 

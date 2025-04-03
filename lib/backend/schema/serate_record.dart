@@ -9,9 +9,9 @@ import '/flutter_flow/flutter_flow_util.dart';
 
 class SerateRecord extends FirestoreRecord {
   SerateRecord._(
-    super.reference,
-    super.data,
-  ) {
+    DocumentReference reference,
+    Map<String, dynamic> data,
+  ) : super(reference, data) {
     _initializeFields();
   }
 
@@ -145,11 +145,6 @@ class SerateRecord extends FirestoreRecord {
   bool get biglietti => _biglietti ?? false;
   bool hasBiglietti() => _biglietti != null;
 
-  // "serateMngRef" field.
-  DocumentReference? _serateMngRef;
-  DocumentReference? get serateMngRef => _serateMngRef;
-  bool hasSerateMngRef() => _serateMngRef != null;
-
   // "urlBiglietti" field.
   String? _urlBiglietti;
   String get urlBiglietti => _urlBiglietti ?? '';
@@ -159,11 +154,6 @@ class SerateRecord extends FirestoreRecord {
   bool? _verificato;
   bool get verificato => _verificato ?? false;
   bool hasVerificato() => _verificato != null;
-
-  // "eventoManagerRef" field.
-  DocumentReference? _eventoManagerRef;
-  DocumentReference? get eventoManagerRef => _eventoManagerRef;
-  bool hasEventoManagerRef() => _eventoManagerRef != null;
 
   // "telefonoWa" field.
   String? _telefonoWa;
@@ -255,6 +245,81 @@ class SerateRecord extends FirestoreRecord {
   bool get serataAnnullata => _serataAnnullata ?? false;
   bool hasSerataAnnullata() => _serataAnnullata != null;
 
+  // "tavoli" field.
+  bool? _tavoli;
+  bool get tavoli => _tavoli ?? false;
+  bool hasTavoli() => _tavoli != null;
+
+  // "tavolo1nome" field.
+  String? _tavolo1nome;
+  String get tavolo1nome => _tavolo1nome ?? '';
+  bool hasTavolo1nome() => _tavolo1nome != null;
+
+  // "tavolo1descrizione" field.
+  String? _tavolo1descrizione;
+  String get tavolo1descrizione => _tavolo1descrizione ?? '';
+  bool hasTavolo1descrizione() => _tavolo1descrizione != null;
+
+  // "tavolo1prezzo" field.
+  String? _tavolo1prezzo;
+  String get tavolo1prezzo => _tavolo1prezzo ?? '';
+  bool hasTavolo1prezzo() => _tavolo1prezzo != null;
+
+  // "tavolo2nome" field.
+  String? _tavolo2nome;
+  String get tavolo2nome => _tavolo2nome ?? '';
+  bool hasTavolo2nome() => _tavolo2nome != null;
+
+  // "tavolo2descrizione" field.
+  String? _tavolo2descrizione;
+  String get tavolo2descrizione => _tavolo2descrizione ?? '';
+  bool hasTavolo2descrizione() => _tavolo2descrizione != null;
+
+  // "tavolo2prezzo" field.
+  String? _tavolo2prezzo;
+  String get tavolo2prezzo => _tavolo2prezzo ?? '';
+  bool hasTavolo2prezzo() => _tavolo2prezzo != null;
+
+  // "tavolo3nome" field.
+  String? _tavolo3nome;
+  String get tavolo3nome => _tavolo3nome ?? '';
+  bool hasTavolo3nome() => _tavolo3nome != null;
+
+  // "tavolo3descrizione" field.
+  String? _tavolo3descrizione;
+  String get tavolo3descrizione => _tavolo3descrizione ?? '';
+  bool hasTavolo3descrizione() => _tavolo3descrizione != null;
+
+  // "tavolo3prezzo" field.
+  String? _tavolo3prezzo;
+  String get tavolo3prezzo => _tavolo3prezzo ?? '';
+  bool hasTavolo3prezzo() => _tavolo3prezzo != null;
+
+  // "video" field.
+  bool? _video;
+  bool get video => _video ?? false;
+  bool hasVideo() => _video != null;
+
+  // "videoPath" field.
+  String? _videoPath;
+  String get videoPath => _videoPath ?? '';
+  bool hasVideoPath() => _videoPath != null;
+
+  // "city" field.
+  String? _city;
+  String get city => _city ?? '';
+  bool hasCity() => _city != null;
+
+  // "blinkEvent" field.
+  bool? _blinkEvent;
+  bool get blinkEvent => _blinkEvent ?? false;
+  bool hasBlinkEvent() => _blinkEvent != null;
+
+  // "serateMngRef" field.
+  DocumentReference? _serateMngRef;
+  DocumentReference? get serateMngRef => _serateMngRef;
+  bool hasSerateMngRef() => _serateMngRef != null;
+
   void _initializeFields() {
     _titolo = snapshotData['Titolo'] as String?;
     _locandina = snapshotData['Locandina'] as String?;
@@ -282,10 +347,8 @@ class SerateRecord extends FirestoreRecord {
     _ingresso2Drink = snapshotData['ingresso2Drink'] as bool?;
     _ingresso3Drink = snapshotData['ingresso3Drink'] as bool?;
     _biglietti = snapshotData['biglietti'] as bool?;
-    _serateMngRef = snapshotData['serateMngRef'] as DocumentReference?;
     _urlBiglietti = snapshotData['urlBiglietti'] as String?;
     _verificato = snapshotData['verificato'] as bool?;
-    _eventoManagerRef = snapshotData['eventoManagerRef'] as DocumentReference?;
     _telefonoWa = snapshotData['telefonoWa'] as String?;
     _contatto = snapshotData['contatto'] as bool?;
     _inizioOrario = snapshotData['inizioOrario'] as DateTime?;
@@ -304,6 +367,21 @@ class SerateRecord extends FirestoreRecord {
     _appName = snapshotData['app_name'] as String?;
     _createdBy = snapshotData['createdBy'] as String?;
     _serataAnnullata = snapshotData['serataAnnullata'] as bool?;
+    _tavoli = snapshotData['tavoli'] as bool?;
+    _tavolo1nome = snapshotData['tavolo1nome'] as String?;
+    _tavolo1descrizione = snapshotData['tavolo1descrizione'] as String?;
+    _tavolo1prezzo = snapshotData['tavolo1prezzo'] as String?;
+    _tavolo2nome = snapshotData['tavolo2nome'] as String?;
+    _tavolo2descrizione = snapshotData['tavolo2descrizione'] as String?;
+    _tavolo2prezzo = snapshotData['tavolo2prezzo'] as String?;
+    _tavolo3nome = snapshotData['tavolo3nome'] as String?;
+    _tavolo3descrizione = snapshotData['tavolo3descrizione'] as String?;
+    _tavolo3prezzo = snapshotData['tavolo3prezzo'] as String?;
+    _video = snapshotData['video'] as bool?;
+    _videoPath = snapshotData['videoPath'] as String?;
+    _city = snapshotData['city'] as String?;
+    _blinkEvent = snapshotData['blinkEvent'] as bool?;
+    _serateMngRef = snapshotData['serateMngRef'] as DocumentReference?;
   }
 
   static CollectionReference get collection =>
@@ -366,10 +444,8 @@ Map<String, dynamic> createSerateRecordData({
   bool? ingresso2Drink,
   bool? ingresso3Drink,
   bool? biglietti,
-  DocumentReference? serateMngRef,
   String? urlBiglietti,
   bool? verificato,
-  DocumentReference? eventoManagerRef,
   String? telefonoWa,
   bool? contatto,
   DateTime? inizioOrario,
@@ -386,6 +462,21 @@ Map<String, dynamic> createSerateRecordData({
   String? appName,
   String? createdBy,
   bool? serataAnnullata,
+  bool? tavoli,
+  String? tavolo1nome,
+  String? tavolo1descrizione,
+  String? tavolo1prezzo,
+  String? tavolo2nome,
+  String? tavolo2descrizione,
+  String? tavolo2prezzo,
+  String? tavolo3nome,
+  String? tavolo3descrizione,
+  String? tavolo3prezzo,
+  bool? video,
+  String? videoPath,
+  String? city,
+  bool? blinkEvent,
+  DocumentReference? serateMngRef,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -415,10 +506,8 @@ Map<String, dynamic> createSerateRecordData({
       'ingresso2Drink': ingresso2Drink,
       'ingresso3Drink': ingresso3Drink,
       'biglietti': biglietti,
-      'serateMngRef': serateMngRef,
       'urlBiglietti': urlBiglietti,
       'verificato': verificato,
-      'eventoManagerRef': eventoManagerRef,
       'telefonoWa': telefonoWa,
       'contatto': contatto,
       'inizioOrario': inizioOrario,
@@ -435,6 +524,21 @@ Map<String, dynamic> createSerateRecordData({
       'app_name': appName,
       'createdBy': createdBy,
       'serataAnnullata': serataAnnullata,
+      'tavoli': tavoli,
+      'tavolo1nome': tavolo1nome,
+      'tavolo1descrizione': tavolo1descrizione,
+      'tavolo1prezzo': tavolo1prezzo,
+      'tavolo2nome': tavolo2nome,
+      'tavolo2descrizione': tavolo2descrizione,
+      'tavolo2prezzo': tavolo2prezzo,
+      'tavolo3nome': tavolo3nome,
+      'tavolo3descrizione': tavolo3descrizione,
+      'tavolo3prezzo': tavolo3prezzo,
+      'video': video,
+      'videoPath': videoPath,
+      'city': city,
+      'blinkEvent': blinkEvent,
+      'serateMngRef': serateMngRef,
     }.withoutNulls,
   );
 
@@ -473,10 +577,8 @@ class SerateRecordDocumentEquality implements Equality<SerateRecord> {
         e1?.ingresso2Drink == e2?.ingresso2Drink &&
         e1?.ingresso3Drink == e2?.ingresso3Drink &&
         e1?.biglietti == e2?.biglietti &&
-        e1?.serateMngRef == e2?.serateMngRef &&
         e1?.urlBiglietti == e2?.urlBiglietti &&
         e1?.verificato == e2?.verificato &&
-        e1?.eventoManagerRef == e2?.eventoManagerRef &&
         e1?.telefonoWa == e2?.telefonoWa &&
         e1?.contatto == e2?.contatto &&
         e1?.inizioOrario == e2?.inizioOrario &&
@@ -494,7 +596,22 @@ class SerateRecordDocumentEquality implements Equality<SerateRecord> {
         e1?.organizzatore == e2?.organizzatore &&
         e1?.appName == e2?.appName &&
         e1?.createdBy == e2?.createdBy &&
-        e1?.serataAnnullata == e2?.serataAnnullata;
+        e1?.serataAnnullata == e2?.serataAnnullata &&
+        e1?.tavoli == e2?.tavoli &&
+        e1?.tavolo1nome == e2?.tavolo1nome &&
+        e1?.tavolo1descrizione == e2?.tavolo1descrizione &&
+        e1?.tavolo1prezzo == e2?.tavolo1prezzo &&
+        e1?.tavolo2nome == e2?.tavolo2nome &&
+        e1?.tavolo2descrizione == e2?.tavolo2descrizione &&
+        e1?.tavolo2prezzo == e2?.tavolo2prezzo &&
+        e1?.tavolo3nome == e2?.tavolo3nome &&
+        e1?.tavolo3descrizione == e2?.tavolo3descrizione &&
+        e1?.tavolo3prezzo == e2?.tavolo3prezzo &&
+        e1?.video == e2?.video &&
+        e1?.videoPath == e2?.videoPath &&
+        e1?.city == e2?.city &&
+        e1?.blinkEvent == e2?.blinkEvent &&
+        e1?.serateMngRef == e2?.serateMngRef;
   }
 
   @override
@@ -525,10 +642,8 @@ class SerateRecordDocumentEquality implements Equality<SerateRecord> {
         e?.ingresso2Drink,
         e?.ingresso3Drink,
         e?.biglietti,
-        e?.serateMngRef,
         e?.urlBiglietti,
         e?.verificato,
-        e?.eventoManagerRef,
         e?.telefonoWa,
         e?.contatto,
         e?.inizioOrario,
@@ -546,7 +661,22 @@ class SerateRecordDocumentEquality implements Equality<SerateRecord> {
         e?.organizzatore,
         e?.appName,
         e?.createdBy,
-        e?.serataAnnullata
+        e?.serataAnnullata,
+        e?.tavoli,
+        e?.tavolo1nome,
+        e?.tavolo1descrizione,
+        e?.tavolo1prezzo,
+        e?.tavolo2nome,
+        e?.tavolo2descrizione,
+        e?.tavolo2prezzo,
+        e?.tavolo3nome,
+        e?.tavolo3descrizione,
+        e?.tavolo3prezzo,
+        e?.video,
+        e?.videoPath,
+        e?.city,
+        e?.blinkEvent,
+        e?.serateMngRef
       ]);
 
   @override

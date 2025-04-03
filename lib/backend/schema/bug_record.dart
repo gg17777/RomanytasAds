@@ -9,9 +9,9 @@ import '/flutter_flow/flutter_flow_util.dart';
 
 class BugRecord extends FirestoreRecord {
   BugRecord._(
-    super.reference,
-    super.data,
-  ) {
+    DocumentReference reference,
+    Map<String, dynamic> data,
+  ) : super(reference, data) {
     _initializeFields();
   }
 
@@ -30,10 +30,28 @@ class BugRecord extends FirestoreRecord {
   String get userEmail => _userEmail ?? '';
   bool hasUserEmail() => _userEmail != null;
 
+  // "date" field.
+  DateTime? _date;
+  DateTime? get date => _date;
+  bool hasDate() => _date != null;
+
+  // "version_number" field.
+  String? _versionNumber;
+  String get versionNumber => _versionNumber ?? '';
+  bool hasVersionNumber() => _versionNumber != null;
+
+  // "device" field.
+  String? _device;
+  String get device => _device ?? '';
+  bool hasDevice() => _device != null;
+
   void _initializeFields() {
     _text = snapshotData['text'] as String?;
     _img = snapshotData['img'] as String?;
     _userEmail = snapshotData['userEmail'] as String?;
+    _date = snapshotData['date'] as DateTime?;
+    _versionNumber = snapshotData['version_number'] as String?;
+    _device = snapshotData['device'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -73,12 +91,18 @@ Map<String, dynamic> createBugRecordData({
   String? text,
   String? img,
   String? userEmail,
+  DateTime? date,
+  String? versionNumber,
+  String? device,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'text': text,
       'img': img,
       'userEmail': userEmail,
+      'date': date,
+      'version_number': versionNumber,
+      'device': device,
     }.withoutNulls,
   );
 
@@ -92,12 +116,15 @@ class BugRecordDocumentEquality implements Equality<BugRecord> {
   bool equals(BugRecord? e1, BugRecord? e2) {
     return e1?.text == e2?.text &&
         e1?.img == e2?.img &&
-        e1?.userEmail == e2?.userEmail;
+        e1?.userEmail == e2?.userEmail &&
+        e1?.date == e2?.date &&
+        e1?.versionNumber == e2?.versionNumber &&
+        e1?.device == e2?.device;
   }
 
   @override
-  int hash(BugRecord? e) =>
-      const ListEquality().hash([e?.text, e?.img, e?.userEmail]);
+  int hash(BugRecord? e) => const ListEquality().hash(
+      [e?.text, e?.img, e?.userEmail, e?.date, e?.versionNumber, e?.device]);
 
   @override
   bool isValidKey(Object? o) => o is BugRecord;

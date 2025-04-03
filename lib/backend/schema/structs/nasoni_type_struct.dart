@@ -1,5 +1,5 @@
 // ignore_for_file: unnecessary_getters_setters
-
+import '/backend/algolia/serialization_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -47,6 +47,19 @@ class NasoniTypeStruct extends FFFirebaseStruct {
           data['latlng'],
           ParamType.LatLng,
           false,
+        ),
+      );
+
+  static NasoniTypeStruct fromAlgoliaData(Map<String, dynamic> data) =>
+      NasoniTypeStruct(
+        latlng: convertAlgoliaParam(
+          data,
+          ParamType.LatLng,
+          false,
+        ),
+        firestoreUtilData: FirestoreUtilData(
+          clearUnsetFields: false,
+          create: true,
         ),
       );
 

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'serialization_util.dart';
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '../../flutter_flow/flutter_flow_util.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -11,7 +12,8 @@ import 'package:flutter/scheduler.dart';
 final _handledMessageIds = <String?>{};
 
 class PushNotificationsHandler extends StatefulWidget {
-  const PushNotificationsHandler({super.key, required this.child});
+  const PushNotificationsHandler({Key? key, required this.child})
+      : super(key: key);
 
   final Widget child;
 
@@ -48,11 +50,19 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
       final parametersBuilder = parametersBuilderMap[initialPageName];
       if (parametersBuilder != null) {
         final parameterData = await parametersBuilder(initialParameterData);
-        context.pushNamed(
-          initialPageName,
-          pathParameters: parameterData.pathParameters,
-          extra: parameterData.extra,
-        );
+        if (mounted) {
+          context.pushNamed(
+            initialPageName,
+            pathParameters: parameterData.pathParameters,
+            extra: parameterData.extra,
+          );
+        } else {
+          appNavigatorKey.currentContext?.pushNamed(
+            initialPageName,
+            pathParameters: parameterData.pathParameters,
+            extra: parameterData.extra,
+          );
+        }
       }
     } catch (e) {
       print('Error: $e');
@@ -72,11 +82,11 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
   @override
   Widget build(BuildContext context) => _loading
       ? Container(
-          color: FlutterFlowTheme.of(context).primaryBackground,
+          color: FlutterFlowTheme.of(context).secondaryBackground,
           child: Center(
             child: Image.asset(
-              'assets/images/LOGO_TONDO.png',
-              width: 100.0,
+              'assets/images/Untitled_design_(52).png',
+              width: 175.0,
               fit: BoxFit.cover,
             ),
           ),
@@ -100,25 +110,16 @@ class ParameterData {
       );
 
   static Future<ParameterData> Function(Map<String, dynamic>) none() =>
-      (data) async => const ParameterData();
+      (data) async => ParameterData();
 }
 
 final parametersBuilderMap =
     <String, Future<ParameterData> Function(Map<String, dynamic>)>{
   'nasoniMap': ParameterData.none(),
-  'DiscotecaProfile': (data) async => ParameterData(
-        allParams: {
-          'serataRef': getParameter<DocumentReference>(data, 'serataRef'),
-        },
-      ),
   'EventiProfile': (data) async => ParameterData(
         allParams: {
           'eventoRef': getParameter<DocumentReference>(data, 'eventoRef'),
-        },
-      ),
-  'MostreProfile': (data) async => ParameterData(
-        allParams: {
-          'mostreRef': getParameter<DocumentReference>(data, 'mostreRef'),
+          'goBack': getParameter<String>(data, 'goBack'),
         },
       ),
   'ConcertoProfile': (data) async => ParameterData(
@@ -131,28 +132,165 @@ final parametersBuilderMap =
   'Profilo': ParameterData.none(),
   'segnalazioneNasoni': ParameterData.none(),
   'SegnalazioneBangla': ParameterData.none(),
-  'impostazioniAccount': ParameterData.none(),
+  'modify_data_profile': ParameterData.none(),
   'resetPassword': ParameterData.none(),
-  'mappaDiscoteche': ParameterData.none(),
   'eventiHome': ParameterData.none(),
   'Segnalazione': ParameterData.none(),
-  'loadPage': ParameterData.none(),
-  'auth12': ParameterData.none(),
-  'mappaEventi': ParameterData.none(),
-  'mappaMostre': ParameterData.none(),
-  'prova': ParameterData.none(),
-  'eventiList': ParameterData.none(),
-  'discotecheList': ParameterData.none(),
+  'loadPageLoggedIn': ParameterData.none(),
+  'mapEvents': ParameterData.none(),
+  'eventiListHome': ParameterData.none(),
   'concertiList': ParameterData.none(),
-  'mostreList': ParameterData.none(),
-  'evntiHome2': ParameterData.none(),
-  'concertoInEvidenzaProfile': (data) async => ParameterData(
+  'segnalazioneCibo': ParameterData.none(),
+  'friendsMap': ParameterData.none(),
+  'searchPage': ParameterData.none(),
+  'friendsRequests': ParameterData.none(),
+  'friendsRequestsAll': ParameterData.none(),
+  'friendsSuggestions': ParameterData.none(),
+  'friendsList': ParameterData.none(),
+  'newPhotoProfile': ParameterData.none(),
+  'mappaEventiFriends': ParameterData.none(),
+  'synchroniseContacts': ParameterData.none(),
+  'contactsBulkSent': (data) async => ParameterData(
+        allParams: <String, dynamic>{},
+      ),
+  'userProfileSearched': (data) async => ParameterData(
         allParams: {
-          'concertoInEveidenzaRef':
-              getParameter<DocumentReference>(data, 'concertoInEveidenzaRef'),
+          'userRef': getParameter<DocumentReference>(data, 'userRef'),
         },
       ),
-  'segnalazioneCibo': ParameterData.none(),
+  'ContactsPage': ParameterData.none(),
+  'userPhone': ParameterData.none(),
+  'missingDetailsPage': ParameterData.none(),
+  'synchroniseContactsAgain': ParameterData.none(),
+  'videoEvent': (data) async => ParameterData(
+        allParams: {
+          'eventRef': getParameter<DocumentReference>(data, 'eventRef'),
+        },
+      ),
+  'chooseCity': ParameterData.none(),
+  'loadPageLoggedOut': ParameterData.none(),
+  'test': ParameterData.none(),
+  'swipe_users': (data) async => ParameterData(
+        allParams: {
+          'eventId': getParameter<String>(data, 'eventId'),
+          'eventRef': getParameter<DocumentReference>(data, 'eventRef'),
+          'eventName': getParameter<String>(data, 'eventName'),
+        },
+      ),
+  'settings': ParameterData.none(),
+  'privacy_account': ParameterData.none(),
+  'main_matches_page': ParameterData.none(),
+  'participatingListEvent100': (data) async => ParameterData(
+        allParams: {
+          'eventoRef': getParameter<DocumentReference>(data, 'eventoRef'),
+          'blink': getParameter<bool>(data, 'blink'),
+          'eventName': getParameter<String>(data, 'eventName'),
+          'eventDoc': await getDocumentParameter<EventiRecord>(
+              data, 'eventDoc', EventiRecord.fromSnapshot),
+        },
+      ),
+  'filter_swipes': (data) async => ParameterData(
+        allParams: {
+          'eventId': getParameter<DocumentReference>(data, 'eventId'),
+          'eventName': getParameter<String>(data, 'eventName'),
+        },
+      ),
+  'edit_filters_swipes': ParameterData.none(),
+  'tutorial_swipe': (data) async => ParameterData(
+        allParams: {
+          'eventRef': getParameter<DocumentReference>(data, 'eventRef'),
+          'blink': getParameter<bool>(data, 'blink'),
+          'eventName': getParameter<String>(data, 'eventName'),
+          'eventType': getParameter<String>(data, 'eventType'),
+        },
+      ),
+  'tutorial_participate': (data) async => ParameterData(
+        allParams: {
+          'eventRef': getParameter<DocumentReference>(data, 'eventRef'),
+          'outOrIn': getParameter<String>(data, 'outOrIn'),
+          'eventType': getParameter<String>(data, 'eventType'),
+          'eventDoc': await getDocumentParameter<EventiRecord>(
+              data, 'eventDoc', EventiRecord.fromSnapshot),
+        },
+      ),
+  'blocked_users': ParameterData.none(),
+  'privacy_policy': ParameterData.none(),
+  'privacy_policy_popUp': ParameterData.none(),
+  'prova2': (data) async => ParameterData(
+        allParams: {
+          'eventRef': getParameter<DocumentReference>(data, 'eventRef'),
+          'eventId': getParameter<String>(data, 'eventId'),
+          'eventName': getParameter<String>(data, 'eventName'),
+        },
+      ),
+  'secret_parties_home': ParameterData.none(),
+  'create_secret_party': ParameterData.none(),
+  'secret_party_recap': ParameterData.none(),
+  'swipe_usersCopy': (data) async => ParameterData(
+        allParams: {
+          'eventId': getParameter<String>(data, 'eventId'),
+          'eventRef': getParameter<DocumentReference>(data, 'eventRef'),
+          'eventName': getParameter<String>(data, 'eventName'),
+        },
+      ),
+  'myPhotos': (data) async => ParameterData(
+        allParams: {
+          'eventId': getParameter<String>(data, 'eventId'),
+        },
+      ),
+  'notifications_settings': ParameterData.none(),
+  'my_events': ParameterData.none(),
+  'past_participants_events': (data) async => ParameterData(
+        allParams: {
+          'eventoRef': getParameter<DocumentReference>(data, 'eventoRef'),
+        },
+      ),
+  'photo': (data) async => ParameterData(
+        allParams: {
+          'photoRef': getParameter<DocumentReference>(data, 'photoRef'),
+          'eventRef': getParameter<DocumentReference>(data, 'eventRef'),
+          'numUsersInPhoto': getParameter<int>(data, 'numUsersInPhoto'),
+        },
+      ),
+  'LogIn': ParameterData.none(),
+  'CreateAccount': ParameterData.none(),
+  'modify_email': ParameterData.none(),
+  'modify_name': ParameterData.none(),
+  'modify_bio': ParameterData.none(),
+  'name_lastname_photo': ParameterData.none(),
+  'modify_uni': ParameterData.none(),
+  'drink_saltafila': (data) async => ParameterData(
+        allParams: {
+          'eventRef': getParameter<DocumentReference>(data, 'eventRef'),
+        },
+      ),
+  'EventiProfileLogOut': (data) async => ParameterData(
+        allParams: {
+          'eventoRef': getParameter<DocumentReference>(data, 'eventoRef'),
+          'goBack': getParameter<String>(data, 'goBack'),
+        },
+      ),
+  'manager_profile': (data) async => ParameterData(
+        allParams: {
+          'managerRef': getParameter<DocumentReference>(data, 'managerRef'),
+        },
+      ),
+  'friendsListUser': (data) async => ParameterData(
+        allParams: {
+          'userRef': getParameter<DocumentReference>(data, 'userRef'),
+        },
+      ),
+  'all_matches': ParameterData.none(),
+  'all_likes': ParameterData.none(),
+  'all_friends_requests': ParameterData.none(),
+  'eventiHomeLogOut': ParameterData.none(),
+  'buyTicket': (data) async => ParameterData(
+        allParams: {
+          'eventRef': getParameter<DocumentReference>(data, 'eventRef'),
+        },
+      ),
+  'my_eventsCopy': ParameterData.none(),
+  'prova': ParameterData.none(),
 };
 
 Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {

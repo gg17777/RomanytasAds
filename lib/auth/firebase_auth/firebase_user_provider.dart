@@ -5,10 +5,9 @@ import '../base_auth_user_provider.dart';
 
 export '../base_auth_user_provider.dart';
 
-class RomanytasFirebaseUser extends BaseAuthUser {
-  RomanytasFirebaseUser(this.user);
+class OutOutFirebaseUser extends BaseAuthUser {
+  OutOutFirebaseUser(this.user);
   User? user;
-  @override
   bool get loggedIn => user != null;
 
   @override
@@ -33,6 +32,11 @@ class RomanytasFirebaseUser extends BaseAuthUser {
   }
 
   @override
+  Future? updatePassword(String newPassword) async {
+    await user?.updatePassword(newPassword);
+  }
+
+  @override
   Future? sendEmailVerification() => user?.sendEmailVerification();
 
   @override
@@ -54,18 +58,17 @@ class RomanytasFirebaseUser extends BaseAuthUser {
 
   static BaseAuthUser fromUserCredential(UserCredential userCredential) =>
       fromFirebaseUser(userCredential.user);
-  static BaseAuthUser fromFirebaseUser(User? user) =>
-      RomanytasFirebaseUser(user);
+  static BaseAuthUser fromFirebaseUser(User? user) => OutOutFirebaseUser(user);
 }
 
-Stream<BaseAuthUser> romanytasFirebaseUserStream() => FirebaseAuth.instance
+Stream<BaseAuthUser> outOutFirebaseUserStream() => FirebaseAuth.instance
         .authStateChanges()
         .debounce((user) => user == null && !loggedIn
             ? TimerStream(true, const Duration(seconds: 1))
             : Stream.value(user))
         .map<BaseAuthUser>(
       (user) {
-        currentUser = RomanytasFirebaseUser(user);
+        currentUser = OutOutFirebaseUser(user);
         return currentUser!;
       },
     );

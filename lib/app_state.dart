@@ -89,6 +89,27 @@ class FFAppState extends ChangeNotifier {
     _safeInit(() {
       _infoNasoni = prefs.getBool('ff_infoNasoni') ?? _infoNasoni;
     });
+    _safeInit(() {
+      _infoComuneRomaBangla =
+          prefs.getBool('ff_infoComuneRomaBangla') ?? _infoComuneRomaBangla;
+    });
+    _safeInit(() {
+      _city = prefs.getString('ff_city') ?? _city;
+    });
+    _safeInit(() {
+      _blinkTutorial = prefs.getBool('ff_blinkTutorial') ?? _blinkTutorial;
+    });
+    _safeInit(() {
+      _placepicker =
+          latLngFromString(prefs.getString('ff_placepicker')) ?? _placepicker;
+    });
+    _safeInit(() {
+      _swipeTutorial = prefs.getBool('ff_swipeTutorial') ?? _swipeTutorial;
+    });
+    _safeInit(() {
+      _tutorialParticipate =
+          prefs.getInt('ff_tutorialParticipate') ?? _tutorialParticipate;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -98,7 +119,7 @@ class FFAppState extends ChangeNotifier {
 
   late SharedPreferences prefs;
 
-  LatLng? _tapped = const LatLng(35.1503787, 33.3410323);
+  LatLng? _tapped = LatLng(35.1503787, 33.3410323);
   LatLng? get tapped => _tapped;
   set tapped(LatLng? value) {
     _tapped = value;
@@ -315,6 +336,82 @@ class FFAppState extends ChangeNotifier {
   set infoNasoni(bool value) {
     _infoNasoni = value;
     prefs.setBool('ff_infoNasoni', value);
+  }
+
+  String _page = 'events';
+  String get page => _page;
+  set page(String value) {
+    _page = value;
+  }
+
+  String _map = 'bangla';
+  String get map => _map;
+  set map(String value) {
+    _map = value;
+  }
+
+  bool _infoComuneRomaBangla = false;
+  bool get infoComuneRomaBangla => _infoComuneRomaBangla;
+  set infoComuneRomaBangla(bool value) {
+    _infoComuneRomaBangla = value;
+    prefs.setBool('ff_infoComuneRomaBangla', value);
+  }
+
+  String _city = '';
+  String get city => _city;
+  set city(String value) {
+    _city = value;
+    prefs.setString('ff_city', value);
+  }
+
+  bool _blinkTutorial = false;
+  bool get blinkTutorial => _blinkTutorial;
+  set blinkTutorial(bool value) {
+    _blinkTutorial = value;
+    prefs.setBool('ff_blinkTutorial', value);
+  }
+
+  DocumentReference? _outoutRef =
+      FirebaseFirestore.instance.doc('/users/ThwC2m1GP4gOovGjJOmvLLehTlR2');
+  DocumentReference? get outoutRef => _outoutRef;
+  set outoutRef(DocumentReference? value) {
+    _outoutRef = value;
+  }
+
+  LatLng? _placepicker = LatLng(0.0, 0.0);
+  LatLng? get placepicker => _placepicker;
+  set placepicker(LatLng? value) {
+    _placepicker = value;
+    value != null
+        ? prefs.setString('ff_placepicker', value.serialize())
+        : prefs.remove('ff_placepicker');
+  }
+
+  bool _swipeTutorial = false;
+  bool get swipeTutorial => _swipeTutorial;
+  set swipeTutorial(bool value) {
+    _swipeTutorial = value;
+    prefs.setBool('ff_swipeTutorial', value);
+  }
+
+  int _tutorialParticipate = 0;
+  int get tutorialParticipate => _tutorialParticipate;
+  set tutorialParticipate(int value) {
+    _tutorialParticipate = value;
+    prefs.setInt('ff_tutorialParticipate', value);
+  }
+
+  String _OutOutID = 'ThwC2m1GP4gOovGjJOmvLLehTlR2';
+  String get OutOutID => _OutOutID;
+  set OutOutID(String value) {
+    _OutOutID = value;
+  }
+
+  DocumentReference? _saltafilaProva =
+      FirebaseFirestore.instance.doc('/Eventi/j1UGwj7pU72CDzsSUKre');
+  DocumentReference? get saltafilaProva => _saltafilaProva;
+  set saltafilaProva(DocumentReference? value) {
+    _saltafilaProva = value;
   }
 
   final _eventiCacheManager = FutureRequestManager<List<EventiRecord>>();

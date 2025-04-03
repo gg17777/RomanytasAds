@@ -12,14 +12,14 @@ Future<List<T>> _readQuery<T>(
 Future<List<GetAllNasoniRow>> performGetAllNasoni(
   Database database,
 ) {
-  const query = '''
+  final query = '''
 select * from nasoni
 ''';
   return _readQuery(database, query, (d) => GetAllNasoniRow(d));
 }
 
 class GetAllNasoniRow extends SqliteRow {
-  GetAllNasoniRow(super.data);
+  GetAllNasoniRow(Map<String, dynamic> data) : super(data);
 
   int? get id => data['id'] as int?;
   String? get addressText => data['addressText'] as String?;
@@ -37,13 +37,13 @@ Future<List<GetNasoniByIdRow>> performGetNasoniById(
   final query = '''
 SELECT *
 FROM nasoni
-WHERE id = $queryId
+WHERE id = ${queryId}
 ''';
   return _readQuery(database, query, (d) => GetNasoniByIdRow(d));
 }
 
 class GetNasoniByIdRow extends SqliteRow {
-  GetNasoniByIdRow(super.data);
+  GetNasoniByIdRow(Map<String, dynamic> data) : super(data);
 
   int? get id => data['id'] as int?;
   String? get addressText => data['addressText'] as String?;
@@ -57,20 +57,21 @@ class GetNasoniByIdRow extends SqliteRow {
 Future<List<GetAllBanglaRow>> performGetAllBangla(
   Database database,
 ) {
-  const query = '''
+  final query = '''
 select * from bangla
 ''';
   return _readQuery(database, query, (d) => GetAllBanglaRow(d));
 }
 
 class GetAllBanglaRow extends SqliteRow {
-  GetAllBanglaRow(super.data);
+  GetAllBanglaRow(Map<String, dynamic> data) : super(data);
 
   int? get id => data['id'] as int?;
   String? get addressText => data['addressText'] as String?;
   double? get latitude => data['latitude'] as double?;
   double? get longitude => data['Longitude'] as double?;
   String? get orario => data['orario'] as String?;
+  String? get city => data['city'] as String?;
 }
 
 /// END GET ALL BANGLA
@@ -83,13 +84,13 @@ Future<List<GetBanglaByIdRow>> performGetBanglaById(
   final query = '''
 SELECT *
 FROM bangla
-WHERE id = $queryId
+WHERE id = ${queryId}
 ''';
   return _readQuery(database, query, (d) => GetBanglaByIdRow(d));
 }
 
 class GetBanglaByIdRow extends SqliteRow {
-  GetBanglaByIdRow(super.data);
+  GetBanglaByIdRow(Map<String, dynamic> data) : super(data);
 
   int? get id => data['id'] as int?;
   String? get addressText => data['addressText'] as String?;
@@ -108,13 +109,13 @@ Future<List<GetCiboByIdRow>> performGetCiboById(
   final query = '''
 SELECT *
 FROM cibo
-WHERE id = $queryId
+WHERE id = ${queryId}
 ''';
   return _readQuery(database, query, (d) => GetCiboByIdRow(d));
 }
 
 class GetCiboByIdRow extends SqliteRow {
-  GetCiboByIdRow(super.data);
+  GetCiboByIdRow(Map<String, dynamic> data) : super(data);
 
   int? get id => data['id'] as int?;
   String? get addressText => data['addressText'] as String?;
@@ -132,14 +133,14 @@ class GetCiboByIdRow extends SqliteRow {
 Future<List<GetAllCiboRow>> performGetAllCibo(
   Database database,
 ) {
-  const query = '''
+  final query = '''
 select * from cibo
 ''';
   return _readQuery(database, query, (d) => GetAllCiboRow(d));
 }
 
 class GetAllCiboRow extends SqliteRow {
-  GetAllCiboRow(super.data);
+  GetAllCiboRow(Map<String, dynamic> data) : super(data);
 
   int? get id => data['id'] as int?;
   String? get addressText => data['addressText'] as String?;
@@ -161,13 +162,13 @@ Future<List<GetAllCiboByZozzoniRow>> performGetAllCiboByZozzoni(
   final query = '''
 select * 
 from cibo 
-where zozzoni = $queryZozzoni
+where zozzoni = ${queryZozzoni}
 ''';
   return _readQuery(database, query, (d) => GetAllCiboByZozzoniRow(d));
 }
 
 class GetAllCiboByZozzoniRow extends SqliteRow {
-  GetAllCiboByZozzoniRow(super.data);
+  GetAllCiboByZozzoniRow(Map<String, dynamic> data) : super(data);
 
   int? get id => data['id'] as int?;
   String? get addressText => data['addressText'] as String?;

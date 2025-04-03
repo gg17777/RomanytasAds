@@ -9,9 +9,9 @@ import '/flutter_flow/flutter_flow_util.dart';
 
 class ListeSerateRecord extends FirestoreRecord {
   ListeSerateRecord._(
-    super.reference,
-    super.data,
-  ) {
+    DocumentReference reference,
+    Map<String, dynamic> data,
+  ) : super(reference, data) {
     _initializeFields();
   }
 
@@ -24,11 +24,6 @@ class ListeSerateRecord extends FirestoreRecord {
   String? _cognome;
   String get cognome => _cognome ?? '';
   bool hasCognome() => _cognome != null;
-
-  // "serataRef" field.
-  DocumentReference? _serataRef;
-  DocumentReference? get serataRef => _serataRef;
-  bool hasSerataRef() => _serataRef != null;
 
   // "entrato" field.
   bool? _entrato;
@@ -45,17 +40,29 @@ class ListeSerateRecord extends FirestoreRecord {
   String get appName => _appName ?? '';
   bool hasAppName() => _appName != null;
 
+  // "userRef" field.
+  DocumentReference? _userRef;
+  DocumentReference? get userRef => _userRef;
+  bool hasUserRef() => _userRef != null;
+
+  DocumentReference get parentReference => reference.parent.parent!;
+
   void _initializeFields() {
     _nome = snapshotData['nome'] as String?;
     _cognome = snapshotData['cognome'] as String?;
-    _serataRef = snapshotData['serataRef'] as DocumentReference?;
     _entrato = snapshotData['entrato'] as bool?;
     _createdBy = snapshotData['createdBy'] as String?;
     _appName = snapshotData['app_name'] as String?;
+    _userRef = snapshotData['userRef'] as DocumentReference?;
   }
 
-  static CollectionReference get collection =>
-      FirebaseFirestore.instance.collection('listeSerate');
+  static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
+      parent != null
+          ? parent.collection('listeSerate')
+          : FirebaseFirestore.instance.collectionGroup('listeSerate');
+
+  static DocumentReference createDoc(DocumentReference parent, {String? id}) =>
+      parent.collection('listeSerate').doc(id);
 
   static Stream<ListeSerateRecord> getDocument(DocumentReference ref) =>
       ref.snapshots().map((s) => ListeSerateRecord.fromSnapshot(s));
@@ -91,19 +98,19 @@ class ListeSerateRecord extends FirestoreRecord {
 Map<String, dynamic> createListeSerateRecordData({
   String? nome,
   String? cognome,
-  DocumentReference? serataRef,
   bool? entrato,
   String? createdBy,
   String? appName,
+  DocumentReference? userRef,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'nome': nome,
       'cognome': cognome,
-      'serataRef': serataRef,
       'entrato': entrato,
       'createdBy': createdBy,
       'app_name': appName,
+      'userRef': userRef,
     }.withoutNulls,
   );
 
@@ -117,21 +124,15 @@ class ListeSerateRecordDocumentEquality implements Equality<ListeSerateRecord> {
   bool equals(ListeSerateRecord? e1, ListeSerateRecord? e2) {
     return e1?.nome == e2?.nome &&
         e1?.cognome == e2?.cognome &&
-        e1?.serataRef == e2?.serataRef &&
         e1?.entrato == e2?.entrato &&
         e1?.createdBy == e2?.createdBy &&
-        e1?.appName == e2?.appName;
+        e1?.appName == e2?.appName &&
+        e1?.userRef == e2?.userRef;
   }
 
   @override
-  int hash(ListeSerateRecord? e) => const ListEquality().hash([
-        e?.nome,
-        e?.cognome,
-        e?.serataRef,
-        e?.entrato,
-        e?.createdBy,
-        e?.appName
-      ]);
+  int hash(ListeSerateRecord? e) => const ListEquality().hash(
+      [e?.nome, e?.cognome, e?.entrato, e?.createdBy, e?.appName, e?.userRef]);
 
   @override
   bool isValidKey(Object? o) => o is ListeSerateRecord;

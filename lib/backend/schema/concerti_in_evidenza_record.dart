@@ -9,9 +9,9 @@ import '/flutter_flow/flutter_flow_util.dart';
 
 class ConcertiInEvidenzaRecord extends FirestoreRecord {
   ConcertiInEvidenzaRecord._(
-    super.reference,
-    super.data,
-  ) {
+    DocumentReference reference,
+    Map<String, dynamic> data,
+  ) : super(reference, data) {
     _initializeFields();
   }
 
@@ -130,6 +130,26 @@ class ConcertiInEvidenzaRecord extends FirestoreRecord {
   int get shared => _shared ?? 0;
   bool hasShared() => _shared != null;
 
+  // "concertReferenceRef" field.
+  DocumentReference? _concertReferenceRef;
+  DocumentReference? get concertReferenceRef => _concertReferenceRef;
+  bool hasConcertReferenceRef() => _concertReferenceRef != null;
+
+  // "city" field.
+  String? _city;
+  String get city => _city ?? '';
+  bool hasCity() => _city != null;
+
+  // "eventOrConcert" field.
+  String? _eventOrConcert;
+  String get eventOrConcert => _eventOrConcert ?? '';
+  bool hasEventOrConcert() => _eventOrConcert != null;
+
+  // "eventRef" field.
+  DocumentReference? _eventRef;
+  DocumentReference? get eventRef => _eventRef;
+  bool hasEventRef() => _eventRef != null;
+
   void _initializeFields() {
     _titolo = snapshotData['Titolo'] as String?;
     _locandina = snapshotData['Locandina'] as String?;
@@ -154,6 +174,11 @@ class ConcertiInEvidenzaRecord extends FirestoreRecord {
     _categoriaMusica = snapshotData['categoriaMusica'] as String?;
     _views = castToType<int>(snapshotData['views']);
     _shared = castToType<int>(snapshotData['shared']);
+    _concertReferenceRef =
+        snapshotData['concertReferenceRef'] as DocumentReference?;
+    _city = snapshotData['city'] as String?;
+    _eventOrConcert = snapshotData['eventOrConcert'] as String?;
+    _eventRef = snapshotData['eventRef'] as DocumentReference?;
   }
 
   static CollectionReference get collection =>
@@ -215,6 +240,10 @@ Map<String, dynamic> createConcertiInEvidenzaRecordData({
   String? categoriaMusica,
   int? views,
   int? shared,
+  DocumentReference? concertReferenceRef,
+  String? city,
+  String? eventOrConcert,
+  DocumentReference? eventRef,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -241,6 +270,10 @@ Map<String, dynamic> createConcertiInEvidenzaRecordData({
       'categoriaMusica': categoriaMusica,
       'views': views,
       'shared': shared,
+      'concertReferenceRef': concertReferenceRef,
+      'city': city,
+      'eventOrConcert': eventOrConcert,
+      'eventRef': eventRef,
     }.withoutNulls,
   );
 
@@ -275,7 +308,11 @@ class ConcertiInEvidenzaRecordDocumentEquality
         e1?.addressText == e2?.addressText &&
         e1?.categoriaMusica == e2?.categoriaMusica &&
         e1?.views == e2?.views &&
-        e1?.shared == e2?.shared;
+        e1?.shared == e2?.shared &&
+        e1?.concertReferenceRef == e2?.concertReferenceRef &&
+        e1?.city == e2?.city &&
+        e1?.eventOrConcert == e2?.eventOrConcert &&
+        e1?.eventRef == e2?.eventRef;
   }
 
   @override
@@ -302,7 +339,11 @@ class ConcertiInEvidenzaRecordDocumentEquality
         e?.addressText,
         e?.categoriaMusica,
         e?.views,
-        e?.shared
+        e?.shared,
+        e?.concertReferenceRef,
+        e?.city,
+        e?.eventOrConcert,
+        e?.eventRef
       ]);
 
   @override

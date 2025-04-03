@@ -1,5 +1,5 @@
 // ignore_for_file: unnecessary_getters_setters
-
+import '/backend/algolia/serialization_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -65,6 +65,24 @@ class MarkersStruct extends FFFirebaseStruct {
           data['imageUrl'],
           ParamType.String,
           false,
+        ),
+      );
+
+  static MarkersStruct fromAlgoliaData(Map<String, dynamic> data) =>
+      MarkersStruct(
+        coordinates: convertAlgoliaParam(
+          data,
+          ParamType.LatLng,
+          false,
+        ),
+        imageUrl: convertAlgoliaParam(
+          data['imageUrl'],
+          ParamType.String,
+          false,
+        ),
+        firestoreUtilData: FirestoreUtilData(
+          clearUnsetFields: false,
+          create: true,
         ),
       );
 

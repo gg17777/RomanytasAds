@@ -21,7 +21,7 @@ class SQLiteManager {
       return;
     }
     _database = await initializeDatabaseFromDbFile(
-      'roma_4_1',
+      'roma_4_8',
       'romaDB.db',
     );
   }

@@ -14,12 +14,12 @@ class ReverseGeocodingCall {
     double? lat,
     double? lng,
   }) async {
-    const ffApiRequestBody = '''
+    final ffApiRequestBody = '''
 {}''';
     return ApiManager.instance.makeApiCall(
       callName: 'Reverse geocoding',
       apiUrl:
-          'https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&key=AIzaSyACRpaHgchOwbEAZ1bK7SySyzWD_oGhg3Q',
+          'https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyACRpaHgchOwbEAZ1bK7SySyzWD_oGhg3Q',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
@@ -50,12 +50,12 @@ class ReverseGeocodingCopyCall {
     double? lat,
     double? lng,
   }) async {
-    const ffApiRequestBody = '''
+    final ffApiRequestBody = '''
 {}''';
     return ApiManager.instance.makeApiCall(
       callName: 'Reverse geocoding Copy',
       apiUrl:
-          'https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&key=AIzaSyACRpaHgchOwbEAZ1bK7SySyzWD_oGhg3Q',
+          'https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyACRpaHgchOwbEAZ1bK7SySyzWD_oGhg3Q',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
@@ -88,8 +88,8 @@ class IncrementViewsCall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "collectionId": "$collectionId",
-  "docId": "$docId"
+  "collectionId": "${collectionId}",
+  "docId": "${docId}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'incrementViews',

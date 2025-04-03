@@ -1,5 +1,5 @@
 // ignore_for_file: unnecessary_getters_setters
-
+import '/backend/algolia/serialization_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -105,6 +105,34 @@ class CiboTypeStruct extends FFFirebaseStruct {
           data['zozzoni'],
           ParamType.bool,
           false,
+        ),
+      );
+
+  static CiboTypeStruct fromAlgoliaData(Map<String, dynamic> data) =>
+      CiboTypeStruct(
+        latlng: convertAlgoliaParam(
+          data,
+          ParamType.LatLng,
+          false,
+        ),
+        name: convertAlgoliaParam(
+          data['name'],
+          ParamType.String,
+          false,
+        ),
+        description: convertAlgoliaParam(
+          data['description'],
+          ParamType.String,
+          false,
+        ),
+        zozzoni: convertAlgoliaParam(
+          data['zozzoni'],
+          ParamType.bool,
+          false,
+        ),
+        firestoreUtilData: FirestoreUtilData(
+          clearUnsetFields: false,
+          create: true,
         ),
       );
 
