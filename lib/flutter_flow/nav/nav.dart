@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 import '/backend/backend.dart';
-import '/backend/schema/structs/index.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
 import '/backend/push_notifications/push_notifications_handler.dart'
     show PushNotificationsHandler;
-import '/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+
+import '/index.dart';
 
 export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
@@ -20,6 +20,8 @@ export '/backend/firebase_dynamic_links/firebase_dynamic_links.dart'
     show generateCurrentPageLink;
 
 const kTransitionInfoKey = '__transition_info__';
+
+GlobalKey<NavigatorState> appNavigatorKey = GlobalKey<NavigatorState>();
 
 class AppStateNotifier extends ChangeNotifier {
   AppStateNotifier._();
@@ -79,12 +81,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
+      navigatorKey: appNavigatorKey,
       errorBuilder: (context, state) => _RouteErrorBuilder(
         state: state,
         child: RootPageContext.wrap(
           appStateNotifier.loggedIn
-              ? entryPage ?? const LoadPageWidget()
-              : const EventiHomeWidget(),
+              ? entryPage ?? LoadPageLoggedInWidget()
+              : LoadPageLoggedOutWidget(),
           errorRoute: state.uri.toString(),
         ),
       ),
@@ -94,30 +97,19 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
           path: '/',
           builder: (context, _) => RootPageContext.wrap(
             appStateNotifier.loggedIn
-                ? entryPage ?? const LoadPageWidget()
-                : const EventiHomeWidget(),
+                ? entryPage ?? LoadPageLoggedInWidget()
+                : LoadPageLoggedOutWidget(),
           ),
           routes: [
             FFRoute(
-              name: 'nasoniMap',
-              path: 'nasoniMap',
-              builder: (context, params) => const NasoniMapWidget(),
+              name: NasoniMapWidget.routeName,
+              path: NasoniMapWidget.routePath,
+              builder: (context, params) => NasoniMapWidget(),
             ),
             FFRoute(
-              name: 'DiscotecaProfile',
-              path: 'discotecaProfile',
-              builder: (context, params) => DiscotecaProfileWidget(
-                serataRef: params.getParam(
-                  'serataRef',
-                  ParamType.DocumentReference,
-                  isList: false,
-                  collectionNamePath: ['Serate'],
-                ),
-              ),
-            ),
-            FFRoute(
-              name: 'EventiProfile',
-              path: 'eventiProfile',
+              name: EventiProfileWidget.routeName,
+              path: EventiProfileWidget.routePath,
+              requireAuth: true,
               builder: (context, params) => EventiProfileWidget(
                 eventoRef: params.getParam(
                   'eventoRef',
@@ -125,23 +117,15 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
                   isList: false,
                   collectionNamePath: ['Eventi'],
                 ),
-              ),
-            ),
-            FFRoute(
-              name: 'MostreProfile',
-              path: 'mostreProfile',
-              builder: (context, params) => MostreProfileWidget(
-                mostreRef: params.getParam(
-                  'mostreRef',
-                  ParamType.DocumentReference,
-                  isList: false,
-                  collectionNamePath: ['Mostre'],
+                goBack: params.getParam(
+                  'goBack',
+                  ParamType.String,
                 ),
               ),
             ),
             FFRoute(
-              name: 'ConcertoProfile',
-              path: 'concertoProfile',
+              name: ConcertoProfileWidget.routeName,
+              path: ConcertoProfileWidget.routePath,
               builder: (context, params) => ConcertoProfileWidget(
                 concertoRef: params.getParam(
                   'concertoRef',
@@ -152,125 +136,607 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
               ),
             ),
             FFRoute(
-              name: 'banglaMap',
-              path: 'banglaMap',
-              builder: (context, params) => const BanglaMapWidget(),
+              name: BanglaMapWidget.routeName,
+              path: BanglaMapWidget.routePath,
+              builder: (context, params) => BanglaMapWidget(),
             ),
             FFRoute(
-              name: 'ciboMap',
-              path: 'ciboMap',
-              builder: (context, params) => const CiboMapWidget(),
+              name: CiboMapWidget.routeName,
+              path: CiboMapWidget.routePath,
+              builder: (context, params) => CiboMapWidget(),
             ),
             FFRoute(
-              name: 'Profilo',
-              path: 'profilo',
-              builder: (context, params) => const ProfiloWidget(),
+              name: ProfiloWidget.routeName,
+              path: ProfiloWidget.routePath,
+              builder: (context, params) => ProfiloWidget(),
             ),
             FFRoute(
-              name: 'segnalazioneNasoni',
-              path: 'segnalazioneNasoni',
-              builder: (context, params) => const SegnalazioneNasoniWidget(),
+              name: SegnalazioneNasoniWidget.routeName,
+              path: SegnalazioneNasoniWidget.routePath,
+              builder: (context, params) => SegnalazioneNasoniWidget(),
             ),
             FFRoute(
-              name: 'SegnalazioneBangla',
-              path: 'segnalazioneBangla',
-              builder: (context, params) => const SegnalazioneBanglaWidget(),
+              name: SegnalazioneBanglaWidget.routeName,
+              path: SegnalazioneBanglaWidget.routePath,
+              builder: (context, params) => SegnalazioneBanglaWidget(),
             ),
             FFRoute(
-              name: 'impostazioniAccount',
-              path: 'impostazioniAccount',
-              builder: (context, params) => const ImpostazioniAccountWidget(),
+              name: ModifyDataProfileWidget.routeName,
+              path: ModifyDataProfileWidget.routePath,
+              builder: (context, params) => ModifyDataProfileWidget(),
             ),
             FFRoute(
-              name: 'resetPassword',
-              path: 'resetPassword',
-              builder: (context, params) => const ResetPasswordWidget(),
+              name: ResetPasswordWidget.routeName,
+              path: ResetPasswordWidget.routePath,
+              builder: (context, params) => ResetPasswordWidget(),
             ),
             FFRoute(
-              name: 'mappaDiscoteche',
-              path: 'mappaDiscoteche',
-              builder: (context, params) => const MappaDiscotecheWidget(),
+              name: EventiHomeWidget.routeName,
+              path: EventiHomeWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => EventiHomeWidget(),
             ),
             FFRoute(
-              name: 'eventiHome',
-              path: 'eventiHome',
-              builder: (context, params) => const EventiHomeWidget(),
+              name: SegnalazioneWidget.routeName,
+              path: SegnalazioneWidget.routePath,
+              builder: (context, params) => SegnalazioneWidget(),
             ),
             FFRoute(
-              name: 'Segnalazione',
-              path: 'segnalazione',
-              builder: (context, params) => const SegnalazioneWidget(),
+              name: LoadPageLoggedInWidget.routeName,
+              path: LoadPageLoggedInWidget.routePath,
+              builder: (context, params) => LoadPageLoggedInWidget(),
             ),
             FFRoute(
-              name: 'loadPage',
-              path: 'loadPage',
-              builder: (context, params) => const LoadPageWidget(),
+              name: MapEventsWidget.routeName,
+              path: MapEventsWidget.routePath,
+              builder: (context, params) => MapEventsWidget(),
             ),
             FFRoute(
-              name: 'auth12',
-              path: 'auth12',
-              builder: (context, params) => const Auth12Widget(),
+              name: EventiListHomeWidget.routeName,
+              path: EventiListHomeWidget.routePath,
+              builder: (context, params) => EventiListHomeWidget(),
             ),
             FFRoute(
-              name: 'mappaEventi',
-              path: 'mappaEventi',
-              builder: (context, params) => const MappaEventiWidget(),
+              name: ConcertiListWidget.routeName,
+              path: ConcertiListWidget.routePath,
+              builder: (context, params) => ConcertiListWidget(),
             ),
             FFRoute(
-              name: 'mappaMostre',
-              path: 'mappaMostre',
-              builder: (context, params) => const MappaMostreWidget(),
+              name: SegnalazioneCiboWidget.routeName,
+              path: SegnalazioneCiboWidget.routePath,
+              builder: (context, params) => SegnalazioneCiboWidget(),
             ),
             FFRoute(
-              name: 'prova',
-              path: 'prova',
-              builder: (context, params) => const ProvaWidget(),
+              name: FriendsMapWidget.routeName,
+              path: FriendsMapWidget.routePath,
+              builder: (context, params) => FriendsMapWidget(),
             ),
             FFRoute(
-              name: 'eventiList',
-              path: 'eventiList',
-              builder: (context, params) => const EventiListWidget(),
+              name: SearchPageWidget.routeName,
+              path: SearchPageWidget.routePath,
+              builder: (context, params) => SearchPageWidget(),
             ),
             FFRoute(
-              name: 'discotecheList',
-              path: 'discotecheList',
-              builder: (context, params) => const DiscotecheListWidget(),
+              name: FriendsRequestsWidget.routeName,
+              path: FriendsRequestsWidget.routePath,
+              builder: (context, params) => FriendsRequestsWidget(),
             ),
             FFRoute(
-              name: 'concertiList',
-              path: 'concertiList',
-              builder: (context, params) => const ConcertiListWidget(),
+              name: FriendsRequestsAllWidget.routeName,
+              path: FriendsRequestsAllWidget.routePath,
+              builder: (context, params) => FriendsRequestsAllWidget(),
             ),
             FFRoute(
-              name: 'mostreList',
-              path: 'mostreList',
-              builder: (context, params) => const MostreListWidget(),
+              name: FriendsSuggestionsWidget.routeName,
+              path: FriendsSuggestionsWidget.routePath,
+              builder: (context, params) => FriendsSuggestionsWidget(),
             ),
             FFRoute(
-              name: 'evntiHome2',
-              path: 'eventiHome2',
-              builder: (context, params) => const EvntiHome2Widget(),
+              name: FriendsListWidget.routeName,
+              path: FriendsListWidget.routePath,
+              builder: (context, params) => FriendsListWidget(),
             ),
             FFRoute(
-              name: 'concertoInEvidenzaProfile',
-              path: 'concertoInEvidenzaProfile',
-              builder: (context, params) => ConcertoInEvidenzaProfileWidget(
-                concertoInEveidenzaRef: params.getParam(
-                  'concertoInEveidenzaRef',
-                  ParamType.DocumentReference,
-                  isList: false,
-                  collectionNamePath: ['concertiInEvidenza'],
+              name: NewPhotoProfileWidget.routeName,
+              path: NewPhotoProfileWidget.routePath,
+              builder: (context, params) => NewPhotoProfileWidget(),
+            ),
+            FFRoute(
+              name: MappaEventiFriendsWidget.routeName,
+              path: MappaEventiFriendsWidget.routePath,
+              builder: (context, params) => MappaEventiFriendsWidget(),
+            ),
+            FFRoute(
+              name: SynchroniseContactsWidget.routeName,
+              path: SynchroniseContactsWidget.routePath,
+              builder: (context, params) => SynchroniseContactsWidget(),
+            ),
+            FFRoute(
+              name: ContactsBulkSentWidget.routeName,
+              path: ContactsBulkSentWidget.routePath,
+              asyncParams: {
+                'users': getDocList(['users'], UsersRecord.fromSnapshot),
+              },
+              builder: (context, params) => ContactsBulkSentWidget(
+                users: params.getParam<UsersRecord>(
+                  'users',
+                  ParamType.Document,
+                  isList: true,
                 ),
               ),
             ),
             FFRoute(
-              name: 'segnalazioneCibo',
-              path: 'segnalazioneCibo',
-              builder: (context, params) => const SegnalazioneCiboWidget(),
+              name: UserProfileSearchedWidget.routeName,
+              path: UserProfileSearchedWidget.routePath,
+              builder: (context, params) => UserProfileSearchedWidget(
+                userRef: params.getParam(
+                  'userRef',
+                  ParamType.DocumentReference,
+                  isList: false,
+                  collectionNamePath: ['users'],
+                ),
+              ),
+            ),
+            FFRoute(
+              name: ContactsPageWidget.routeName,
+              path: ContactsPageWidget.routePath,
+              builder: (context, params) => ContactsPageWidget(),
+            ),
+            FFRoute(
+              name: UserPhoneWidget.routeName,
+              path: UserPhoneWidget.routePath,
+              builder: (context, params) => UserPhoneWidget(),
+            ),
+            FFRoute(
+              name: MissingDetailsPageWidget.routeName,
+              path: MissingDetailsPageWidget.routePath,
+              builder: (context, params) => MissingDetailsPageWidget(),
+            ),
+            FFRoute(
+              name: SynchroniseContactsAgainWidget.routeName,
+              path: SynchroniseContactsAgainWidget.routePath,
+              builder: (context, params) => SynchroniseContactsAgainWidget(),
+            ),
+            FFRoute(
+              name: VideoEventWidget.routeName,
+              path: VideoEventWidget.routePath,
+              builder: (context, params) => VideoEventWidget(
+                eventRef: params.getParam(
+                  'eventRef',
+                  ParamType.DocumentReference,
+                  isList: false,
+                  collectionNamePath: ['Eventi'],
+                ),
+              ),
+            ),
+            FFRoute(
+              name: ChooseCityWidget.routeName,
+              path: ChooseCityWidget.routePath,
+              builder: (context, params) => ChooseCityWidget(),
+            ),
+            FFRoute(
+              name: LoadPageLoggedOutWidget.routeName,
+              path: LoadPageLoggedOutWidget.routePath,
+              builder: (context, params) => LoadPageLoggedOutWidget(),
+            ),
+            FFRoute(
+              name: TestWidget.routeName,
+              path: TestWidget.routePath,
+              builder: (context, params) => TestWidget(),
+            ),
+            FFRoute(
+              name: SwipeUsersWidget.routeName,
+              path: SwipeUsersWidget.routePath,
+              builder: (context, params) => SwipeUsersWidget(
+                eventId: params.getParam(
+                  'eventId',
+                  ParamType.String,
+                ),
+                eventRef: params.getParam(
+                  'eventRef',
+                  ParamType.DocumentReference,
+                  isList: false,
+                  collectionNamePath: ['Eventi'],
+                ),
+                eventName: params.getParam(
+                  'eventName',
+                  ParamType.String,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: SettingsWidget.routeName,
+              path: SettingsWidget.routePath,
+              builder: (context, params) => SettingsWidget(),
+            ),
+            FFRoute(
+              name: PrivacyAccountWidget.routeName,
+              path: PrivacyAccountWidget.routePath,
+              builder: (context, params) => PrivacyAccountWidget(),
+            ),
+            FFRoute(
+              name: MainMatchesPageWidget.routeName,
+              path: MainMatchesPageWidget.routePath,
+              builder: (context, params) => MainMatchesPageWidget(),
+            ),
+            FFRoute(
+              name: ParticipatingListEvent100Widget.routeName,
+              path: ParticipatingListEvent100Widget.routePath,
+              requireAuth: true,
+              asyncParams: {
+                'eventDoc': getDoc(['Eventi'], EventiRecord.fromSnapshot),
+              },
+              builder: (context, params) => ParticipatingListEvent100Widget(
+                eventoRef: params.getParam(
+                  'eventoRef',
+                  ParamType.DocumentReference,
+                  isList: false,
+                  collectionNamePath: ['Eventi'],
+                ),
+                blink: params.getParam(
+                  'blink',
+                  ParamType.bool,
+                ),
+                eventName: params.getParam(
+                  'eventName',
+                  ParamType.String,
+                ),
+                eventDoc: params.getParam(
+                  'eventDoc',
+                  ParamType.Document,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: FilterSwipesWidget.routeName,
+              path: FilterSwipesWidget.routePath,
+              asyncParams: {
+                'participatingDocs': getDocList(
+                    ['Eventi', 'eventiParticiapting'],
+                    EventiParticiaptingRecord.fromSnapshot),
+              },
+              builder: (context, params) => FilterSwipesWidget(
+                eventId: params.getParam(
+                  'eventId',
+                  ParamType.DocumentReference,
+                  isList: false,
+                  collectionNamePath: ['Eventi'],
+                ),
+                participatingDocs: params.getParam<EventiParticiaptingRecord>(
+                  'participatingDocs',
+                  ParamType.Document,
+                  isList: true,
+                ),
+                eventName: params.getParam(
+                  'eventName',
+                  ParamType.String,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: EditFiltersSwipesWidget.routeName,
+              path: EditFiltersSwipesWidget.routePath,
+              builder: (context, params) => EditFiltersSwipesWidget(),
+            ),
+            FFRoute(
+              name: TutorialSwipeWidget.routeName,
+              path: TutorialSwipeWidget.routePath,
+              asyncParams: {
+                'participatingDocs': getDocList(
+                    ['Eventi', 'eventiParticiapting'],
+                    EventiParticiaptingRecord.fromSnapshot),
+              },
+              builder: (context, params) => TutorialSwipeWidget(
+                eventRef: params.getParam(
+                  'eventRef',
+                  ParamType.DocumentReference,
+                  isList: false,
+                  collectionNamePath: ['Eventi'],
+                ),
+                blink: params.getParam(
+                  'blink',
+                  ParamType.bool,
+                ),
+                participatingDocs: params.getParam<EventiParticiaptingRecord>(
+                  'participatingDocs',
+                  ParamType.Document,
+                  isList: true,
+                ),
+                eventName: params.getParam(
+                  'eventName',
+                  ParamType.String,
+                ),
+                eventType: params.getParam(
+                  'eventType',
+                  ParamType.String,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: TutorialParticipateWidget.routeName,
+              path: TutorialParticipateWidget.routePath,
+              asyncParams: {
+                'eventDoc': getDoc(['Eventi'], EventiRecord.fromSnapshot),
+              },
+              builder: (context, params) => TutorialParticipateWidget(
+                eventRef: params.getParam(
+                  'eventRef',
+                  ParamType.DocumentReference,
+                  isList: false,
+                  collectionNamePath: ['Eventi'],
+                ),
+                outOrIn: params.getParam(
+                  'outOrIn',
+                  ParamType.String,
+                ),
+                eventType: params.getParam(
+                  'eventType',
+                  ParamType.String,
+                ),
+                eventDoc: params.getParam(
+                  'eventDoc',
+                  ParamType.Document,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: BlockedUsersWidget.routeName,
+              path: BlockedUsersWidget.routePath,
+              builder: (context, params) => BlockedUsersWidget(),
+            ),
+            FFRoute(
+              name: PrivacyPolicyWidget.routeName,
+              path: PrivacyPolicyWidget.routePath,
+              builder: (context, params) => PrivacyPolicyWidget(),
+            ),
+            FFRoute(
+              name: PrivacyPolicyPopUpWidget.routeName,
+              path: PrivacyPolicyPopUpWidget.routePath,
+              builder: (context, params) => PrivacyPolicyPopUpWidget(),
+            ),
+            FFRoute(
+              name: Prova2Widget.routeName,
+              path: Prova2Widget.routePath,
+              builder: (context, params) => Prova2Widget(
+                eventRef: params.getParam(
+                  'eventRef',
+                  ParamType.DocumentReference,
+                  isList: false,
+                  collectionNamePath: ['Eventi'],
+                ),
+                eventId: params.getParam(
+                  'eventId',
+                  ParamType.String,
+                ),
+                eventName: params.getParam(
+                  'eventName',
+                  ParamType.String,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: SecretPartiesHomeWidget.routeName,
+              path: SecretPartiesHomeWidget.routePath,
+              builder: (context, params) => SecretPartiesHomeWidget(),
+            ),
+            FFRoute(
+              name: CreateSecretPartyWidget.routeName,
+              path: CreateSecretPartyWidget.routePath,
+              builder: (context, params) => CreateSecretPartyWidget(),
+            ),
+            FFRoute(
+              name: SecretPartyRecapWidget.routeName,
+              path: SecretPartyRecapWidget.routePath,
+              builder: (context, params) => SecretPartyRecapWidget(),
+            ),
+            FFRoute(
+              name: SwipeUsersCopyWidget.routeName,
+              path: SwipeUsersCopyWidget.routePath,
+              builder: (context, params) => SwipeUsersCopyWidget(
+                eventId: params.getParam(
+                  'eventId',
+                  ParamType.String,
+                ),
+                eventRef: params.getParam(
+                  'eventRef',
+                  ParamType.DocumentReference,
+                  isList: false,
+                  collectionNamePath: ['Eventi'],
+                ),
+                eventName: params.getParam(
+                  'eventName',
+                  ParamType.String,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: MyPhotosWidget.routeName,
+              path: MyPhotosWidget.routePath,
+              builder: (context, params) => MyPhotosWidget(
+                eventId: params.getParam(
+                  'eventId',
+                  ParamType.String,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: NotificationsSettingsWidget.routeName,
+              path: NotificationsSettingsWidget.routePath,
+              builder: (context, params) => NotificationsSettingsWidget(),
+            ),
+            FFRoute(
+              name: MyEventsWidget.routeName,
+              path: MyEventsWidget.routePath,
+              builder: (context, params) => MyEventsWidget(),
+            ),
+            FFRoute(
+              name: PastParticipantsEventsWidget.routeName,
+              path: PastParticipantsEventsWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => PastParticipantsEventsWidget(
+                eventoRef: params.getParam(
+                  'eventoRef',
+                  ParamType.DocumentReference,
+                  isList: false,
+                  collectionNamePath: ['Eventi'],
+                ),
+              ),
+            ),
+            FFRoute(
+              name: PhotoWidget.routeName,
+              path: PhotoWidget.routePath,
+              builder: (context, params) => PhotoWidget(
+                photoRef: params.getParam(
+                  'photoRef',
+                  ParamType.DocumentReference,
+                  isList: false,
+                  collectionNamePath: ['Eventi', 'photos_event'],
+                ),
+                eventRef: params.getParam(
+                  'eventRef',
+                  ParamType.DocumentReference,
+                  isList: false,
+                  collectionNamePath: ['Eventi'],
+                ),
+                numUsersInPhoto: params.getParam(
+                  'numUsersInPhoto',
+                  ParamType.int,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: LogInWidget.routeName,
+              path: LogInWidget.routePath,
+              builder: (context, params) => LogInWidget(),
+            ),
+            FFRoute(
+              name: CreateAccountWidget.routeName,
+              path: CreateAccountWidget.routePath,
+              builder: (context, params) => CreateAccountWidget(),
+            ),
+            FFRoute(
+              name: ModifyEmailWidget.routeName,
+              path: ModifyEmailWidget.routePath,
+              builder: (context, params) => ModifyEmailWidget(),
+            ),
+            FFRoute(
+              name: ModifyNameWidget.routeName,
+              path: ModifyNameWidget.routePath,
+              builder: (context, params) => ModifyNameWidget(),
+            ),
+            FFRoute(
+              name: ModifyBioWidget.routeName,
+              path: ModifyBioWidget.routePath,
+              builder: (context, params) => ModifyBioWidget(),
+            ),
+            FFRoute(
+              name: NameLastnamePhotoWidget.routeName,
+              path: NameLastnamePhotoWidget.routePath,
+              builder: (context, params) => NameLastnamePhotoWidget(),
+            ),
+            FFRoute(
+              name: ModifyUniWidget.routeName,
+              path: ModifyUniWidget.routePath,
+              builder: (context, params) => ModifyUniWidget(),
+            ),
+            FFRoute(
+              name: DrinkSaltafilaWidget.routeName,
+              path: DrinkSaltafilaWidget.routePath,
+              builder: (context, params) => DrinkSaltafilaWidget(
+                eventRef: params.getParam(
+                  'eventRef',
+                  ParamType.DocumentReference,
+                  isList: false,
+                  collectionNamePath: ['Eventi'],
+                ),
+              ),
+            ),
+            FFRoute(
+              name: EventiProfileLogOutWidget.routeName,
+              path: EventiProfileLogOutWidget.routePath,
+              builder: (context, params) => EventiProfileLogOutWidget(
+                eventoRef: params.getParam(
+                  'eventoRef',
+                  ParamType.DocumentReference,
+                  isList: false,
+                  collectionNamePath: ['Eventi'],
+                ),
+                goBack: params.getParam(
+                  'goBack',
+                  ParamType.String,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: ManagerProfileWidget.routeName,
+              path: ManagerProfileWidget.routePath,
+              builder: (context, params) => ManagerProfileWidget(
+                managerRef: params.getParam(
+                  'managerRef',
+                  ParamType.DocumentReference,
+                  isList: false,
+                  collectionNamePath: ['users'],
+                ),
+              ),
+            ),
+            FFRoute(
+              name: FriendsListUserWidget.routeName,
+              path: FriendsListUserWidget.routePath,
+              builder: (context, params) => FriendsListUserWidget(
+                userRef: params.getParam(
+                  'userRef',
+                  ParamType.DocumentReference,
+                  isList: false,
+                  collectionNamePath: ['users'],
+                ),
+              ),
+            ),
+            FFRoute(
+              name: AllMatchesWidget.routeName,
+              path: AllMatchesWidget.routePath,
+              builder: (context, params) => AllMatchesWidget(),
+            ),
+            FFRoute(
+              name: AllLikesWidget.routeName,
+              path: AllLikesWidget.routePath,
+              builder: (context, params) => AllLikesWidget(),
+            ),
+            FFRoute(
+              name: AllFriendsRequestsWidget.routeName,
+              path: AllFriendsRequestsWidget.routePath,
+              builder: (context, params) => AllFriendsRequestsWidget(),
+            ),
+            FFRoute(
+              name: EventiHomeLogOutWidget.routeName,
+              path: EventiHomeLogOutWidget.routePath,
+              builder: (context, params) => EventiHomeLogOutWidget(),
+            ),
+            FFRoute(
+              name: BuyTicketWidget.routeName,
+              path: BuyTicketWidget.routePath,
+              builder: (context, params) => BuyTicketWidget(
+                eventRef: params.getParam(
+                  'eventRef',
+                  ParamType.DocumentReference,
+                  isList: false,
+                  collectionNamePath: ['Eventi'],
+                ),
+              ),
+            ),
+            FFRoute(
+              name: MyEventsCopyWidget.routeName,
+              path: MyEventsCopyWidget.routePath,
+              builder: (context, params) => MyEventsCopyWidget(),
+            ),
+            FFRoute(
+              name: ProvaWidget.routeName,
+              path: ProvaWidget.routePath,
+              builder: (context, params) => ProvaWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
+      observers: [routeObserver],
     );
 
 extension NavParamExtensions on Map<String, String?> {
@@ -441,7 +907,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
-            return '/eventiHome';
+            return '/loadPageLoggedOut';
           }
           return null;
         },
@@ -456,11 +922,11 @@ class FFRoute {
               : builder(context, ffParams);
           final child = appStateNotifier.loading
               ? Container(
-                  color: FlutterFlowTheme.of(context).primaryBackground,
+                  color: FlutterFlowTheme.of(context).secondaryBackground,
                   child: Center(
                     child: Image.asset(
-                      'assets/images/LOGO_TONDO.png',
-                      width: 100.0,
+                      'assets/images/Untitled_design_(52).png',
+                      width: 175.0,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -507,14 +973,15 @@ class TransitionInfo {
   final Duration duration;
   final Alignment? alignment;
 
-  static TransitionInfo appDefault() => const TransitionInfo(hasTransition: false);
+  static TransitionInfo appDefault() => TransitionInfo(hasTransition: false);
 }
 
 class _RouteErrorBuilder extends StatefulWidget {
   const _RouteErrorBuilder({
+    Key? key,
     required this.state,
     required this.child,
-  });
+  }) : super(key: key);
 
   final GoRouterState state;
   final Widget child;
@@ -527,10 +994,33 @@ class _RouteErrorBuilderState extends State<_RouteErrorBuilder> {
   @override
   void initState() {
     super.initState();
+
     // Handle erroneous links from Firebase Dynamic Links.
+
+    String? location;
+
+    /*
+    Handle `links` routes that have dynamic-link entangled with deep-link 
+    */
+    if (widget.state.uri.toString().startsWith('/link') &&
+        widget.state.uri.queryParameters.containsKey('deep_link_id')) {
+      final deepLinkId = widget.state.uri.queryParameters['deep_link_id'];
+      if (deepLinkId != null) {
+        final deepLinkUri = Uri.parse(deepLinkId);
+        final link = deepLinkUri.toString();
+        final host = deepLinkUri.host;
+        location = link.split(host).last;
+      }
+    }
+
     if (widget.state.uri.toString().startsWith('/link') &&
         widget.state.uri.toString().contains('request_ip_version')) {
-      SchedulerBinding.instance.addPostFrameCallback((_) => context.go('/'));
+      location = '/';
+    }
+
+    if (location != null) {
+      SchedulerBinding.instance
+          .addPostFrameCallback((_) => context.go(location!));
     }
   }
 

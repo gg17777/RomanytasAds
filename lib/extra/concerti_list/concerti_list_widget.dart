@@ -3,14 +3,19 @@ import '/bottom_nav/bottom_nav_eventi/bottom_nav_eventi_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import '/index.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'concerti_list_model.dart';
 export 'concerti_list_model.dart';
 
 class ConcertiListWidget extends StatefulWidget {
   const ConcertiListWidget({super.key});
+
+  static String routeName = 'concertiList';
+  static String routePath = 'concertiList';
 
   @override
   State<ConcertiListWidget> createState() => _ConcertiListWidgetState();
@@ -46,7 +51,10 @@ class _ConcertiListWidgetState extends State<ConcertiListWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -56,10 +64,10 @@ class _ConcertiListWidgetState extends State<ConcertiListWidget> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Align(
-                  alignment: const AlignmentDirectional(0.0, 0.0),
+                  alignment: AlignmentDirectional(0.0, 0.0),
                   child: Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 70.0, 0.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 70.0, 0.0, 0.0),
                     child: Text(
                       'CONCERTI',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -73,13 +81,13 @@ class _ConcertiListWidgetState extends State<ConcertiListWidget> {
                 ),
                 Padding(
                   padding:
-                      const EdgeInsetsDirectional.fromSTEB(40.0, 20.0, 40.0, 10.0),
+                      EdgeInsetsDirectional.fromSTEB(40.0, 20.0, 40.0, 10.0),
                   child: TextFormField(
                     controller: _model.textController,
                     focusNode: _model.textFieldFocusNode,
                     onChanged: (_) => EasyDebounce.debounce(
                       '_model.textController',
-                      const Duration(milliseconds: 1000),
+                      Duration(milliseconds: 1000),
                       () => safeSetState(() {}),
                     ),
                     autofocus: false,
@@ -135,7 +143,7 @@ class _ConcertiListWidgetState extends State<ConcertiListWidget> {
                 ),
                 Container(
                   height: MediaQuery.sizeOf(context).height * 0.75,
-                  decoration: const BoxDecoration(),
+                  decoration: BoxDecoration(),
                   child: SingleChildScrollView(
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
@@ -148,12 +156,12 @@ class _ConcertiListWidgetState extends State<ConcertiListWidget> {
                               if (!snapshot.hasData) {
                                 return Center(
                                   child: SizedBox(
-                                    width: 50.0,
-                                    height: 50.0,
-                                    child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        FlutterFlowTheme.of(context).primary,
-                                      ),
+                                    width: 25.0,
+                                    height: 25.0,
+                                    child: SpinKitFadingCircle(
+                                      color: FlutterFlowTheme.of(context)
+                                          .alternate,
+                                      size: 25.0,
                                     ),
                                   ),
                                 );
@@ -163,7 +171,7 @@ class _ConcertiListWidgetState extends State<ConcertiListWidget> {
                                   snapshot.data!;
 
                               return Container(
-                                decoration: const BoxDecoration(),
+                                decoration: BoxDecoration(),
                                 child: Builder(
                                   builder: (context) {
                                     final extraConcert = functions
@@ -182,7 +190,7 @@ class _ConcertiListWidgetState extends State<ConcertiListWidget> {
                                             extraConcert[extraConcertIndex];
                                         return Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   10.0, 10.0, 20.0, 10.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
@@ -201,7 +209,7 @@ class _ConcertiListWidgetState extends State<ConcertiListWidget> {
                                               ),
                                               Flexible(
                                                 child: Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           10.0, 0.0, 0.0, 0.0),
                                                   child: Column(
@@ -390,7 +398,7 @@ class _ConcertiListWidgetState extends State<ConcertiListWidget> {
                             },
                           ),
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 20.0, 0.0, 0.0),
                           child: FutureBuilder<List<ConcertiRecord>>(
                             future: queryConcertiRecordOnce(
@@ -407,12 +415,12 @@ class _ConcertiListWidgetState extends State<ConcertiListWidget> {
                               if (!snapshot.hasData) {
                                 return Center(
                                   child: SizedBox(
-                                    width: 50.0,
-                                    height: 50.0,
-                                    child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        FlutterFlowTheme.of(context).primary,
-                                      ),
+                                    width: 25.0,
+                                    height: 25.0,
+                                    child: SpinKitFadingCircle(
+                                      color: FlutterFlowTheme.of(context)
+                                          .alternate,
+                                      size: 25.0,
                                     ),
                                   ),
                                 );
@@ -433,7 +441,7 @@ class _ConcertiListWidgetState extends State<ConcertiListWidget> {
                                             columnConcertiRecord.titolo) ??
                                         true,
                                     child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           10.0, 10.0, 20.0, 10.0),
                                       child: InkWell(
                                         splashColor: Colors.transparent,
@@ -446,7 +454,7 @@ class _ConcertiListWidgetState extends State<ConcertiListWidget> {
                                           logFirebaseEvent('Row_navigate_to');
 
                                           context.pushNamed(
-                                            'ConcertoProfile',
+                                            ConcertoProfileWidget.routeName,
                                             queryParameters: {
                                               'concertoRef': serializeParam(
                                                 columnConcertiRecord.reference,
@@ -472,7 +480,7 @@ class _ConcertiListWidgetState extends State<ConcertiListWidget> {
                                             ),
                                             Flexible(
                                               child: Padding(
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         10.0, 0.0, 0.0, 0.0),
                                                 child: Column(
@@ -660,11 +668,11 @@ class _ConcertiListWidgetState extends State<ConcertiListWidget> {
               ],
             ),
             Align(
-              alignment: const AlignmentDirectional(0.0, 1.0),
+              alignment: AlignmentDirectional(0.0, 1.0),
               child: wrapWithModel(
                 model: _model.bottomNavEventiModel,
                 updateCallback: () => safeSetState(() {}),
-                child: const BottomNavEventiWidget(),
+                child: BottomNavEventiWidget(),
               ),
             ),
           ],

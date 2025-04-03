@@ -1,5 +1,6 @@
 import '/bottom_nav/bottom_nav_eventi/bottom_nav_eventi_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'concerti_list_widget.dart' show ConcertiListWidget;
 import 'package:flutter/material.dart';
 

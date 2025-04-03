@@ -156,8 +156,144 @@ List<LatLng> findClosestBanglaMarkers(
   return markers.map((e) => getLatLng(e.latitude, e.longitude)).toList();
 }
 
-List<LatLng> findClosestCiboMarkers(
+List<LatLng> findClosestCiboMarkersZozzoni(
   List<GetAllCiboByZozzoniRow> list,
+  LatLng currentLocation,
+  int numberOfMarkersToReturn,
+) {
+  double haversineDistance(LatLng point1, LatLng point2) {
+    const R = 6371e3; // Earth radius in meters
+
+    double toRadians(double degree) {
+      return degree * math.pi / 180.0;
+    }
+
+    double dLat = toRadians(point2.latitude - point1.latitude);
+    double dLon = toRadians(point2.longitude - point1.longitude);
+
+    double a = math.sin(dLat / 2) * math.sin(dLat / 2) +
+        math.cos(toRadians(point1.latitude)) *
+            math.cos(toRadians(point2.latitude)) *
+            math.sin(dLon / 2) *
+            math.sin(dLon / 2);
+
+    double c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a));
+
+    double distance = R * c; // Distance in meters
+
+    return distance;
+  }
+
+  list.sort((a, b) {
+    double distanceA = (a.latitude != null && a.longitude != null)
+        ? haversineDistance(currentLocation, LatLng(a.latitude!, a.longitude!))
+        : double.maxFinite;
+    double distanceB = (b.latitude != null && b.longitude != null)
+        ? haversineDistance(currentLocation, LatLng(b.latitude!, b.longitude!))
+        : double.maxFinite;
+    return distanceA.compareTo(distanceB);
+  });
+
+  var markers = list.take(numberOfMarkersToReturn).toList();
+  return markers.map((e) => getLatLng(e.latitude, e.longitude)).toList();
+}
+
+List<CustomMarkerStruct> findClosestCiboMarkersNormalCopy(
+  List<GetAllCiboRow> list,
+  LatLng currentLocation,
+  int numberOfMarkersToReturn,
+) {
+  double haversineDistance(LatLng point1, LatLng point2) {
+    const R = 6371e3; // Earth radius in meters
+
+    double toRadians(double degree) {
+      return degree * math.pi / 180.0;
+    }
+
+    double dLat = toRadians(point2.latitude - point1.latitude);
+    double dLon = toRadians(point2.longitude - point1.longitude);
+
+    double a = math.sin(dLat / 2) * math.sin(dLat / 2) +
+        math.cos(toRadians(point1.latitude)) *
+            math.cos(toRadians(point2.latitude)) *
+            math.sin(dLon / 2) *
+            math.sin(dLon / 2);
+
+    double c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a));
+
+    double distance = R * c; // Distance in meters
+
+    return distance;
+  }
+
+  list.sort((a, b) {
+    double distanceA = (a.latitude != null && a.longitude != null)
+        ? haversineDistance(currentLocation, LatLng(a.latitude!, a.longitude!))
+        : double.maxFinite;
+    double distanceB = (b.latitude != null && b.longitude != null)
+        ? haversineDistance(currentLocation, LatLng(b.latitude!, b.longitude!))
+        : double.maxFinite;
+    return distanceA.compareTo(distanceB);
+  });
+
+  var markers = list.take(numberOfMarkersToReturn).toList();
+  return markers.map((e) {
+    return CustomMarkerStruct(
+        id: e.id.toString(),
+        position: getLatLng(e.latitude, e.longitude),
+        type: "type${math.Random().nextInt(3)}");
+  }).toList();
+}
+
+List<CustomMarkerStruct> findClosestCiboMarkersNormalCopyCopy(
+  List<GetAllCiboRow> list,
+  LatLng currentLocation,
+  int numberOfMarkersToReturn,
+) {
+  double haversineDistance(LatLng point1, LatLng point2) {
+    const R = 6371e3; // Earth radius in meters
+
+    double toRadians(double degree) {
+      return degree * math.pi / 180.0;
+    }
+
+    double dLat = toRadians(point2.latitude - point1.latitude);
+    double dLon = toRadians(point2.longitude - point1.longitude);
+
+    double a = math.sin(dLat / 2) * math.sin(dLat / 2) +
+        math.cos(toRadians(point1.latitude)) *
+            math.cos(toRadians(point2.latitude)) *
+            math.sin(dLon / 2) *
+            math.sin(dLon / 2);
+
+    double c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a));
+
+    double distance = R * c; // Distance in meters
+
+    return distance;
+  }
+
+  list.sort((a, b) {
+    double distanceA = (a.latitude != null && a.longitude != null)
+        ? haversineDistance(currentLocation, LatLng(a.latitude!, a.longitude!))
+        : double.maxFinite;
+    double distanceB = (b.latitude != null && b.longitude != null)
+        ? haversineDistance(currentLocation, LatLng(b.latitude!, b.longitude!))
+        : double.maxFinite;
+    return distanceA.compareTo(distanceB);
+  });
+
+  var markers = list.take(numberOfMarkersToReturn).toList();
+  return markers.map((e) {
+    return CustomMarkerStruct(
+        id: e.id.toString(),
+        position: getLatLng(e.latitude, e.longitude),
+        type: "type${math.Random().nextInt(3)}");
+  }).toList();
+}
+
+List<LatLng> findClosestCiboMarkersNormal(
+  List<GetAllCiboRow> list,
   LatLng currentLocation,
   int numberOfMarkersToReturn,
 ) {
@@ -209,6 +345,79 @@ bool areLatLngsSame(
 
   return (point1.latitude - point2.latitude).abs() < tolerance &&
       (point1.longitude - point2.longitude).abs() < tolerance;
+}
+
+List<CustomMarkerStruct> findClosestNasoniMarkersCopy(
+  List<EventiRecord> list,
+  LatLng? currentLocation,
+  int numberOfMarkersToReturn,
+) {
+  var listOfPoints = [];
+  EventiRecord? dataA = null;
+  EventiRecord? dataB = null;
+  var markers = [];
+  try {
+    listOfPoints.add("Started");
+
+    double haversineDistance(LatLng point1, LatLng point2) {
+      const R = 6371e3; // Earth radius in meters
+
+      double toRadians(double degree) {
+        return degree * math.pi / 180.0;
+      }
+
+      double dLat = toRadians(point2.latitude - point1.latitude);
+      double dLon = toRadians(point2.longitude - point1.longitude);
+
+      double a = math.sin(dLat / 2) * math.sin(dLat / 2) +
+          math.cos(toRadians(point1.latitude)) *
+              math.cos(toRadians(point2.latitude)) *
+              math.sin(dLon / 2) *
+              math.sin(dLon / 2);
+
+      double c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a));
+
+      double distance = R * c; // Distance in meters
+
+      return distance;
+    }
+
+    listOfPoints.add("Created harvesine function");
+    list.sort((a, b) {
+      dataA = a;
+      dataB = b;
+      double distanceA =
+          (a.indirizzo?.latitude != null && a.indirizzo?.longitude != null)
+              ? haversineDistance(currentLocation ?? LatLng(0, 0),
+                  LatLng(a.indirizzo!.latitude, a.indirizzo!.longitude))
+              : double.maxFinite;
+      double distanceB =
+          (b.indirizzo?.latitude != null && b.indirizzo?.longitude != null)
+              ? haversineDistance(currentLocation ?? LatLng(0, 0),
+                  LatLng(b.indirizzo!.latitude, b.indirizzo!.longitude))
+              : double.maxFinite;
+      listOfPoints.add("Completed check for item ${list.indexOf(a)}");
+      return distanceA.compareTo(distanceB);
+    });
+
+    markers = list.take(numberOfMarkersToReturn).toList();
+    listOfPoints.add("Completely set markers");
+  } catch (e) {
+    FirebaseFirestore.instance.collection("errors").doc().set({
+      "error": e.toString(),
+      "logs": listOfPoints,
+      "got stuck on a": dataA?.data,
+      "got stuck on b": dataB?.data,
+      "created_at": DateTime.now()
+    });
+  }
+  return markers.map((e) {
+    return CustomMarkerStruct(
+        id: e.reference.id.toString(),
+        position:
+            getLatLng(e.indirizzo?.latitude ?? 0, e.indirizzo?.longitude ?? 0),
+        type: "type${math.Random().nextInt(3)}");
+  }).toList();
 }
 
 LatLng getLatLng(
@@ -438,60 +647,6 @@ List<SerateRecord> sortSerate(
   return sortedEvents;
 }
 
-List<MostreRecord> sortMostre(
-  List<MostreRecord> events,
-  LatLng currentLocation,
-) {
-  print("::::::::All events${events.map((e) => e.titolo).toList()}");
-
-  double haversineDistance(LatLng point1, LatLng point2) {
-    const R = 6371e3; // Earth radius in meters
-
-    double toRadians(double degree) {
-      return degree * math.pi / 180.0;
-    }
-
-    double dLat = toRadians(point2.latitude - point1.latitude);
-    double dLon = toRadians(point2.longitude - point1.longitude);
-
-    double a = math.sin(dLat / 2) * math.sin(dLat / 2) +
-        math.cos(toRadians(point1.latitude)) *
-            math.cos(toRadians(point2.latitude)) *
-            math.sin(dLon / 2) *
-            math.sin(dLon / 2);
-
-    double c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a));
-
-    double distance = R * c; // Distance in meters
-
-    return distance;
-  }
-
-  // First, sort the events by dataInizio (start date)
-  events.sort((a, b) {
-    return (a.dataInizio ?? DateTime(3000, 1, 1))
-        .compareTo(b.dataInizio ?? DateTime(3000, 1, 1));
-  });
-
-  // Sort events by distance from currentLocation
-  events.sort((a, b) {
-    double distanceA =
-        (a.indirizzo?.latitude != null && a.indirizzo?.longitude != null)
-            ? haversineDistance(currentLocation,
-                LatLng(a.indirizzo!.latitude, a.indirizzo!.longitude))
-            : double.maxFinite;
-    double distanceB =
-        (b.indirizzo?.latitude != null && b.indirizzo?.longitude != null)
-            ? haversineDistance(currentLocation,
-                LatLng(b.indirizzo!.latitude, b.indirizzo!.longitude))
-            : double.maxFinite;
-    return distanceA.compareTo(distanceB);
-  });
-
-  print("::::::::Events${events.map((e) => e.titolo).toList()}");
-  return events;
-}
-
 bool isMoreThanDaysAgo(
   DateTime dateToCheck,
   int numberOfDays,
@@ -569,4 +724,191 @@ List<ConcertiInEvidenzaRecord> getRandomConcert(
 String textListToText(List<String> textList) {
   // transform the list textList into a string with the items divided by one space
   return textList.join(' ');
+}
+
+String? nomePlusCognome(
+  String? nome,
+  String? cognome,
+) {
+  // add together divided by a space nome field and cognome field
+  if (nome != null && cognome != null) {
+    return '$nome $cognome';
+  } else {
+    return null;
+  }
+}
+
+List<UsersRecord>? friendsInCommon(
+  List<DocumentReference>? requester,
+  List<DocumentReference>? requestee,
+) {
+  // return only matching documents
+  if (requester == null || requestee == null) {
+    return null;
+  }
+
+  List<UsersRecord> commonFriends = [];
+
+  for (DocumentReference req in requester) {
+    for (DocumentReference reqee in requestee) {
+      if (req == reqee) {
+        commonFriends.add(currentUserDocument!);
+        break;
+      }
+    }
+  }
+
+  return commonFriends;
+}
+
+List<EventiParticiaptingRecord>? returnSecond100DocsEventiParticiapting(
+    List<EventiParticiaptingRecord>? docs) {
+  // return second 100 docs
+  if (docs != null && docs.length > 200) {
+    return docs.sublist(101, 200);
+  } else {
+    return docs;
+  }
+}
+
+bool isInUserList(
+  List<DocumentReference> list,
+  DocumentReference user,
+) {
+  return list.contains(user);
+}
+
+List<EventiParticiaptingRecord>? returnThird100DocsEventiParticiapting(
+    List<EventiParticiaptingRecord>? docs) {
+  // return third 100 docs
+  if (docs != null && docs.length > 300) {
+    return docs.sublist(201, 300);
+  } else {
+    return docs;
+  }
+}
+
+bool isItNull(List<FriendsRequestRecord>? documentsList) {
+  // if documentsList is null return true
+  return documentsList == null;
+}
+
+DocumentReference getSerateRef(String id) {
+  return FirebaseFirestore.instance.collection("Serate").doc(id);
+}
+
+DocumentReference getEventiRef(String id) {
+  return FirebaseFirestore.instance.collection("Eventi").doc(id);
+}
+
+DateTime getThreeAmNextDay() {
+  final now = DateTime.now();
+  final nextDay = now.add(const Duration(days: 1)); // Move to the next day
+  return DateTime(
+      nextDay.year, nextDay.month, nextDay.day, 3); // Set time to 3:00 AM
+}
+
+bool returnIfAuthUserIsInEventiParticiapting(
+  List<EventiParticiaptingRecord>? participants,
+  DocumentReference authUser,
+) {
+  // return if authUser Reference is equal to a userParticipatingEventRef in participants
+  if (participants != null) {
+    for (var participant in participants) {
+      if (participant.userParticipatingEventRef == authUser) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+bool returnIfAuthUserIsInParticipatingSerate(
+  List<ParticipatingSerateRecord>? participants,
+  DocumentReference authUser,
+) {
+  // return if authUser Reference is equal to a userParticipatingSerateRef in participants
+  if (participants == null || authUser == null) {
+    return false;
+  }
+
+  return participants
+      .any((participant) => participant.userParticipatingSerateRef == authUser);
+}
+
+DocumentReference? returnEventDocReference(String? eventID) {
+  // trasform the eventID in the corrispoding Eventi Document Reference
+  if (eventID == null) {
+    return null;
+  }
+
+  return FirebaseFirestore.instance.collection('Eventi').doc(eventID);
+}
+
+DocumentReference? returnDifferentUserRef(List<DocumentReference>? usersList) {
+  // return only the users Document Reference different from the Auth User Reference
+  if (usersList == null || usersList.isEmpty) {
+    return null;
+  }
+
+  for (DocumentReference userRef in usersList) {
+    if (userRef != currentUserReference) {
+      return userRef;
+    }
+  }
+
+  return null;
+}
+
+bool? returnIfAuthUserIsParticipating(
+  DocumentReference? authUser,
+  List<EventiParticiaptingRecord>? participants,
+) {
+  // return if authUser is equal to any userParticipatingEventRef in participants
+  if (authUser == null || participants == null) {
+    return null;
+  }
+
+  for (var participant in participants) {
+    if (participant.userParticipatingEventRef == authUser) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+DocumentReference? returnEventiParticiaptingDocRef(
+  List<EventiParticiaptingRecord>? list,
+  DocumentReference? authUser,
+) {
+  // return Document Reference in List whose userParticipatingEventRef matches authUser Document Reference
+  if (list != null && authUser != null) {
+    for (EventiParticiaptingRecord record in list) {
+      if (record.userParticipatingEventRef == authUser) {
+        return record.reference;
+      }
+    }
+  }
+  return null;
+}
+
+String? convertImagePath2String(String? imagePath) {
+  // convert image path to string
+
+  print('Valor recibido en imagePath: $imagePath');
+  if (imagePath is String) {
+    return imagePath;
+  }
+  return imagePath?.toString() ?? '';
+}
+
+DocumentReference uidToUserRef(String uid) {
+  return FirebaseFirestore.instance.collection('users').doc(uid);
+}
+
+List<DocumentReference> uidsToUserRefs(List<String> uids) {
+  return uids
+      .map((uid) => FirebaseFirestore.instance.collection('users').doc(uid))
+      .toList();
 }

@@ -6,7 +6,7 @@ import 'lat_lng.dart';
 
 class FlutterFlowStaticMap extends StatelessWidget {
   const FlutterFlowStaticMap({
-    super.key,
+    final Key? key,
     required this.location,
     required this.apiKey,
     required this.style,
@@ -20,7 +20,7 @@ class FlutterFlowStaticMap extends StatelessWidget {
     this.zoom = 12,
     this.tilt = 0,
     this.rotation = 0,
-  });
+  }) : super(key: key);
 
   final LatLng location;
   final String apiKey;

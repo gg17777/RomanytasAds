@@ -12,6 +12,10 @@ import 'package:intl/intl.dart';
 import 'package:json_path/json_path.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:url_launcher/url_launcher.dart';
+import 'package:file_saver/file_saver.dart';
+import 'package:http/http.dart' as http;
+import 'package:mime/mime.dart' as mime;
+import 'uploaded_file.dart';
 
 import '../main.dart';
 
@@ -22,6 +26,7 @@ export 'lat_lng.dart';
 export 'place.dart';
 export 'uploaded_file.dart';
 export '../app_state.dart';
+export '../app_constants.dart';
 export 'flutter_flow_model.dart';
 export 'dart:math' show min, max;
 export 'dart:typed_data' show Uint8List;
@@ -34,6 +39,8 @@ export 'custom_icons.dart' show FFIcons;
 export 'internationalization.dart' show FFLocalizations;
 export '/backend/firebase_analytics/analytics.dart';
 export 'nav/nav.dart';
+
+final RouteObserver<ModalRoute> routeObserver = RouteObserver<ModalRoute>();
 
 T valueOrDefault<T>(T? value, T defaultValue) =>
     (value is String && value.isEmpty) || value == null ? defaultValue : value;
@@ -54,12 +61,230 @@ String dateTimeFormat(String format, DateTime? dateTime, {String? locale}) {
   return DateFormat(format, locale).format(dateTime);
 }
 
+Theme wrapInMaterialDatePickerTheme(
+  BuildContext context,
+  Widget child, {
+  required Color headerBackgroundColor,
+  required Color headerForegroundColor,
+  required TextStyle headerTextStyle,
+  required Color pickerBackgroundColor,
+  required Color pickerForegroundColor,
+  required Color selectedDateTimeBackgroundColor,
+  required Color selectedDateTimeForegroundColor,
+  required Color actionButtonForegroundColor,
+  required double iconSize,
+}) {
+  final baseTheme = Theme.of(context);
+  final dateTimeMaterialStateForegroundColor =
+      WidgetStateProperty.resolveWith((states) {
+    if (states.contains(WidgetState.disabled)) {
+      return pickerForegroundColor.applyAlpha(0.60);
+    }
+    if (states.contains(WidgetState.selected)) {
+      return selectedDateTimeForegroundColor;
+    }
+    if (states.isEmpty) {
+      return pickerForegroundColor;
+    }
+    return null;
+  });
+
+  final dateTimeMaterialStateBackgroundColor =
+      WidgetStateProperty.resolveWith((states) {
+    if (states.contains(WidgetState.selected)) {
+      return selectedDateTimeBackgroundColor;
+    }
+    return null;
+  });
+
+  return Theme(
+    data: baseTheme.copyWith(
+      colorScheme: baseTheme.colorScheme.copyWith(
+        onSurface: pickerForegroundColor,
+      ),
+      disabledColor: pickerForegroundColor.applyAlpha(0.3),
+      textTheme: baseTheme.textTheme.copyWith(
+        headlineSmall: headerTextStyle,
+        headlineMedium: headerTextStyle,
+      ),
+      iconTheme: baseTheme.iconTheme.copyWith(
+        size: iconSize,
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: ButtonStyle(
+            foregroundColor: WidgetStatePropertyAll(
+              actionButtonForegroundColor,
+            ),
+            overlayColor: WidgetStateProperty.resolveWith((states) {
+              if (states.contains(WidgetState.hovered)) {
+                return actionButtonForegroundColor.applyAlpha(0.04);
+              }
+              if (states.contains(WidgetState.focused) ||
+                  states.contains(WidgetState.pressed)) {
+                return actionButtonForegroundColor.applyAlpha(0.12);
+              }
+              return null;
+            })),
+      ),
+      datePickerTheme: DatePickerThemeData(
+        backgroundColor: pickerBackgroundColor,
+        headerBackgroundColor: headerBackgroundColor,
+        headerForegroundColor: headerForegroundColor,
+        weekdayStyle: baseTheme.textTheme.labelMedium!.copyWith(
+          color: pickerForegroundColor,
+        ),
+        dayBackgroundColor: dateTimeMaterialStateBackgroundColor,
+        todayBackgroundColor: dateTimeMaterialStateBackgroundColor,
+        yearBackgroundColor: dateTimeMaterialStateBackgroundColor,
+        dayForegroundColor: dateTimeMaterialStateForegroundColor,
+        todayForegroundColor: dateTimeMaterialStateForegroundColor,
+        yearForegroundColor: dateTimeMaterialStateForegroundColor,
+      ),
+    ),
+    child: child,
+  );
+}
+
+Theme wrapInMaterialTimePickerTheme(
+  BuildContext context,
+  Widget child, {
+  required Color headerBackgroundColor,
+  required Color headerForegroundColor,
+  required TextStyle headerTextStyle,
+  required Color pickerBackgroundColor,
+  required Color pickerForegroundColor,
+  required Color selectedDateTimeBackgroundColor,
+  required Color selectedDateTimeForegroundColor,
+  required Color actionButtonForegroundColor,
+  required double iconSize,
+}) {
+  final baseTheme = Theme.of(context);
+  return Theme(
+    data: baseTheme.copyWith(
+      iconTheme: baseTheme.iconTheme.copyWith(
+        size: iconSize,
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: ButtonStyle(
+            foregroundColor: WidgetStatePropertyAll(
+              actionButtonForegroundColor,
+            ),
+            overlayColor: WidgetStateProperty.resolveWith((states) {
+              if (states.contains(WidgetState.hovered)) {
+                return actionButtonForegroundColor.applyAlpha(0.04);
+              }
+              if (states.contains(WidgetState.focused) ||
+                  states.contains(WidgetState.pressed)) {
+                return actionButtonForegroundColor.applyAlpha(0.12);
+              }
+              return null;
+            })),
+      ),
+      timePickerTheme: baseTheme.timePickerTheme.copyWith(
+        backgroundColor: pickerBackgroundColor,
+        hourMinuteTextColor: pickerForegroundColor,
+        dialHandColor: selectedDateTimeBackgroundColor,
+        dialTextColor: WidgetStateColor.resolveWith((states) =>
+            states.contains(WidgetState.selected)
+                ? selectedDateTimeForegroundColor
+                : pickerForegroundColor),
+        dayPeriodBorderSide: BorderSide(
+          color: pickerForegroundColor,
+        ),
+        dayPeriodTextColor: WidgetStateColor.resolveWith((states) =>
+            states.contains(WidgetState.selected)
+                ? selectedDateTimeForegroundColor
+                : pickerForegroundColor),
+        dayPeriodColor: WidgetStateColor.resolveWith((states) =>
+            states.contains(WidgetState.selected)
+                ? selectedDateTimeBackgroundColor
+                : Colors.transparent),
+        entryModeIconColor: pickerForegroundColor,
+      ),
+    ),
+    child: child,
+  );
+}
+
 Future launchURL(String url) async {
   var uri = Uri.parse(url);
   try {
     await launchUrl(uri);
   } catch (e) {
     throw 'Could not launch $uri: $e';
+  }
+}
+
+String? getExtensionFromFilename(String filename) {
+  return filename.contains('.') ? filename.split('.').last : null;
+}
+
+/*
+ * Downloads/Saves a file from a URL or file bytes. If the filename contains an
+ * extension (e.g. 'file.pdf'), the extension will be used to determine the
+ * file type, otherwise the response header (url case) or file header bytes will
+ * be used to infer the file's type.
+ */
+Future downloadFile({
+  required String filename,
+  String? url,
+  FFUploadedFile? uploadedFile,
+}) async {
+  var bytes = uploadedFile?.bytes;
+  var extension = getExtensionFromFilename(filename) ??
+      getExtensionFromFilename(uploadedFile?.name ?? '');
+
+  if (url == null && bytes == null) {
+    throw 'No file/url to download';
+  }
+  if (url != null && bytes != null) {
+    throw 'Only one of url or bytes can be provided';
+  }
+
+  String? mimeType;
+
+  // First, check if the extension is specified in the filename to avoid needing
+  // to scan the file to determine the mime type and extension
+  mimeType = mime.lookupMimeType(filename) ??
+      mime.lookupMimeType(uploadedFile?.name ?? '');
+
+  // If a URL is provided, download the file and determine the mime type from
+  // the response headers.
+  if (url != null && url.isNotEmpty) {
+    final response = await http.get(Uri.parse(url));
+    bytes = response.bodyBytes;
+    mimeType ??= response.headers['content-type'];
+  }
+
+  // If a file is provided and the filename does not have an extension, scan the
+  // file header bytes to determine the mime type and extension.
+  if (bytes != null && bytes.isNotEmpty) {
+    // Grab the first 32 bytes of the file to determine the mime type
+    if (mimeType == null) {
+      final headerBytes = bytes.take(32).toList();
+      mimeType ??= mime.lookupMimeType(filename, headerBytes: headerBytes);
+    }
+  }
+
+  MimeType mimeTypeObj =
+      MimeType.values.firstWhereOrNull((e) => e.type == mimeType) ??
+          MimeType.other;
+
+  if (kIsWeb) {
+    await FileSaver.instance.saveFile(
+      bytes: bytes,
+      name: filename.substring(0,
+          filename.contains('.') ? filename.lastIndexOf('.') : filename.length),
+      ext: extension ?? mime.extensionFromMime(mimeType ?? ''),
+      mimeType: mimeTypeObj,
+    );
+  } else {
+    await FileSaver.instance.saveAs(
+      bytes: bytes,
+      name: filename,
+      ext: extension ?? mime.extensionFromMime(mimeType ?? ''),
+      mimeType: mimeTypeObj,
+    );
   }
 }
 
@@ -156,6 +381,7 @@ String formatNumber(
 }
 
 DateTime get getCurrentTimestamp => DateTime.now();
+
 DateTime dateTimeFromSecondsSinceEpoch(int seconds) {
   return DateTime.fromMillisecondsSinceEpoch(seconds * 1000);
 }
@@ -166,8 +392,11 @@ extension DateTimeConversionExtension on DateTime {
 
 extension DateTimeComparisonOperators on DateTime {
   bool operator <(DateTime other) => isBefore(other);
+
   bool operator >(DateTime other) => isAfter(other);
+
   bool operator <=(DateTime other) => this < other || isAtSameMomentAs(other);
+
   bool operator >=(DateTime other) => this > other || isAtSameMomentAs(other);
 }
 
@@ -223,14 +452,18 @@ Rect? getWidgetBoundingBox(BuildContext context) {
 }
 
 bool get isAndroid => !kIsWeb && Platform.isAndroid;
+
 bool get isiOS => !kIsWeb && Platform.isIOS;
+
 bool get isWeb => kIsWeb;
 
 const kBreakpointSmall = 479.0;
 const kBreakpointMedium = 767.0;
 const kBreakpointLarge = 991.0;
+
 bool isMobileWidth(BuildContext context) =>
     MediaQuery.sizeOf(context).width < kBreakpointSmall;
+
 bool responsiveVisibility({
   required BuildContext context,
   bool phone = true,
@@ -258,6 +491,7 @@ const kTextValidatorWebsiteRegex =
     r'(https?:\/\/)?(www\.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,10}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)|(https?:\/\/)?(www\.)?(?!ww)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,10}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)';
 
 LatLng? cachedUserLocation;
+
 Future<LatLng> getCurrentUserLocation(
     {required LatLng defaultLocation, bool cached = false}) async {
   if (cached && cachedUserLocation != null) {
@@ -301,6 +535,7 @@ Future<LatLng?> queryCurrentUserLocation() async {
 
 extension FFTextEditingControllerExt on TextEditingController? {
   String get text => this == null ? '' : this!.text;
+
   set text(String newText) => this?.text = newText;
 }
 
@@ -344,12 +579,12 @@ void showSnackbar(
       content: Row(
         children: [
           if (loading)
-            const Padding(
+            Padding(
               padding: EdgeInsetsDirectional.only(end: 10.0),
-              child: SizedBox(
+              child: Container(
                 height: 20,
                 width: 20,
-                child: CircularProgressIndicator(
+                child: const CircularProgressIndicator(
                   color: Colors.white,
                 ),
               ),
@@ -424,6 +659,7 @@ extension StatefulWidgetExtensions on State<StatefulWidget> {
 // For iOS 16 and below, set the status bar color to match the app's theme.
 // https://github.com/flutter/flutter/issues/41067
 Brightness? _lastBrightness;
+
 void fixStatusBarOniOS16AndBelow(BuildContext context) {
   if (!isiOS) {
     return;
@@ -440,17 +676,8 @@ void fixStatusBarOniOS16AndBelow(BuildContext context) {
   }
 }
 
-extension ListUniqueExt<T> on Iterable<T> {
-  List<T> unique(dynamic Function(T) getKey) {
-    var distinctSet = <dynamic>{};
-    var distinctList = <T>[];
-    for (var item in this) {
-      if (distinctSet.add(getKey(item))) {
-        distinctList.add(item);
-      }
-    }
-    return distinctList;
-  }
+extension ColorOpacityExt on Color {
+  Color applyAlpha(double val) => withOpacity(val);
 }
 
 String roundTo(double value, int decimalPoints) {
@@ -489,3 +716,22 @@ double computeGradientAlignmentY(double evaluatedAngle) {
   }
   return double.parse(roundTo(y, 2));
 }
+
+extension ListUniqueExt<T> on Iterable<T> {
+  List<T> unique(dynamic Function(T) getKey) {
+    var distinctSet = <dynamic>{};
+    var distinctList = <T>[];
+    for (var item in this) {
+      if (distinctSet.add(getKey(item))) {
+        distinctList.add(item);
+      }
+    }
+    return distinctList;
+  }
+}
+
+String getCurrentRoute(BuildContext context) =>
+    context.mounted ? MyApp.of(context).getRoute() : '';
+
+List<String> getCurrentRouteStack(BuildContext context) =>
+    context.mounted ? MyApp.of(context).getRouteStack() : [];
