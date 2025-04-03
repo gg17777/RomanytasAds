@@ -1,5 +1,6 @@
-import '/bottom_nav/bottom_nav_bangla/bottom_nav_bangla_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/outout/bottom_nav_out_out/bottom_nav_out_out_widget.dart';
+import '/index.dart';
 import 'segnalazione_bangla_widget.dart' show SegnalazioneBanglaWidget;
 import 'package:flutter/material.dart';
 
@@ -8,17 +9,17 @@ class SegnalazioneBanglaModel
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for PlacePicker widget.
-  FFPlace placePickerValue = const FFPlace();
+  FFPlace placePickerValue = FFPlace();
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
-  // Model for bottomNavBangla component.
-  late BottomNavBanglaModel bottomNavBanglaModel;
+  // Model for bottomNavOutOut component.
+  late BottomNavOutOutModel bottomNavOutOutModel;
 
   @override
   void initState(BuildContext context) {
-    bottomNavBanglaModel = createModel(context, () => BottomNavBanglaModel());
+    bottomNavOutOutModel = createModel(context, () => BottomNavOutOutModel());
   }
 
   @override
@@ -26,6 +27,6 @@ class SegnalazioneBanglaModel
     textFieldFocusNode?.dispose();
     textController?.dispose();
 
-    bottomNavBanglaModel.dispose();
+    bottomNavOutOutModel.dispose();
   }
 }

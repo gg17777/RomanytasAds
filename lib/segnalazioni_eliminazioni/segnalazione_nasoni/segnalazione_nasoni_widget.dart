@@ -1,30 +1,38 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/bottom_nav/bottom_nav_nasoni/bottom_nav_nasoni_widget.dart';
-import '/components/grazie_segnalazione/grazie_segnalazione_widget.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_place_picker.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/info/components/grazie_segnalazione/grazie_segnalazione_widget.dart';
+import '/outout/bottom_nav_out_out/bottom_nav_out_out_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'segnalazione_nasoni_model.dart';
 export 'segnalazione_nasoni_model.dart';
 
 class SegnalazioneNasoniWidget extends StatefulWidget {
   const SegnalazioneNasoniWidget({super.key});
 
+  static String routeName = 'segnalazioneNasoni';
+  static String routePath = 'segnalazioneNasoni';
+
   @override
   State<SegnalazioneNasoniWidget> createState() =>
       _SegnalazioneNasoniWidgetState();
 }
 
-class _SegnalazioneNasoniWidgetState extends State<SegnalazioneNasoniWidget> {
+class _SegnalazioneNasoniWidgetState extends State<SegnalazioneNasoniWidget>
+    with TickerProviderStateMixin {
   late SegnalazioneNasoniModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
@@ -40,6 +48,28 @@ class _SegnalazioneNasoniWidgetState extends State<SegnalazioneNasoniWidget> {
       await actions.lockOrientation();
     });
 
+    animationsMap.addAll({
+      'buttonOnActionTriggerAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 200.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.95, 0.95),
+          ),
+        ],
+      ),
+    });
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
+      this,
+    );
+
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
@@ -53,52 +83,13 @@ class _SegnalazioneNasoniWidgetState extends State<SegnalazioneNasoniWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).primary,
-          automaticallyImplyLeading: false,
-          leading: FlutterFlowIconButton(
-            borderColor: Colors.transparent,
-            borderRadius: 30.0,
-            borderWidth: 1.0,
-            buttonSize: 60.0,
-            icon: Icon(
-              Icons.keyboard_arrow_left,
-              color: FlutterFlowTheme.of(context).secondaryBackground,
-              size: 30.0,
-            ),
-            onPressed: () async {
-              logFirebaseEvent('SEGNALAZIONE_NASONI_keyboard_arrow_left_');
-              logFirebaseEvent('IconButton_navigate_to');
-
-              context.pushNamed(
-                'nasoniMap',
-                extra: <String, dynamic>{
-                  kTransitionInfoKey: const TransitionInfo(
-                    hasTransition: true,
-                    transitionType: PageTransitionType.leftToRight,
-                  ),
-                },
-              );
-            },
-          ),
-          title: Text(
-            'AGGIUNGI NASONI',
-            style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  fontFamily: 'Montserrat',
-                  color: Colors.white,
-                  fontSize: 18.0,
-                  letterSpacing: 0.0,
-                  fontWeight: FontWeight.w600,
-                ),
-          ),
-          actions: const [],
-          centerTitle: true,
-          elevation: 2.0,
-        ),
         body: Container(
           decoration: BoxDecoration(
             color: FlutterFlowTheme.of(context).secondaryBackground,
@@ -109,28 +100,98 @@ class _SegnalazioneNasoniWidgetState extends State<SegnalazioneNasoniWidget> {
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
+                    Stack(
+                      children: [
+                        Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Align(
+                              alignment: AlignmentDirectional(0.0, -1.0),
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 66.0, 0.0, 5.0),
+                                child: Text(
+                                  'Segnalazione Nasoni',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Montserrat',
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
+                                        fontSize: 16.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                ),
+                              ),
+                            ),
+                            Divider(
+                              thickness: 1.0,
+                              color: FlutterFlowTheme.of(context).primary,
+                            ),
+                          ],
+                        ),
+                        Align(
+                          alignment: AlignmentDirectional(-1.0, 0.0),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                20.0, 60.0, 0.0, 0.0),
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                logFirebaseEvent(
+                                    'SEGNALAZIONE_NASONI_Icon_yoh4l6mf_ON_TAP');
+                                logFirebaseEvent('Icon_navigate_to');
+
+                                context.pushNamed(
+                                  NasoniMapWidget.routeName,
+                                  extra: <String, dynamic>{
+                                    kTransitionInfoKey: TransitionInfo(
+                                      hasTransition: true,
+                                      transitionType:
+                                          PageTransitionType.leftToRight,
+                                    ),
+                                  },
+                                );
+                              },
+                              child: Icon(
+                                Icons.chevron_left_rounded,
+                                color: FlutterFlowTheme.of(context).primary,
+                                size: 30.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 100.0, 0.0, 0.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0),
-                        child: Image.asset(
-                          'assets/images/LOGO_TONDO.png',
-                          width: 100.0,
-                          height: 100.0,
-                          fit: BoxFit.cover,
-                        ),
+                          EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 20.0, 0.0),
+                      child: Text(
+                        'Hai trovato un nasone che non è presente sulla mappa?',
+                        textAlign: TextAlign.start,
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Montserrat',
+                              color: FlutterFlowTheme.of(context).tertiary,
+                              fontSize: 15.0,
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.w600,
+                            ),
                       ),
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(30.0, 50.0, 30.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 20.0, 0.0),
                       child: Text(
-                        'Hai trovato un nasone che non è presente sulla mappa? Dicci l\'indirizzo con il civico e lo aggiungeremo con il prossimo aggiornamento',
-                        textAlign: TextAlign.center,
+                        'Dicci l\'indirizzo con il civico e lo aggiungeremo con il prossimo aggiornamento.',
+                        textAlign: TextAlign.start,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Montserrat',
-                              fontSize: 16.0,
+                              color: FlutterFlowTheme.of(context).alternate,
+                              fontSize: 14.0,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.w500,
                             ),
@@ -138,42 +199,43 @@ class _SegnalazioneNasoniWidgetState extends State<SegnalazioneNasoniWidget> {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(30.0, 15.0, 30.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 0.0),
                       child: Text(
-                        '(La mappa mostra solamente i 20 nasoni più vicini alla tua posizione attuale)',
-                        textAlign: TextAlign.center,
+                        'La mappa mostra solamente i 50 nasoni più vicini alla tua posizione attuale',
+                        textAlign: TextAlign.start,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Montserrat',
-                              fontSize: 12.0,
+                              color: FlutterFlowTheme.of(context).alternate,
+                              fontSize: 14.0,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.w500,
                             ),
                       ),
                     ),
                     Align(
-                      alignment: const AlignmentDirectional(0.0, 0.0),
+                      alignment: AlignmentDirectional(0.0, 0.0),
                       child: Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             40.0, 50.0, 40.0, 0.0),
                         child: FlutterFlowPlacePicker(
                           iOSGoogleMapsApiKey:
-                              'AIzaSyDNF22UBYyIhMbSgYxRHGeZj7wnOCrc3bY',
+                              'AIzaSyCuhw8od-TioIQtMp3S6m49KQ0gphSyqGU',
                           androidGoogleMapsApiKey:
-                              'AIzaSyAufx8x3k60Fm0GoZF0W7mD8GYlqx_VwzE',
+                              'AIzaSyA3jB4O1O7alnIyBjlMEhmZ_Spg8q_E9H0',
                           webGoogleMapsApiKey:
-                              'AIzaSyD4DNMICzskTZKEiL7X1WqQbkIkVXPBnvY',
+                              'AIzaSyB_xv4IiZcZ_rtSzUMD1HxJx34J-toDM6E',
                           onSelect: (place) async {
                             safeSetState(() => _model.placePickerValue = place);
                           },
                           defaultText: 'Inserisci indirizzo',
                           icon: Icon(
                             Icons.place,
-                            color: FlutterFlowTheme.of(context).primaryText,
+                            color: FlutterFlowTheme.of(context).primary,
                             size: 16.0,
                           ),
                           buttonOptions: FFButtonOptions(
                             width: double.infinity,
-                            height: 56.0,
+                            height: 45.0,
                             color: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
                             textAlign: TextAlign.center,
@@ -181,29 +243,47 @@ class _SegnalazioneNasoniWidgetState extends State<SegnalazioneNasoniWidget> {
                                 .titleSmall
                                 .override(
                                   fontFamily: 'Montserrat',
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
+                                  color: FlutterFlowTheme.of(context).tertiary,
                                   letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w600,
                                 ),
                             elevation: 2.0,
                             borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).secondary,
+                              color: FlutterFlowTheme.of(context).alternate,
                               width: 2.0,
                             ),
-                            borderRadius: BorderRadius.circular(24.0),
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
                         ),
                       ),
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 50.0, 0.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 50.0, 0.0, 0.0),
                       child: FFButtonWidget(
                         onPressed: (_model.placePickerValue == null)
                             ? null
                             : () async {
                                 logFirebaseEvent(
                                     'SEGNALAZIONE_NASONI_INVIA_BTN_ON_TAP');
+                                logFirebaseEvent('Button_widget_animation');
+                                if (animationsMap[
+                                        'buttonOnActionTriggerAnimation'] !=
+                                    null) {
+                                  await animationsMap[
+                                          'buttonOnActionTriggerAnimation']!
+                                      .controller
+                                      .forward(from: 0.0);
+                                }
+                                logFirebaseEvent('Button_widget_animation');
+                                if (animationsMap[
+                                        'buttonOnActionTriggerAnimation'] !=
+                                    null) {
+                                  await animationsMap[
+                                          'buttonOnActionTriggerAnimation']!
+                                      .controller
+                                      .reverse();
+                                }
                                 logFirebaseEvent('Button_backend_call');
 
                                 await SegnalazioniNasoniRecord.collection
@@ -221,7 +301,7 @@ class _SegnalazioneNasoniWidgetState extends State<SegnalazioneNasoniWidget> {
                                     ));
                                 logFirebaseEvent('Button_navigate_to');
 
-                                context.pushNamed('nasoniMap');
+                                context.pushNamed(NasoniMapWidget.routeName);
 
                                 logFirebaseEvent('Button_bottom_sheet');
                                 await showModalBottomSheet(
@@ -230,12 +310,15 @@ class _SegnalazioneNasoniWidgetState extends State<SegnalazioneNasoniWidget> {
                                   context: context,
                                   builder: (context) {
                                     return GestureDetector(
-                                      onTap: () =>
-                                          FocusScope.of(context).unfocus(),
+                                      onTap: () {
+                                        FocusScope.of(context).unfocus();
+                                        FocusManager.instance.primaryFocus
+                                            ?.unfocus();
+                                      },
                                       child: Padding(
                                         padding:
                                             MediaQuery.viewInsetsOf(context),
-                                        child: const GrazieSegnalazioneWidget(),
+                                        child: GrazieSegnalazioneWidget(),
                                       ),
                                     );
                                   },
@@ -245,39 +328,42 @@ class _SegnalazioneNasoniWidgetState extends State<SegnalazioneNasoniWidget> {
                         options: FFButtonOptions(
                           width: 160.0,
                           height: 40.0,
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               24.0, 0.0, 24.0, 0.0),
-                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
                           color: FlutterFlowTheme.of(context).primary,
                           textStyle:
                               FlutterFlowTheme.of(context).titleSmall.override(
                                     fontFamily: 'Montserrat',
                                     color: Colors.white,
-                                    fontSize: 18.0,
+                                    fontSize: 16.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w600,
                                   ),
                           elevation: 3.0,
-                          borderSide: const BorderSide(
+                          borderSide: BorderSide(
                             color: Colors.transparent,
                             width: 1.0,
                           ),
-                          borderRadius: BorderRadius.circular(24.0),
+                          borderRadius: BorderRadius.circular(8.0),
                           disabledColor:
                               FlutterFlowTheme.of(context).secondaryText,
                         ),
+                        showLoadingIndicator: false,
+                      ).animateOnActionTrigger(
+                        animationsMap['buttonOnActionTriggerAnimation']!,
                       ),
                     ),
-                  ].addToEnd(const SizedBox(height: 150.0)),
+                  ].addToEnd(SizedBox(height: 150.0)),
                 ),
               ),
               Align(
-                alignment: const AlignmentDirectional(0.0, 1.0),
+                alignment: AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
-                  model: _model.bottomNavNasoniModel,
+                  model: _model.bottomNavOutOutModel,
                   updateCallback: () => safeSetState(() {}),
-                  child: const BottomNavNasoniWidget(),
+                  child: BottomNavOutOutWidget(),
                 ),
               ),
             ],

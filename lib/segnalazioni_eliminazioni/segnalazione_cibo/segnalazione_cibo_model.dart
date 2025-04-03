@@ -1,5 +1,6 @@
-import '/bottom_nav/bottom_nav_nasoni/bottom_nav_nasoni_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/outout/bottom_nav_out_out/bottom_nav_out_out_widget.dart';
+import '/index.dart';
 import 'segnalazione_cibo_widget.dart' show SegnalazioneCiboWidget;
 import 'package:flutter/material.dart';
 
@@ -11,13 +12,13 @@ class SegnalazioneCiboModel extends FlutterFlowModel<SegnalazioneCiboWidget> {
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
   // State field(s) for PlacePicker widget.
-  FFPlace placePickerValue = const FFPlace();
-  // Model for bottomNavNasoni component.
-  late BottomNavNasoniModel bottomNavNasoniModel;
+  FFPlace placePickerValue = FFPlace();
+  // Model for bottomNavOutOut component.
+  late BottomNavOutOutModel bottomNavOutOutModel;
 
   @override
   void initState(BuildContext context) {
-    bottomNavNasoniModel = createModel(context, () => BottomNavNasoniModel());
+    bottomNavOutOutModel = createModel(context, () => BottomNavOutOutModel());
   }
 
   @override
@@ -25,6 +26,6 @@ class SegnalazioneCiboModel extends FlutterFlowModel<SegnalazioneCiboWidget> {
     textFieldFocusNode?.dispose();
     textController?.dispose();
 
-    bottomNavNasoniModel.dispose();
+    bottomNavOutOutModel.dispose();
   }
 }
