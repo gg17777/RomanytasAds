@@ -1,13 +1,6 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /Mostre/{document} {
-      allow create: if true;
-      allow read: if true;
-      allow write: if true;
-      allow delete: if true;
-    }
-
     match /Concerti/{document} {
       allow create: if true;
       allow read: if true;
@@ -15,21 +8,7 @@ service cloud.firestore {
       allow delete: if true;
     }
 
-    match /Users/{document} {
-      allow create: if true;
-      allow read: if request.auth.uid == document;
-      allow write: if request.auth.uid == document;
-      allow delete: if resource.data.userRef == /databases/$(database)/documents/Users/$(request.auth.uid);
-    }
-
     match /Serate/{document} {
-      allow create: if true;
-      allow read: if true;
-      allow write: if true;
-      allow delete: if true;
-    }
-
-    match /listeSerate/{document} {
       allow create: if true;
       allow read: if true;
       allow write: if true;
@@ -48,13 +27,6 @@ service cloud.firestore {
       allow read: if true;
       allow write: if true;
       allow delete: if true;
-    }
-
-    match /reviews/{document} {
-      allow create: if true;
-      allow read: if true;
-      allow write: if false;
-      allow delete: if false;
     }
 
     match /Bug/{document} {
@@ -78,18 +50,300 @@ service cloud.firestore {
       allow delete: if false;
     }
 
-    match /listaEventi/{document} {
+    match /Eventi/{document} {
       allow create: if true;
       allow read: if true;
       allow write: if false;
       allow delete: if false;
     }
 
-    match /Eventi/{document} {
+    match /friendsRequest/{document} {
       allow create: if true;
       allow read: if true;
-      allow write: if true;
-      allow delete: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /Serate/{parent}/participatingSerate/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /{path=**}/participatingSerate/{document} {
+      allow read: if true;
+    }
+
+
+    match /Eventi/{parent}/eventiParticiapting/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /{path=**}/eventiParticiapting/{document} {
+      allow read: if true;
+    }
+
+
+    match /syncContacts/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /requestsSent/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /countParticipatingEvents/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /countInvitaAmici/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /countUserSearch/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /countFiltersEvents/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /countVideoClicked/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /blink/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /requestAccepted/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /Serate/{parent}/listeSerate/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /{path=**}/listeSerate/{document} {
+      allow read: if true;
+    }
+
+
+    match /Eventi/{parent}/listaEventi/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /{path=**}/listaEventi/{document} {
+      allow read: if true;
+    }
+
+
+    match /users/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /Concerti/{parent}/ConcertiParticipating/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /{path=**}/ConcertiParticipating/{document} {
+      allow read: if true;
+    }
+
+
+    match /Concerti/{parent}/ProposingConcerti/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /{path=**}/ProposingConcerti/{document} {
+      allow read: if true;
+    }
+
+
+    match /Eventi/{parent}/swipeActions/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /{path=**}/swipeActions/{document} {
+      allow read: if true;
+    }
+
+
+    match /matches/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /users/{parent}/likes/{document} {
+      allow create: if request.auth.uid == parent;
+      allow read: if request.auth.uid == parent;
+      allow write: if request.auth.uid == parent;
+      allow delete: if request.auth.uid == parent;
+    }
+
+    match /custom_ads/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /surveys/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /count_matches/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /secret_parties/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /secret_parties/{parent}/secret_party_Participating/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /{path=**}/secret_party_Participating/{document} {
+      allow read: if true;
+    }
+
+
+    match /secret_parties/{parent}/secret_party_swipeActions/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /{path=**}/secret_party_swipeActions/{document} {
+      allow read: if true;
+    }
+
+
+    match /Eventi/{parent}/photos_event/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /{path=**}/photos_event/{document} {
+      allow read: if true;
+    }
+
+
+    match /users/{parent}/friends/{document} {
+      allow create: if request.auth.uid == parent;
+      allow read: if request.auth.uid == parent;
+      allow write: if request.auth.uid == parent;
+      allow delete: if request.auth.uid == parent;
+    }
+
+    match /MeetUpPlaces/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /Eventi/{parent}/countFemaleSwipes/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /{path=**}/countFemaleSwipes/{document} {
+      allow read: if true;
+    }
+
+
+    match /notMeInPhotoCount/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /Eventi/{parent}/tickets/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /{path=**}/tickets/{document} {
+      allow read: if true;
+    }
+
+
+    match /ff_user_push_notifications/{id} {
+      allow read, update, delete: if false;
+      allow create: if /databases/$(database)/documents/users/$(request.auth.uid) == request.resource.data.sender;
     }
   }
 }

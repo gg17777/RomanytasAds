@@ -4,6 +4,7 @@ admin.initializeApp();
 
 const kFcmTokensCollection = "fcm_tokens";
 const kPushNotificationsCollection = "ff_push_notifications";
+const kUserPushNotificationsCollection = "ff_user_push_notifications";
 const firestore = admin.firestore();
 
 const kPushNotificationRuntimeOpts = {
@@ -68,6 +69,28 @@ exports.sendPushNotificationsTrigger = functions
       }
 
       await sendPushNotifications(snapshot);
+    } catch (e) {
+      console.log(`Error: ${e}`);
+      await snapshot.ref.update({ status: "failed", error: `${e}` });
+    }
+  });
+
+exports.sendUserPushNotificationsTrigger = functions
+  .runWith(kPushNotificationRuntimeOpts)
+  .firestore.document(`${kUserPushNotificationsCollection}/{id}`)
+  .onCreate(async (snapshot, _) => {
+    try {
+      // Ignore scheduled push notifications on create
+      const scheduledTime = snapshot.data().scheduled_time || "";
+      if (scheduledTime) {
+        return;
+      }
+
+      // Don't let user-triggered notifications to be sent to all users.
+      const userRefsStr = snapshot.data().user_refs || "";
+      if (userRefsStr) {
+        await sendPushNotifications(snapshot);
+      }
     } catch (e) {
       console.log(`Error: ${e}`);
       await snapshot.ref.update({ status: "failed", error: `${e}` });
@@ -167,7 +190,7 @@ async function sendPushNotifications(snapshot) {
   var numSent = 0;
   await Promise.all(
     messageBatches.map(async (messages) => {
-      const response = await admin.messaging().sendMulticast(messages);
+      const response = await admin.messaging().sendEachForMulticast(messages);
       numSent += response.successCount;
     }),
   );
@@ -181,10 +204,10 @@ function getUserFcmTokensCollection(userDocPath) {
 
 function getDocIdBound(index, numBatches) {
   if (index <= 0) {
-    return "Users/(";
+    return "users/(";
   }
   if (index >= numBatches) {
-    return "Users/}";
+    return "users/}";
   }
   const numUidChars = 62;
   const twoCharOptions = Math.pow(numUidChars, 2);
@@ -194,7 +217,7 @@ function getDocIdBound(index, numBatches) {
   var secondCharIdx = Math.floor(twoCharIdx % numUidChars);
   const firstChar = getCharForIndex(firstCharIdx);
   const secondChar = getCharForIndex(secondCharIdx);
-  return "Users/" + firstChar + secondChar;
+  return "users/" + firstChar + secondChar;
 }
 
 function getCharForIndex(charIdx) {
@@ -206,8 +229,89 @@ function getCharForIndex(charIdx) {
     return String.fromCharCode("a".charCodeAt(0) + charIdx - 36);
   }
 }
+const stripeModule = require("stripe");
+
+// Credentials
+const kStripeProdSecretKey = "";
+const kStripeTestSecretKey =
+  "sk_test_51R2bg9FRW7mY6O3ikIVBZyCHSZ5PLsCkY40zaJ5c0T4HjC0eShKRn4qfgujuknEkoOpAVomWBDRZHYq3GRJUD3ku00gcPgfhXz";
+
+const secretKey = (isProd) =>
+  isProd ? kStripeProdSecretKey : kStripeTestSecretKey;
+
+/**
+ *
+ */
+exports.initStripePayment = functions.https.onCall(async (data, context) => {
+  if (!context.auth) {
+    return "Unauthenticated calls are not allowed.";
+  }
+  return await initPayment(data, true);
+});
+
+/**
+ *
+ */
+exports.initStripeTestPayment = functions.https.onCall(
+  async (data, context) => {
+    if (!context.auth) {
+      return "Unauthenticated calls are not allowed.";
+    }
+    return await initPayment(data, false);
+  },
+);
+
+async function initPayment(data, isProd) {
+  try {
+    const stripe = new stripeModule.Stripe(secretKey(isProd), {
+      apiVersion: "2020-08-27",
+    });
+
+    const customers = await stripe.customers.list({
+      email: data.email,
+      limit: 1,
+    });
+    var customer = customers.data[0];
+    if (!customer) {
+      customer = await stripe.customers.create({
+        email: data.email,
+        ...(data.name && { name: data.name }),
+      });
+    }
+
+    const ephemeralKey = await stripe.ephemeralKeys.create(
+      { customer: customer.id },
+      { apiVersion: "2020-08-27" },
+    );
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: data.amount,
+      currency: data.currency,
+      customer: customer.id,
+      ...(data.description && { description: data.description }),
+    });
+
+    return {
+      paymentId: paymentIntent.id,
+      paymentIntent: paymentIntent.client_secret,
+      ephemeralKey: ephemeralKey.secret,
+      customer: customer.id,
+      success: true,
+    };
+  } catch (error) {
+    console.log(`Error: ${error}`);
+    return { success: false, error: userFacingMessage(error) };
+  }
+}
+
+/**
+ * Sanitize the error message for the user.
+ */
+function userFacingMessage(error) {
+  return error.type
+    ? error.message
+    : "An error occurred, developers have been alerted";
+}
 exports.onUserDeleted = functions.auth.user().onDelete(async (user) => {
   let firestore = admin.firestore();
-  let userRef = firestore.doc("Users/" + user.uid);
-  await firestore.collection("Users").doc(user.uid).delete();
+  let userRef = firestore.doc("users/" + user.uid);
 });

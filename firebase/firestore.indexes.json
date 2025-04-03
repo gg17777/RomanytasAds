@@ -1,6 +1,52 @@
 {
   "indexes": [
     {
+      "collectionGroup": "concertiInEvidenza",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "city",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "Data",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "Concerti",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "city",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "Data",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "Eventi",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "verificato",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "city",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "Data",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
       "collectionGroup": "Eventi",
       "queryScope": "COLLECTION",
       "fields": [
@@ -15,30 +61,76 @@
       ]
     },
     {
-      "collectionGroup": "Serate",
+      "collectionGroup": "friendsRequest",
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "verificato",
+          "fieldPath": "Requestee",
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "Data",
-          "order": "ASCENDING"
+          "fieldPath": "dateSent",
+          "order": "DESCENDING"
         }
       ]
     },
     {
-      "collectionGroup": "Mostre",
+      "collectionGroup": "friendsRequest",
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "verificato",
+          "fieldPath": "status",
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "dataFine",
+          "fieldPath": "Requestee",
           "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "dateSent",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "photos_event",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "users_in_photos",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "created_time",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "eventiParticiapting",
+      "queryScope": "COLLECTION_GROUP",
+      "fields": [
+        {
+          "fieldPath": "userParticipatingEventRef",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "event_date",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "listaEventi",
+      "queryScope": "COLLECTION_GROUP",
+      "fields": [
+        {
+          "fieldPath": "userRef",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "event_date",
+          "order": "DESCENDING"
         }
       ]
     }
