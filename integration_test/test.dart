@@ -1,27 +1,27 @@
+import 'dart:io';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
-import 'package:romanytas/flutter_flow/flutter_flow_icon_button.dart';
-import 'package:romanytas/flutter_flow/flutter_flow_radio_button.dart';
-import 'package:romanytas/flutter_flow/flutter_flow_widgets.dart';
-import 'package:romanytas/flutter_flow/flutter_flow_theme.dart';
-import 'package:romanytas/index.dart';
-import 'package:romanytas/main.dart';
-import 'package:romanytas/flutter_flow/flutter_flow_util.dart';
+import 'package:out_out/flutter_flow/flutter_flow_drop_down.dart';
+import 'package:out_out/flutter_flow/flutter_flow_icon_button.dart';
+import 'package:out_out/flutter_flow/flutter_flow_widgets.dart';
+import 'package:out_out/flutter_flow/flutter_flow_theme.dart';
+import 'package:out_out/index.dart';
+import 'package:out_out/main.dart';
+import 'package:out_out/flutter_flow/flutter_flow_util.dart';
 
 import 'package:provider/provider.dart';
-import 'package:romanytas/backend/firebase/firebase_config.dart';
-import 'package:romanytas/auth/firebase_auth/auth_util.dart';
+import 'package:out_out/backend/firebase/firebase_config.dart';
+import 'package:out_out/auth/firebase_auth/auth_util.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:romanytas/backend/sqlite/sqlite_manager.dart';
+import 'package:out_out/backend/sqlite/sqlite_manager.dart';
 
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   setUpAll(() async {
-    _overrideOnError();
     await initFirebase();
 
     await SQLiteManager.initialize();
@@ -36,9 +36,11 @@ void main() async {
   });
 
   testWidgets('Roma', (WidgetTester tester) async {
+    _overrideOnError();
+
     await tester.pumpWidget(ChangeNotifierProvider(
       create: (context) => FFAppState(),
-      child: MyApp(),
+      child: const MyApp(),
     ));
   });
 }

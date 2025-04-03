@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Romanytas</string>
+	<string>OutOut</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -13,33 +13,10 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>Romanytas</string>
+	<string>OutOut</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
-	<key>FacebookAppID</key>
-	<string>991166455837501</string>
-	<key>FacebookDisplayName</key>
-	<string>Romanytas</string>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-    <string>fbapi</string>
-    <string>fb-messenger-api</string>
-    <string>fbauth2</string>
-    <string>fbshareextension</string>
-	</array>
-	<key>FacebookClientToken</key>
-    <string>4fe66ebde959fa0a957e0be12d33ced6</string>
-	<key>FacebookAdvertiserIDCollectionEnabled</key>
-    <true/>
-    <key>FacebookAutoLogAppEventsEnabled</key>
-    <true/>
-    <key>NSAppTransportSecurity</key>
-    <dict>
-     <key>NSAllowsArbitraryLoads</key>
-      <true/>
-    </dict>
-     <key>NSUserTrackingUsageDescription</key>
-     <string>Your data will be used to provide you with more relevant advertisements.</string>
+
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
@@ -55,11 +32,12 @@
                 
             </array>
         </dict>
+
         <dict>
         <key>CFBundleTypeRole</key>
         <string>Editor</string>
         <key>CFBundleURLName</key>
-        <string>romanytas</string>
+        <string>out_out</string>
         <key>CFBundleURLSchemes</key>
         <array>
         <string>com.mycompany.romanita</string>
@@ -67,11 +45,14 @@
         </dict>
     </array>
     <key>FlutterDeepLinkingEnabled</key>
-    <true/>
+    <false/>
+
+
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+
 	<key>NSLocationWhenInUseUsageDescription</key>
     <string>Turning on location services allows us to show you your position on the map and the distance between you and the place you want to go to</string>
 	<key>NSCameraUsageDescription</key>
@@ -80,11 +61,18 @@
     <string>In order to report a new bangla the app requires acces to the photo library</string>
 	<key>NSLocationAlwaysAndWhenInUseUSageDescription</key>
     <string>Turning on location services allows us to show you your position on the map and the distance between you and the place you want to go to</string>
+	<key>NSContactsUsageDescription</key>
+    <string>Giving access to contacts allows users to  link with others easier</string>
+	<key>NSContactsUsageDescription</key>
+    <string>In order to show you your friends that are already using the app we will need to access your contacts</string>
+	<key>PermissionGroupNotification</key>
+    <string>Allow notifications to know when you received a new friend request</string>
     <key>UIBackgroundModes</key>
     <array>
         <string>fetch</string>
         <string>remote-notification</string>
     </array>
+
 
 
 	<key>UILaunchStoryboardName</key>
