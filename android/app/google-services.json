@@ -26,6 +26,25 @@
     },
     {
       "client_info": {
+        "mobilesdk_app_id": "1:288434930634:android:3978fa728b52de039dc533",
+        "android_client_info": {
+          "package_name": "com.mycompany.prova"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAufx8x3k60Fm0GoZF0W7mD8GYlqx_VwzE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:288434930634:android:46a2edd894805bf39dc533",
         "android_client_info": {
           "package_name": "com.mycompany.romanita"
