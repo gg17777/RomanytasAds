@@ -81,7 +81,7 @@ class _InfoJumpQueueWidgetState extends State<InfoJumpQueueWidget> {
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                 child: Text(
-                  'Entra in lista tramite l\'app e mostra il QR code OutOut per saltare la fila.',
+                  'Entra in lista tramite l\'app e mostra il QR code OutOut per saltare la fila all\'ingresso.',
                   textAlign: TextAlign.start,
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Montserrat',

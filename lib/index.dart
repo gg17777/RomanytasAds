@@ -121,3 +121,4 @@ export '/bottom_nav/pages/eventi_home_log_out/eventi_home_log_out_widget.dart'
 export '/buy_ticket/buy_ticket_widget.dart' show BuyTicketWidget;
 export '/my_events_copy/my_events_copy_widget.dart' show MyEventsCopyWidget;
 export '/prova/prova_widget.dart' show ProvaWidget;
+export '/update_img/update_img_widget.dart' show UpdateImgWidget;
