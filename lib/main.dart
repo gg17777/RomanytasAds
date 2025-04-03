@@ -1,29 +1,30 @@
 import 'package:facebook_app_events/facebook_app_events.dart';
 import 'package:facebook_audience_network/facebook_audience_network.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
-import 'auth/firebase_auth/firebase_user_provider.dart';
-import 'auth/firebase_auth/auth_util.dart';
+import 'package:provider/provider.dart';
 
-import 'backend/push_notifications/push_notifications_util.dart';
+import '/backend/firebase_dynamic_links/firebase_dynamic_links.dart';
 import '/backend/sqlite/sqlite_manager.dart';
-import 'backend/firebase/firebase_config.dart';
+import '/flutter_flow/admob_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
+import 'auth/firebase_auth/auth_util.dart';
+import 'auth/firebase_auth/firebase_user_provider.dart';
+import 'backend/firebase/firebase_config.dart';
+import 'backend/push_notifications/push_notifications_util.dart';
+import 'backend/stripe/payment_manager.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
-import '/backend/firebase_dynamic_links/firebase_dynamic_links.dart';
-import '/flutter_flow/admob_util.dart';
-import 'dart:io';
-import 'package:permission_handler/permission_handler.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   GoRouter.optionURLReflectsImperativeAPIs = true;
   usePathUrlStrategy();
+
   await initFirebase();
+
   await SQLiteManager.initialize();
   await FlutterFlowTheme.initialize();
   adMobRequestConsent();
@@ -35,10 +36,11 @@ void main() async {
     // testingId: "3dfa2385-c5af-4b10-a096-207dea0921fd", // Replace with your testing ID
     iOSAdvertiserTrackingEnabled: true, // Default is false
   );
-  // AdSettings.addTestDevice("3dfa2385-c5af-4b10-a096-207dea0921fd")
+  await initializeStripe();
+
   runApp(ChangeNotifierProvider(
     create: (context) => appState,
-    child: const MyApp(),
+    child: MyApp(),
   ));
 }
 
@@ -55,6 +57,14 @@ class MyApp extends StatefulWidget {
   final Widget? entryPage;
 }
 
+class MyAppScrollBehavior extends MaterialScrollBehavior {
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+      };
+}
+
 class _MyAppState extends State<MyApp> {
   Locale? _locale;
 
@@ -62,6 +72,20 @@ class _MyAppState extends State<MyApp> {
 
   late AppStateNotifier _appStateNotifier;
   late GoRouter _router;
+
+  String getRoute([RouteMatch? routeMatch]) {
+    final RouteMatch lastMatch =
+        routeMatch ?? _router.routerDelegate.currentConfiguration.last;
+    final RouteMatchList matchList = lastMatch is ImperativeRouteMatch
+        ? lastMatch.matches
+        : _router.routerDelegate.currentConfiguration;
+    return matchList.uri.toString();
+  }
+
+  List<String> getRouteStack() =>
+      _router.routerDelegate.currentConfiguration.matches
+          .map((e) => getRoute(e))
+          .toList();
 
   late Stream<BaseAuthUser> userStream;
   final facebookAppEvents = FacebookAppEvents();
@@ -72,12 +96,10 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    if(Platform.isIOS){
-      Permission.appTrackingTransparency.request();
-    }
+
     _appStateNotifier = AppStateNotifier.instance;
     _router = createRouter(_appStateNotifier, widget.entryPage);
-    userStream = romanytasFirebaseUserStream()
+    userStream = outOutFirebaseUserStream()
       ..listen((user) {
         _appStateNotifier.update(user);
       });
@@ -89,9 +111,8 @@ class _MyAppState extends State<MyApp> {
           name: 'fb_mobile_activate_app',
         );
         _appStateNotifier.stopShowingSplashImage();
-        },
+      },
     );
-
   }
 
   @override
@@ -102,10 +123,10 @@ class _MyAppState extends State<MyApp> {
   }
 
   void setLocale(String language) {
-    setState(() => _locale = createLocale(language));
+    safeSetState(() => _locale = createLocale(language));
   }
 
-  void setThemeMode(ThemeMode mode) => setState(() {
+  void setThemeMode(ThemeMode mode) => safeSetState(() {
         _themeMode = mode;
         FlutterFlowTheme.saveThemeMode(mode);
       });
@@ -113,12 +134,16 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Romanytas',
-      localizationsDelegates: const [
+      debugShowCheckedModeBanner: false,
+      title: 'OutOut',
+      scrollBehavior: MyAppScrollBehavior(),
+      localizationsDelegates: [
         FFLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
+        FallbackMaterialLocalizationDelegate(),
+        FallbackCupertinoLocalizationDelegate(),
       ],
       locale: _locale,
       supportedLocales: const [

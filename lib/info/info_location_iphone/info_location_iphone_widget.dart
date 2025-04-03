@@ -1,6 +1,5 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'info_location_iphone_model.dart';
 export 'info_location_iphone_model.dart';
@@ -39,112 +38,127 @@ class _InfoLocationIphoneWidgetState extends State<InfoLocationIphoneWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: const AlignmentDirectional(0.0, 0.0),
-      child: Container(
-        width: 300.0,
-        height: MediaQuery.sizeOf(context).width > 700.0 ? 450.0 : 370.0,
-        decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).secondaryBackground,
-          borderRadius: BorderRadius.circular(24.0),
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: FlutterFlowTheme.of(context).secondaryBackground,
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(0.0),
+          bottomRight: Radius.circular(0.0),
+          topLeft: Radius.circular(16.0),
+          topRight: Radius.circular(16.0),
         ),
+      ),
+      child: Padding(
+        padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
         child: Column(
-          mainAxisSize: MainAxisSize.max,
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Align(
-              alignment: const AlignmentDirectional(0.0, 0.0),
-              child: Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(25.0, 30.0, 25.0, 0.0),
-                child: RichText(
-                  textScaler: MediaQuery.of(context).textScaler,
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text:
-                            'Se non vedi il simbolo della tua posizione sulla mappa o vedi tutto azzurro:\n\n',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Montserrat',
-                              fontSize: 16.0,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w500,
-                            ),
-                      ),
-                      TextSpan(
-                        text: '1.',
-                        style: TextStyle(
-                          color: FlutterFlowTheme.of(context).primary,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const TextSpan(
-                        text: ' Esci dall\'app\n\n',
-                        style: TextStyle(),
-                      ),
-                      TextSpan(
-                        text: '2.',
-                        style: TextStyle(
-                          color: FlutterFlowTheme.of(context).primary,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const TextSpan(
-                        text:
-                            ' Vai sulle impostazioni del tuo dispostivo e cerca \"Romanytas\" \n\n',
-                        style: TextStyle(),
-                      ),
-                      TextSpan(
-                        text: '3.',
-                        style: TextStyle(
-                          color: FlutterFlowTheme.of(context).primary,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const TextSpan(
-                        text:
-                            ' Clicca \"Posizione\" e seleziona \"Mentre usi l\'app\"',
-                        style: TextStyle(),
-                      )
-                    ],
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Montserrat',
-                          fontSize: 16.0,
-                          letterSpacing: 0.0,
-                          fontWeight: FontWeight.w500,
-                        ),
-                  ),
-                  textAlign: TextAlign.start,
-                ),
+            SizedBox(
+              width: 30.0,
+              child: Divider(
+                height: 30.0,
+                thickness: 2.0,
+                color: FlutterFlowTheme.of(context).primary,
               ),
             ),
-            Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
-              child: FFButtonWidget(
-                onPressed: () async {
-                  logFirebaseEvent('INFO_LOCATION_IPHONE_CHIUDI_BTN_ON_TAP');
-                  logFirebaseEvent('Button_bottom_sheet');
-                  Navigator.pop(context);
-                },
-                text: 'Chiudi',
-                options: FFButtonOptions(
-                  width: 100.0,
-                  height: 40.0,
-                  padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-                  iconPadding:
-                      const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                  color: FlutterFlowTheme.of(context).primary,
-                  textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+            Align(
+              alignment: AlignmentDirectional(0.0, 0.0),
+              child: RichText(
+                textScaler: MediaQuery.of(context).textScaler,
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text:
+                          'Se non vedi il simbolo della tua posizione sulla mappa o vedi tutto azzurro:\n\n',
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Montserrat',
+                            color: FlutterFlowTheme.of(context).tertiary,
+                            fontSize: 14.0,
+                            letterSpacing: 0.0,
+                            fontWeight: FontWeight.w600,
+                          ),
+                    ),
+                    TextSpan(
+                      text: '1.',
+                      style: TextStyle(
+                        color: FlutterFlowTheme.of(context).primary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    TextSpan(
+                      text: ' Esci dall\'app\n\n',
+                      style: TextStyle(),
+                    ),
+                    TextSpan(
+                      text: '2.',
+                      style: TextStyle(
+                        color: FlutterFlowTheme.of(context).primary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    TextSpan(
+                      text:
+                          ' Vai sulle impostazioni del tuo dispostivo e cerca \"OutOut\" \n\n',
+                      style: TextStyle(),
+                    ),
+                    TextSpan(
+                      text: '3.',
+                      style: TextStyle(
+                        color: FlutterFlowTheme.of(context).primary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    TextSpan(
+                      text:
+                          ' Clicca \"Posizione\" e seleziona \"Mentre usi l\'app\"',
+                      style: TextStyle(),
+                    )
+                  ],
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Montserrat',
-                        color: Colors.white,
+                        color: FlutterFlowTheme.of(context).tertiary,
+                        fontSize: 14.0,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w600,
                       ),
-                  elevation: 3.0,
-                  borderSide: const BorderSide(
-                    color: Colors.transparent,
-                    width: 1.0,
+                ),
+                textAlign: TextAlign.start,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 50.0),
+              child: InkWell(
+                splashColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onTap: () async {
+                  logFirebaseEvent('INFO_LOCATION_IPHONE_Container_6ws579qj_');
+                  logFirebaseEvent('Container_bottom_sheet');
+                  Navigator.pop(context);
+                },
+                child: Container(
+                  width: double.infinity,
+                  height: 50.0,
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context).primary,
+                    borderRadius: BorderRadius.circular(8.0),
                   ),
-                  borderRadius: BorderRadius.circular(24.0),
+                  child: Align(
+                    alignment: AlignmentDirectional(0.0, 0.0),
+                    child: Text(
+                      'Chiudi',
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Montserrat',
+                            color: FlutterFlowTheme.of(context).tertiary,
+                            fontSize: 16.0,
+                            letterSpacing: 0.0,
+                            fontWeight: FontWeight.w600,
+                          ),
+                    ),
+                  ),
                 ),
               ),
             ),

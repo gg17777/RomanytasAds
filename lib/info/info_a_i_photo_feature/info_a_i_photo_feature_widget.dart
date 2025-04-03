@@ -1,18 +1,19 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'info_bangla_model.dart';
-export 'info_bangla_model.dart';
+import 'info_a_i_photo_feature_model.dart';
+export 'info_a_i_photo_feature_model.dart';
 
-class InfoBanglaWidget extends StatefulWidget {
-  const InfoBanglaWidget({super.key});
+class InfoAIPhotoFeatureWidget extends StatefulWidget {
+  const InfoAIPhotoFeatureWidget({super.key});
 
   @override
-  State<InfoBanglaWidget> createState() => _InfoBanglaWidgetState();
+  State<InfoAIPhotoFeatureWidget> createState() =>
+      _InfoAIPhotoFeatureWidgetState();
 }
 
-class _InfoBanglaWidgetState extends State<InfoBanglaWidget> {
-  late InfoBanglaModel _model;
+class _InfoAIPhotoFeatureWidgetState extends State<InfoAIPhotoFeatureWidget> {
+  late InfoAIPhotoFeatureModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -23,9 +24,8 @@ class _InfoBanglaWidgetState extends State<InfoBanglaWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => InfoBanglaModel());
+    _model = createModel(context, () => InfoAIPhotoFeatureModel());
 
-    _model.switchValue = false;
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
@@ -66,73 +66,43 @@ class _InfoBanglaWidgetState extends State<InfoBanglaWidget> {
             Align(
               alignment: AlignmentDirectional(0.0, 0.0),
               child: Text(
-                'Se non trovi un minimarket presente sulla mappa o lo trovi chiuso prima dell\'orario scritto lo puoi segnalare.\n\nSe ne trovi uno non presente sulla mappa clicca l\'icon ➕ così lo possiamo aggiungere',
+                'Funzione MyHighlights',
                 textAlign: TextAlign.start,
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: 'Montserrat',
                       color: FlutterFlowTheme.of(context).tertiary,
-                      fontSize: 14.0,
+                      fontSize: 15.0,
                       letterSpacing: 0.0,
                       fontWeight: FontWeight.w600,
                     ),
               ),
             ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Non mostrare più',
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Montserrat',
-                          color: FlutterFlowTheme.of(context).alternate,
-                          letterSpacing: 0.0,
-                          fontWeight: FontWeight.w600,
-                        ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
-                    child: Switch.adaptive(
-                      value: _model.switchValue!,
-                      onChanged: (newValue) async {
-                        safeSetState(() => _model.switchValue = newValue);
-                        if (newValue) {
-                          logFirebaseEvent(
-                              'INFO_BANGLA_Switch_va5d6w4p_ON_TOGGLE_ON');
-                          logFirebaseEvent('Switch_update_app_state');
-                          FFAppState().infoBangla = true;
-                          safeSetState(() {});
-                        } else {
-                          logFirebaseEvent(
-                              'INFO_BANGLA_Switch_va5d6w4p_ON_TOGGLE_OF');
-                          logFirebaseEvent('Switch_update_app_state');
-                          FFAppState().infoBangla = false;
-                          safeSetState(() {});
-                        }
-                      },
-                      activeColor: FlutterFlowTheme.of(context).primary,
-                      activeTrackColor: FlutterFlowTheme.of(context).primary,
-                      inactiveTrackColor:
-                          FlutterFlowTheme.of(context).alternate,
-                      inactiveThumbColor:
-                          FlutterFlowTheme.of(context).secondaryBackground,
-                    ),
-                  ),
-                ],
+            Align(
+              alignment: AlignmentDirectional(0.0, 0.0),
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                child: Text(
+                  'Mettendo partecipa all\'evento riceverai solamente le foto in cui sei presente.',
+                  textAlign: TextAlign.center,
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Montserrat',
+                        color: FlutterFlowTheme.of(context).alternate,
+                        fontSize: 14.0,
+                        letterSpacing: 0.0,
+                        fontWeight: FontWeight.w600,
+                      ),
+                ),
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 50.0),
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 50.0),
               child: InkWell(
                 splashColor: Colors.transparent,
                 focusColor: Colors.transparent,
                 hoverColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onTap: () async {
-                  logFirebaseEvent('INFO_BANGLA_Container_1qx5x73v_ON_TAP');
+                  logFirebaseEvent('INFO_A_I_PHOTO_FEATURE_Container_8s6od48');
                   logFirebaseEvent('Container_bottom_sheet');
                   Navigator.pop(context);
                 },

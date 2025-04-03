@@ -1,18 +1,18 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'info_bangla_model.dart';
-export 'info_bangla_model.dart';
+import 'info_lista_special_model.dart';
+export 'info_lista_special_model.dart';
 
-class InfoBanglaWidget extends StatefulWidget {
-  const InfoBanglaWidget({super.key});
+class InfoListaSpecialWidget extends StatefulWidget {
+  const InfoListaSpecialWidget({super.key});
 
   @override
-  State<InfoBanglaWidget> createState() => _InfoBanglaWidgetState();
+  State<InfoListaSpecialWidget> createState() => _InfoListaSpecialWidgetState();
 }
 
-class _InfoBanglaWidgetState extends State<InfoBanglaWidget> {
-  late InfoBanglaModel _model;
+class _InfoListaSpecialWidgetState extends State<InfoListaSpecialWidget> {
+  late InfoListaSpecialModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -23,9 +23,8 @@ class _InfoBanglaWidgetState extends State<InfoBanglaWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => InfoBanglaModel());
+    _model = createModel(context, () => InfoListaSpecialModel());
 
-    _model.switchValue = false;
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
@@ -66,73 +65,43 @@ class _InfoBanglaWidgetState extends State<InfoBanglaWidget> {
             Align(
               alignment: AlignmentDirectional(0.0, 0.0),
               child: Text(
-                'Se non trovi un minimarket presente sulla mappa o lo trovi chiuso prima dell\'orario scritto lo puoi segnalare.\n\nSe ne trovi uno non presente sulla mappa clicca l\'icon ➕ così lo possiamo aggiungere',
+                'Ingresso in lista',
                 textAlign: TextAlign.start,
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: 'Montserrat',
                       color: FlutterFlowTheme.of(context).tertiary,
-                      fontSize: 14.0,
+                      fontSize: 15.0,
                       letterSpacing: 0.0,
                       fontWeight: FontWeight.w600,
                     ),
               ),
             ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Non mostrare più',
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Montserrat',
-                          color: FlutterFlowTheme.of(context).alternate,
-                          letterSpacing: 0.0,
-                          fontWeight: FontWeight.w600,
-                        ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
-                    child: Switch.adaptive(
-                      value: _model.switchValue!,
-                      onChanged: (newValue) async {
-                        safeSetState(() => _model.switchValue = newValue);
-                        if (newValue) {
-                          logFirebaseEvent(
-                              'INFO_BANGLA_Switch_va5d6w4p_ON_TOGGLE_ON');
-                          logFirebaseEvent('Switch_update_app_state');
-                          FFAppState().infoBangla = true;
-                          safeSetState(() {});
-                        } else {
-                          logFirebaseEvent(
-                              'INFO_BANGLA_Switch_va5d6w4p_ON_TOGGLE_OF');
-                          logFirebaseEvent('Switch_update_app_state');
-                          FFAppState().infoBangla = false;
-                          safeSetState(() {});
-                        }
-                      },
-                      activeColor: FlutterFlowTheme.of(context).primary,
-                      activeTrackColor: FlutterFlowTheme.of(context).primary,
-                      inactiveTrackColor:
-                          FlutterFlowTheme.of(context).alternate,
-                      inactiveThumbColor:
-                          FlutterFlowTheme.of(context).secondaryBackground,
-                    ),
-                  ),
-                ],
+            Align(
+              alignment: AlignmentDirectional(0.0, 0.0),
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                child: Text(
+                  'Inserendoti nella lista dell\'evento tramite l\'app avrai diritto a prezzi speciali e/o esclusivi',
+                  textAlign: TextAlign.start,
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Montserrat',
+                        color: FlutterFlowTheme.of(context).alternate,
+                        fontSize: 14.0,
+                        letterSpacing: 0.0,
+                        fontWeight: FontWeight.w600,
+                      ),
+                ),
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 50.0),
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 50.0),
               child: InkWell(
                 splashColor: Colors.transparent,
                 focusColor: Colors.transparent,
                 hoverColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onTap: () async {
-                  logFirebaseEvent('INFO_BANGLA_Container_1qx5x73v_ON_TAP');
+                  logFirebaseEvent('INFO_LISTA_SPECIAL_Container_y0mu8opk_ON');
                   logFirebaseEvent('Container_bottom_sheet');
                   Navigator.pop(context);
                 },

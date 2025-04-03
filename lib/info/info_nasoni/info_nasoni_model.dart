@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 class InfoNasoniModel extends FlutterFlowModel<InfoNasoniWidget> {
   ///  State fields for stateful widgets in this component.
 
-  // State field(s) for Checkbox widget.
-  bool? checkboxValue;
+  // State field(s) for Switch widget.
+  bool? switchValue;
 
   @override
   void initState(BuildContext context) {}
