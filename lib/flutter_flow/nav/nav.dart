@@ -732,6 +732,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
               name: ProvaWidget.routeName,
               path: ProvaWidget.routePath,
               builder: (context, params) => ProvaWidget(),
+            ),
+            FFRoute(
+              name: UpdateImgWidget.routeName,
+              path: UpdateImgWidget.routePath,
+              builder: (context, params) => UpdateImgWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),

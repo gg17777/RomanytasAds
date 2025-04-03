@@ -223,7 +223,7 @@ String? getExtensionFromFilename(String filename) {
  * Downloads/Saves a file from a URL or file bytes. If the filename contains an
  * extension (e.g. 'file.pdf'), the extension will be used to determine the
  * file type, otherwise the response header (url case) or file header bytes will
- * be used to infer the file's type.
+ * be used to infer the file's type. 
  */
 Future downloadFile({
   required String filename,
@@ -381,7 +381,6 @@ String formatNumber(
 }
 
 DateTime get getCurrentTimestamp => DateTime.now();
-
 DateTime dateTimeFromSecondsSinceEpoch(int seconds) {
   return DateTime.fromMillisecondsSinceEpoch(seconds * 1000);
 }
@@ -392,11 +391,8 @@ extension DateTimeConversionExtension on DateTime {
 
 extension DateTimeComparisonOperators on DateTime {
   bool operator <(DateTime other) => isBefore(other);
-
   bool operator >(DateTime other) => isAfter(other);
-
   bool operator <=(DateTime other) => this < other || isAtSameMomentAs(other);
-
   bool operator >=(DateTime other) => this > other || isAtSameMomentAs(other);
 }
 
@@ -452,18 +448,14 @@ Rect? getWidgetBoundingBox(BuildContext context) {
 }
 
 bool get isAndroid => !kIsWeb && Platform.isAndroid;
-
 bool get isiOS => !kIsWeb && Platform.isIOS;
-
 bool get isWeb => kIsWeb;
 
 const kBreakpointSmall = 479.0;
 const kBreakpointMedium = 767.0;
 const kBreakpointLarge = 991.0;
-
 bool isMobileWidth(BuildContext context) =>
     MediaQuery.sizeOf(context).width < kBreakpointSmall;
-
 bool responsiveVisibility({
   required BuildContext context,
   bool phone = true,
@@ -491,7 +483,6 @@ const kTextValidatorWebsiteRegex =
     r'(https?:\/\/)?(www\.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,10}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)|(https?:\/\/)?(www\.)?(?!ww)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,10}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)';
 
 LatLng? cachedUserLocation;
-
 Future<LatLng> getCurrentUserLocation(
     {required LatLng defaultLocation, bool cached = false}) async {
   if (cached && cachedUserLocation != null) {
@@ -535,7 +526,6 @@ Future<LatLng?> queryCurrentUserLocation() async {
 
 extension FFTextEditingControllerExt on TextEditingController? {
   String get text => this == null ? '' : this!.text;
-
   set text(String newText) => this?.text = newText;
 }
 
@@ -659,7 +649,6 @@ extension StatefulWidgetExtensions on State<StatefulWidget> {
 // For iOS 16 and below, set the status bar color to match the app's theme.
 // https://github.com/flutter/flutter/issues/41067
 Brightness? _lastBrightness;
-
 void fixStatusBarOniOS16AndBelow(BuildContext context) {
   if (!isiOS) {
     return;
@@ -677,7 +666,7 @@ void fixStatusBarOniOS16AndBelow(BuildContext context) {
 }
 
 extension ColorOpacityExt on Color {
-  Color applyAlpha(double val) => withOpacity(val);
+  Color applyAlpha(double val) => withValues(alpha: val);
 }
 
 String roundTo(double value, int decimalPoints) {
@@ -732,6 +721,5 @@ extension ListUniqueExt<T> on Iterable<T> {
 
 String getCurrentRoute(BuildContext context) =>
     context.mounted ? MyApp.of(context).getRoute() : '';
-
 List<String> getCurrentRouteStack(BuildContext context) =>
     context.mounted ? MyApp.of(context).getRouteStack() : [];
