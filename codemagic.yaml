@@ -7,8 +7,6 @@ workflows:
     scripts:
       - name: Get Flutter Packages
         script: flutter packages pub get
-      - name: Build apk
-        script: flutter build apk --release
       - name: Set up key properties
         script: |
           cat >> "$CM_BUILD_DIR/android/key.properties" <<EOF
@@ -17,6 +15,8 @@ workflows:
           keyAlias=$CM_KEY_ALIAS
           storeFile=$CM_KEYSTORE_PATH
           EOF
+      - name: Build apk
+        script: flutter build apk --release
     artifacts: 
       - build/**/outputs/apk/**/*.apk
       - build/**/outputs/**/*.aab
